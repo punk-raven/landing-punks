@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+@custom-variant dark (&:is(.dark *));
+
+/* `inline` so `font-sans`/`font-mono` compile to the raw var() and resolve on the
+   element, not at :root - the next/font classes live on <html>, not :root. */
+@theme inline {
+    --font-sans: var(--font-sans-custom), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-mono-custom), ui-monospace, monospace;
+}
