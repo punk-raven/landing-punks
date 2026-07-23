@@ -1,7 +1,7 @@
 ## How to Run Locally
 
 ### Prerequisites
-**Node.js** (v18 or higher) installed on your machine.
+**Node.js** (v18 or higher)
 
 ### Quick Start
 
@@ -9,16 +9,16 @@
    ```bash
    git clone [https://github.com/punk-raven/intro.git](https://github.com/punk-raven/intro.git)
    cd intro
-
-    Install dependencies
-    Bash
+   ```
+   # Install dependencies
+    ```bash
 
     npm install
-
-    Start the development server
-    Bash
+   ```
+   # Start the development server
+    ```bash
 
     npm run dev
-
-    Open in your browser
+   ```
+   # Open in your browser
     Click or navigate to the local URL displayed in your terminal (typically http://localhost:5173).
