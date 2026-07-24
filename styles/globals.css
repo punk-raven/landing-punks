@@ -1,0 +1,381 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+/* next-themes writes `.dark` on <html>. Tailwind v4's built-in `dark:` keys off
+   prefers-color-scheme, which would disagree with an explicit user choice, so the
+   variant stays pinned to the class. `:where(.dark, .dark *)` rather than `.dark &`
+   so a `dark:` utility on <html> itself still matches.
+
+   Under uniformity there should be NO `dark:` utilities in the codebase - every
+   token now flips at :root. The variant is kept because leaving Tailwind's
+   OS-driven default in place is a live trap, not because anything uses it. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===========================================================================
+   PRIMITIVES - raw brand values. Never referenced from a component.
+   Corvid identity is held numerically: hue 264.0 on every neutral, chroma 0.010
+   light / 0.018 dark. Chroma 0.018 is the brand ink's own chroma
+   (#0F131B = oklch(0.1865 0.0176 264.01)). Do not lower it: below ~0.012 the
+   dark theme reads as graphite and spec §5.1 fails.
+
+   Declared unlayered and after @heroui/styles so they win over HeroUI's
+   layer(base) declarations without needing higher specificity.
+   =========================================================================== */
+:root {
+  /* Light elevation ladder - hue 264 throughout, steps of ΔL 0.048.
+
+     Chroma RAMPS with depth rather than being held constant, and that is a fix
+     for an observed problem, not a preference. With every rung at chroma ~0.010
+     the sunken rung read as a flat grey box rather than as an anchor section:
+     a large near-neutral field at high lightness reads as inert - grey is the
+     colour of disabled UI - and the hierarchy inverted, because a --surface card
+     at ΔL 0.096 stood off the sunken rung harder than the sunken rung stood off
+     --background at ΔL 0.048. Ordinary cards out-weighted the hero.
+
+     Tinting is what separates a deliberate material from a lighting accident,
+     and the gamut allows it exactly where it is needed: at L 0.978 the sRGB
+     ceiling on hue 264 is chroma 0.0100, but at L 0.8808 it is 0.0575 and at
+     L 0.8291 it is 0.0845. So the top rung stays near-neutral because it has no
+     choice, and the deeper rungs carry the tint because they can.
+
+     Lightness is untouched, so every ΔL in the measurement table below still
+     holds, and chroma at fixed lightness barely moves relative luminance - the
+     largest contrast change anywhere from this is 0.04. Re-measured regardless;
+     the table is current. */
+  --paper-0: #cfd8ea; /* oklch(0.8808 0.0267 264.42)  sunken   */
+  --paper-1: #e4e8ef; /* oklch(0.9300 0.0104 261.79)  base     */
+  --paper-2: #f4f8ff; /* oklch(0.9781 0.0103 261.79)  raised   */
+  --paper-sub: #bec7d9; /* oklch(0.8283 0.0271 264.39)  below the ladder.
+                           Tinted to match --paper-0: --default is the fill of
+                           HeroUI's ghost, outline, secondary and tertiary
+                           buttons, and a near-neutral fill sitting on a tinted
+                           sunken section reads as a foreign grey patch. */
+
+  /* Dark elevation ladder - oklch(L 0.018 264), steps of ΔL 0.048. */
+  --night-0: #05080f; /* oklch(0.1342 0.0172 262.17)  sunken   */
+  --night-1: #0e121a; /* oklch(0.1820 0.0177 263.98)  base     */
+  --night-2: #191d25; /* oklch(0.2303 0.0167 264.17)  raised   */
+  --night-sup: #242932; /* oklch(0.2799 0.0181 262.20)  above the ladder */
+
+  /* Text neutrals. --ink is the brand anchor and is unchanged from spec §5.1;
+     every hue and chroma decision in this file is derived from it. */
+  --ink: #0f131b; /* oklch(0.1865 0.0176 264.01) */
+  --ink-soft: #4e5564; /* oklch(0.4490 0.0262 265.52) */
+  --frost: #dde1e9; /* oklch(0.9090 0.0117 264.51) - not white: full
+                          brightness halates against the night ladder */
+  --frost-soft: #989fac; /* oklch(0.7010 0.0206 262.98) */
+
+  /* Violet iridescence - hue 281.6 held in both themes. */
+  --sheen: #5244c3; /* oklch(0.4796 0.1897 281.50) */
+  --sheen-lift: #8584eb; /* oklch(0.6603 0.1505 281.90) */
+
+  /* Teal iridescence - hue 188.8 held in both themes. */
+  --teal-deep: #00736d; /* oklch(0.5007 0.0869 188.46) */
+  --teal-lift: #3bb3ac; /* oklch(0.6997 0.1047 189.44) */
+
+  /* Edges. --edge-* are boundaries and carry SC 1.4.11's 3:1;
+     --hair-* are decorative hairlines and deliberately do not. */
+  --edge-light: #585e69; /* oklch(0.4806 0.0192 262.68) */
+  --edge-dark: #7d838f; /* oklch(0.6090 0.0195 264.42) */
+  --hair-light: #b2b8c3; /* oklch(0.7812 0.0170 262.74) */
+  --hair-dark: #383d47; /* oklch(0.3593 0.0186 264.31) */
+
+  /* The amber - hue 67.4 held. Spec §5.2: uncertainty, status and unverified
+     claims ONLY. Never a heading, hover state, decorative border or CTA.
+
+     Contrast, measured (WCAG 2.x relative luminance, sRGB). Worst cases across
+     the whole system, computed twice against independent implementations:
+
+     Light (sunken #CFD8EA / base #E4E8EF / raised #F4F8FF):
+       --foreground  #0F131B .......... 12.98 / 15.13 / 17.46  PASS (4.5)
+       --muted       #4E5564 ..........  5.22 /  6.09 /  7.02  PASS (4.5)
+       --link/--focus #5244C3 .........  4.93 /  5.75 /  6.63  PASS (4.5)
+       --border      #585E69 ..........  4.55 /  5.31 /  6.12  PASS (3.0)
+       --sheen-alt   #00736D ..........  3.99 /  4.65 /  5.37  PASS (3.0)
+       --uncertain   #9B5F00 ..........  3.64 /  4.24 /  4.89  PASS (3.0)
+       --uncertain-strong #864F00 .....  4.68 /  5.46 /  6.30  PASS (4.5)
+         and 4.70 on its own chip fill #DCD7D5
+       --default-foreground on --default #BEC7D9 ..... 10.95   PASS (4.5)
+
+     Dark (sunken #05080F / base #0E121A / raised #191D25):
+       --foreground  #DDE1E9 .......... 15.29 / 14.30 / 12.88  PASS (4.5)
+       --muted       #989FAC ..........  7.53 /  7.04 /  6.34  PASS (4.5)
+       --link/--focus #8584EB .........  6.20 /  5.80 /  5.22  PASS (4.5)
+       --border      #7D838F ..........  5.27 /  4.93 /  4.43  PASS (3.0)
+       --sheen-alt   #3BB3AC ..........  7.84 /  7.34 /  6.62  PASS (3.0)
+       --uncertain(-strong) #DB8914 ...  7.25 /  6.78 /  6.10  PASS (4.5)
+         and 5.90 on its own chip fill #231F1F
+       --default-foreground on --default #242932 ..... 11.14   PASS (4.5)
+
+     Deliberately below 3:1, stated not hidden:
+       --separator is a decorative hairline (1.39-1.87 light, 1.55-1.84 dark). The
+       ΔL 0.048 elevation step, not the rule, does the separating. Anywhere a
+       boundary is the SOLE definition of a component, use --border, never
+       --separator.
+       --uncertain-surface is near-isoluminant with the light sunken rung
+       (ΔL 0.0017). The chip separates by hue - a warm #DCD7D5 fill on a cool
+       hue-264 field - and by its --uncertain border at 3.64:1, which is the
+       boundary that carries the requirement. Tinting the sunken rung made that
+       hue separation real rather than nominal: against the old near-neutral
+       #D5D8DE there was almost nothing for the warm fill to read against.
+
+     Elevation, OKLCh L: light 0.8808 / 0.9300 / 0.9781, steps 0.0491 and 0.0481.
+     Dark 0.1342 / 0.1820 / 0.2303, steps 0.0478 and 0.0483. Threshold 0.045.
+     Theme flip per rung: 0.7467 / 0.7480 / 0.7478 - every section changes.
+
+     The dark amber chip fill #231F1F sits against --night-2 the same way its
+     light counterpart sits against --paper-0: L 0.2438 vs 0.2303, ΔL 0.0135 and
+     1.03:1. The --uncertain border at 6.11:1 carries the boundary there too. */
+  --amber-line-light: #9b5f00; /* oklch(0.5399 0.1186 67.84)  non-text, 3:1 */
+  --amber-text-light: #864f00; /* oklch(0.4808 0.1074 65.58)  text,     4.5:1 */
+  --amber-dark: #db8914; /* oklch(0.6998 0.1500 67.11)  both roles in dark */
+
+  /* HeroUI's --radius is deliberately NOT redeclared. Its whole radius scale
+     derives from 0.5rem (sm = *0.5, md = *0.75, lg = *1); a 0.375rem base emits
+     4.5px and 3px, subpixel radii that render as a smear. Set shape on the
+     component, not on the base. */
+  --field-border-width: 1px;
+}
+
+/* ===========================================================================
+   SEMANTIC - light. Declared at :root only. There is no per-section token block
+   and there must not be one: in light mode every background is light, so nothing
+   nested ever needs to re-declare a foreground, an accent or a border.
+
+   HeroUI's ~25 derived tokens (--accent-hover, --field-*, --border-*,
+   --separator-*, --background-*, --default-*, --*-soft*, --scrollbar-thumb)
+   need NO restatement. HeroUI declares them on `:root, .light, ...` and on
+   `.dark, [data-theme="dark"]` - both of which ARE <html> - and a var() inside a
+   custom property is substituted on the element that declares it, using that
+   element's winning values. Since the operands below win on <html>, every derived
+   token recomputes on its own. This is the whole point of the rebuild. Do not
+   copy HeroUI's formulas in.
+   =========================================================================== */
+:root {
+  color-scheme: light;
+
+  --sunken: var(--paper-0);
+  --background: var(--paper-1);
+  --surface: var(--paper-2);
+  --surface-foreground: var(--ink);
+  --overlay: var(--paper-2);
+  --overlay-foreground: var(--ink);
+
+  --foreground: var(--ink);
+  --muted: var(--ink-soft);
+
+  /* Seated a full step BELOW the ladder. --default is one global value and
+     drives ghost, outline, secondary and tertiary buttons; on the ladder it
+     would be invisible against whichever rung it matched. */
+  --default: var(--paper-sub);
+  --default-foreground: var(--ink);
+
+  --accent: var(--sheen);
+  --accent-foreground: var(--paper-2);
+  --link: var(--sheen);
+  --focus: var(--sheen);
+
+  /* Semantic, not a primitive - see the ruling. Reached through bg-sheen-alt /
+     border-sheen-alt and var(--sheen-alt) in components/ui/circuit-board.tsx. */
+  --sheen-alt: var(--teal-deep);
+
+  --border: var(--edge-light);
+  --separator: var(--hair-light);
+
+  --field-background: var(--paper-2);
+  --field-foreground: var(--ink);
+  --field-border: var(--edge-light);
+
+  --segment: var(--paper-2);
+  --segment-foreground: var(--ink);
+
+  --uncertain: var(--amber-line-light);
+  --uncertain-strong: var(--amber-text-light);
+}
+
+/* ===========================================================================
+   SEMANTIC - dark. `:root.dark` (0,2,0) rather than `.dark` (0,1,0) so it beats
+   the light block above regardless of source order.
+
+   THE TWO BLOCKS MUST DECLARE THE IDENTICAL KEY SET. Our :root is unlayered and
+   HeroUI's `.dark` is in layer(base); unlayered always wins over layered, so a
+   key declared in :root but omitted here stays at its LIGHT value in dark mode.
+   That is the one contract rule that survives - and unlike the old six-block
+   version it is a two-way diff in a single file.
+   =========================================================================== */
+:root.dark {
+  color-scheme: dark;
+
+  --sunken: var(--night-0);
+  --background: var(--night-1);
+  --surface: var(--night-2);
+  --surface-foreground: var(--frost);
+  --overlay: var(--night-2);
+  --overlay-foreground: var(--frost);
+
+  --foreground: var(--frost);
+  --muted: var(--frost-soft);
+
+  --default: var(--night-sup);
+  --default-foreground: var(--frost);
+
+  --accent: var(--sheen-lift);
+  --accent-foreground: var(--night-0);
+  --link: var(--sheen-lift);
+  --focus: var(--sheen-lift);
+
+  --sheen-alt: var(--teal-lift);
+
+  --border: var(--edge-dark);
+  --separator: var(--hair-dark);
+
+  --field-background: var(--night-2);
+  --field-foreground: var(--frost);
+  --field-border: var(--edge-dark);
+
+  --segment: var(--night-2);
+  --segment-foreground: var(--frost);
+
+  /* One amber for both roles in dark: #DB8914 measures 5.90:1 on its own chip
+     fill and 6.10:1 at worst on a surface, so no text/non-text split is needed. */
+  --uncertain: var(--amber-dark);
+  --uncertain-strong: var(--amber-dark);
+}
+
+/* ===========================================================================
+   Tokens declared ONCE that adapt to both themes on their own.
+
+   Each is a color-mix over operands that flip above. The mix is substituted on
+   <html> using <html>'s WINNING operand values, so under `.dark` these already
+   resolve to the dark result. Adding a `.dark` copy would be dead code.
+
+   --surface-secondary / --surface-tertiary are here because HeroUI ships them as
+   FLAT oklch literals per theme rather than as formulas - the only two derived
+   tokens that do not track --surface on their own. 6% and 8% reproduce HeroUI's
+   L 0.9524 / L 0.9373 on a white surface.
+   =========================================================================== */
+:root {
+  --uncertain-surface: color-mix(
+    in oklab,
+    var(--uncertain) 12%,
+    var(--background)
+  );
+
+  --surface-secondary: color-mix(
+    in oklab,
+    var(--surface) 94%,
+    var(--surface-foreground) 6%
+  );
+  --surface-tertiary: color-mix(
+    in oklab,
+    var(--surface) 92%,
+    var(--surface-foreground) 8%
+  );
+}
+
+/* ===========================================================================
+   Tailwind theme.
+
+   `inline` is required for the FONT keys only: next/font's variables come from a
+   generated class on <html>, and a non-inline mapping silently empties them in
+   the pages router. The colour and container keys no longer need it - their old
+   reason ("must resolve on the band element") is gone - but they are kept in the
+   same block so there is one rule to remember, not two.
+   =========================================================================== */
+@theme inline {
+  --font-display:
+    var(--font-display-custom), ui-sans-serif, system-ui, sans-serif;
+  --font-body:
+    var(--font-body-custom), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-data: var(--font-data-custom), ui-monospace, SFMono-Regular, monospace;
+  --font-sans:
+    var(--font-body-custom), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-data-custom), ui-monospace, SFMono-Regular, monospace;
+
+  /* The only two colour keys. --color-sunken exists so the `section` recipe can
+     write `bg-sunken`; --color-sheen-alt keeps the existing bg-/border-sheen-alt
+     call sites working while the value underneath became per-theme.
+
+     There is deliberately NO --color-ink*, --color-paper*, --color-night*,
+     --color-sheen* or --color-rule. Those are polarity-named primitives, and a
+     `bg-ink` utility is precisely how a dark block gets authored into a light
+     page. Nothing referenced them; do not add them back.
+
+     There is also NO --color-uncertain*. Spec §5.2 says "protect it"; not
+     generating bg-/text-/border-/ring-uncertain is what protecting it means. The
+     only two things allowed to have amber are the `statusChip` and `sectionRule`
+     recipes, which read var(--uncertain*) through arbitrary values. */
+  --color-sunken: var(--sunken);
+  --color-sheen-alt: var(--sheen-alt);
+
+  /* Spec §5.4. Named `measure`, not `prose`: Tailwind ships a hardcoded
+     max-w-prose at 65ch that a --container-prose key does not override. */
+  --container-measure: 68ch;
+  --container-band: 1120px;
+}
+
+@layer components {
+  .button {
+    @apply rounded-md font-body tracking-normal;
+  }
+
+  /* ButtonLink is an anchor borrowing the class - it never goes through React
+     Aria, so it never gets [data-focus-visible], and HeroUI's `outline-style:
+     none` on .button also suppresses the zero-specificity ring in @layer base.
+     Scoped to a.button so HeroUI's own ring stays the only ring on the React
+     component. */
+  a.button:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    line-height: 1.7; /* spec §5.3 - this is a reading site */
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Sticky header is h-16 (64px); 5rem = header + 16px of air. */
+  :where(h1, h2, h3, h4) {
+    scroll-margin-top: 5rem;
+  }
+
+  /* Spec §5.6: visible keyboard focus, never outline: none. */
+  :where(a, button, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
+      scroll-behavior: auto !important;
+    }
+
+    ::view-transition-group(*),
+    ::view-transition-image-pair(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+}

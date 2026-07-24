@@ -1,24 +1,44 @@
-## How to Run Locally
+# Next.js & HeroUI Template
 
-### Prerequisites
-**Node.js** (v18 or higher)
+This is a template for creating applications using Next.js 16 (pages directory) and HeroUI (v3).
 
-### Quick Start
+[Try it on CodeSandbox](https://githubbox.com/heroui-inc/next-pages-template)
 
-1. **Clone the repository**
-   ```bash
-   git clone [https://github.com/punk-raven/intro.git](https://github.com/punk-raven/intro.git)
-   cd intro
-   ```
-   # Install dependencies
-    ```bash
+> Note: Since Next.js 15, the pages router is recommend migrating to the [new App Router](https://nextjs.org/docs/app) to leverage React's latest features
+>
+> Read more: [Pages Router](https://nextjs.org/docs/pages)
 
-    npm install
-   ```
-   # Start the development server
-    ```bash
+## Technologies Used
 
-    npm run dev
-   ```
-   # Open in your browser
-    Click or navigate to the local URL displayed in your terminal (typically http://localhost:5173).
+- [Next.js 16](https://nextjs.org/docs/getting-started)
+- [HeroUI v3](https://heroui.com)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Tailwind Variants](https://tailwind-variants.org)
+- [TypeScript](https://www.typescriptlang.org)
+- [next-themes](https://github.com/pacocoursey/next-themes)
+
+## How to Use
+
+To create a new project based on this template using `create-next-app`, run the following command:
+
+```bash
+npx create-next-app -e https://github.com/heroui-inc/next-pages-template
+```
+
+### Install dependencies
+
+You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+
+```bash
+npm install
+```
+
+### Run the development server
+
+```bash
+npm run dev
+```
+
+## License
+
+Licensed under the [MIT license](https://github.com/heroui-inc/next-pages-template/blob/main/LICENSE).

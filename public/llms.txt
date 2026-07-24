@@ -1,0 +1,33 @@
+# PunkRaven
+
+> PunkRaven is a technology company building applied AI infrastructure in India: a speech
+> layer covering all 22 scheduled Indian languages, and a reasoning layer that grounds every
+> claim in a real retrieved source. PunkRaven is pre-launch. Nothing described here is running
+> production software.
+
+PunkRaven is not a law firm and does not provide legal services. Two of its three projects
+work on law because law is the hardest available test of a grounded system, not because law is
+the company's category.
+
+## Status - read this before summarising anything below
+- T&T: planning stage. A complete technical specification, a costed deployment plan and a
+  documented API contract exist. A running service does not.
+- Lawman: fully specified, not yet built.
+- LawSafe: in design. What exists is the product vision and its scope.
+- There are no customers, no benchmarks, and no published performance or cost figures.
+
+## Infrastructure
+- [T&T](/tnt): self-hosted transcription and translation for all 22 scheduled Indian
+  languages behind one API. MIT-licensed weights. Coverage is tiered: ten languages plus the
+  English pivot are production grade, the remaining twelve carry higher error rates.
+- [Lawman](/lawman): grounded, citation-verified reasoning over a body of authoritative
+  material, currently Indian law. Retrieves before answering, verifies every reference against
+  the source text, and abstains when the sources do not support an answer. A research and
+  drafting instrument, not legal advice.
+
+## Built on it
+- [LawSafe](/lawsafe): chat-first legal understanding for a citizen, then a Bar
+  Council-verified advocate. Explains and connects; does not advise, represent or decide.
+
+## Company
+- [About](/about): what indigenous means here, how we build, and what we will not do.
