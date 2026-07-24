@@ -293,7 +293,6 @@ export const whereWeAre = {
   ] satisfies StatusLine[],
   closing:
     "If you have Indian-language audio, a body of authoritative material that has to be reasoned over without leaving your infrastructure, or a reason to care whether this country builds its own stack, we would like to talk - including if the honest answer is that we are not ready for you yet.",
-  primaryCta: "Request early access",
 };
 
 /* C8. The name -------------------------------------------------------------- */

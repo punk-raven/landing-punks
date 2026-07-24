@@ -14,10 +14,29 @@ export const siteConfig = {
    * The single source of truth for site navigation - the desktop bar, the
    * mobile disclosure menu and the footer all render from this one list.
    */
+  /**
+   * The product order is §2a.1's, the same one the homepage, `/about` and the
+   * product blocks use: T&T, Lawman, LawSafe - infrastructure before the
+   * applications built on it. Reordering this list reorders the argument on
+   * every page at once, which is why it is one list. About comes last because
+   * it is the page a reader reaches for after the products, not before them.
+   */
   navItems: [
     {
       label: "Home",
       href: "/",
+    },
+    {
+      label: "T&T",
+      href: "/tnt",
+    },
+    {
+      label: "Lawman",
+      href: "/lawman",
+    },
+    {
+      label: "LawSafe",
+      href: "/lawsafe",
     },
     {
       label: "About",
@@ -25,16 +44,31 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/punk-raven/landing-punks",
     /**
-     * The only primary CTA on the site (spec §2b.7: "Request early access",
-     * never "Get your API key" / "Start building" / "Sign up" / "Try it free").
-     *
-     * It points at the closing CTA band until the early-access form exists in
-     * Phase 7 of §6. One constant so that phase changes the destination in one
-     * place rather than hunting call sites - and so no CTA ever ships pointing
-     * at a route that 404s.
+     * The organisation, not this repository. Every other repo under it is as
+     * much the point as the site, so the icon goes to the account root.
      */
-    earlyAccess: "#early-access",
+    github: "https://github.com/punk-raven",
+    instagram: "https://www.instagram.com/punkraveone",
+    x: "https://x.com/punkraveone",
+    /**
+     * Bare address. `components/social-links.tsx` adds the `mailto:` scheme, so
+     * this stays usable as display text if a future page wants to print it.
+     */
+    email: "engineering@punkraven.com",
+    /**
+     * THERE IS NO `earlyAccess` HERE ANY MORE, AND THAT IS DELIBERATE.
+     *
+     * Spec §2b.7 makes "Request early access" the only primary CTA the site is
+     * allowed to use, and §6's Phase 7 asks for the form behind it. Early access
+     * was withdrawn instead: every "Request early access" button is gone from
+     * every page, the constant that pointed them all at one destination is gone
+     * with them, and no form was built.
+     *
+     * That is a deliberate deviation from the §7 checklist item reading "Primary
+     * CTA is 'Request early access' on every page", recorded in
+     * `docs/HANDOVER.md`. Restoring it means restoring the constant here first,
+     * so that the label and the destination stay defined in one place.
+     */
   },
 };

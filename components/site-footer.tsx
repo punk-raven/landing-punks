@@ -1,6 +1,7 @@
 import NextLink from "next/link";
 
 import { siteConfig } from "@/config/site";
+import { SocialLinks } from "@/components/social-links";
 import { Section } from "@/components/section";
 import { Logo } from "@/components/icons";
 
@@ -9,15 +10,17 @@ import { Logo } from "@/components/icons";
  * CTA - one rung below the page default, in whichever theme is active.
  *
  * The top edge is `--border`, not `--separator`, and it is structural rather
- * than decorative. The homepage ends on a sunken CTA, so the footer meets a
- * section at its own elevation with no rung between them; the rule is the only
- * thing dividing the two regions. `globals.css` states the rule for exactly this
- * case - where a boundary is the sole definition of a region, use `--border`
- * (3.09:1 or better on every rung) and never `--separator`, which is a
- * decorative hairline at about 1.5:1 and would leave the two regions merged.
+ * than decorative. `/tnt`, `/lawman` and `/about` each end on a sunken CTA, so
+ * the footer meets a section at its own elevation with no rung between them;
+ * the rule is the only thing dividing the two regions. `globals.css` states the
+ * rule for exactly this case - where a boundary is the sole definition of a
+ * region, use `--border` (3.09:1 or better on every rung) and never
+ * `--separator`, which is a decorative hairline at about 1.5:1 and would leave
+ * the two regions merged.
  *
- * On the pages that end on `base` it is redundant with the elevation step, and
- * harmless. Do not downgrade it to `--separator` on the strength of those pages.
+ * On the pages that end on `base` - the homepage since its closing CTA was
+ * removed - it is redundant with the elevation step, and harmless. Do not
+ * downgrade it to `--separator` on the strength of those pages.
  *
  * The disclaimer is not optional decoration: spec §2a.4 makes it mandatory on
  * every page, because a software company that builds tools sits in a different
@@ -40,30 +43,33 @@ export const SiteFooter = () => (
         </span>
       </div>
 
-      <nav aria-label="Footer">
-        <ul className="flex flex-wrap gap-x-6 gap-y-2">
-          {siteConfig.navItems.map((item) => (
-            <li key={item.href}>
-              <NextLink
-                className="font-body text-sm text-muted transition-colors hover:text-foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </li>
-          ))}
-          <li>
-            <a
-              className="font-body text-sm text-muted transition-colors hover:text-foreground"
-              href={siteConfig.links.github}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              GitHub
-            </a>
-          </li>
-        </ul>
-      </nav>
+      {/* The page links and the social cluster are separate rows, and the
+          social one is not inside the <nav>: it is the same four accounts the
+          header carries, not site navigation, and folding icon links into a
+          "Footer" landmark makes that list read as four more pages.
+
+          `sm:items-end` right-aligns both rows against the wordmark opposite.
+          The icon row is nudged by its own padding, hence the -mr-2. */}
+      <div className="flex flex-col gap-4 sm:items-end">
+        <nav aria-label="Footer">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 sm:justify-end">
+            {siteConfig.navItems.map((item) => (
+              <li key={item.href}>
+                <NextLink
+                  className="font-body text-sm text-muted transition-colors hover:text-foreground"
+                  href={item.href}
+                >
+                  {item.label}
+                </NextLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="-ml-2 sm:-ml-0 sm:-mr-2">
+          <SocialLinks />
+        </div>
+      </div>
     </div>
 
     <hr className="my-8 border-0 border-t border-separator" />

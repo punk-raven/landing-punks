@@ -1,5 +1,5 @@
 import { lawmanMeta } from "@/content/lawman";
-import { LawmanCta } from "@/components/sections/lawman-cta";
+import { LawmanClosing } from "@/components/sections/lawman-closing";
 import { LawmanHero } from "@/components/sections/lawman-hero";
 import { LawmanHowItWorks } from "@/components/sections/lawman-how-it-works";
 import { LawmanWhatItIs } from "@/components/sections/lawman-what-it-is";
@@ -42,7 +42,7 @@ export default function LawmanPage() {
       <LawmanWhy />
       <LawmanHowItWorks />
       <LawmanWhenToUse />
-      <LawmanCta />
+      <LawmanClosing />
     </DefaultLayout>
   );
 }

@@ -1,4 +1,3 @@
-import { siteConfig } from "@/config/site";
 import { hero } from "@/content/home";
 import { ButtonLink } from "@/components/button";
 import { Section } from "@/components/section";
@@ -8,8 +7,12 @@ import { eyebrow, subtitle, title } from "@/components/primitives";
  * B1. Hero.
  *
  * Sunken elevation - one rung below the page default, which is the anchor
- * treatment the hero, CTA and footer share. It is not a dark band: in light mode
+ * treatment the hero and footer share. It is not a dark band: in light mode
  * this is a light section. This is also the page's only `<h1>`.
+ *
+ * There is no primary CTA here. B7 carried this page's `#early-access` target
+ * and was removed, so the button was removed with it rather than repointed at
+ * another route - `/` no longer asks for early access anywhere.
  *
  * The proof strip is four text claims (§2b.2). It is not a logo strip, a
  * testimonial row or a "trusted by" band, and it must never become one - there
@@ -29,10 +32,6 @@ export const Hero = () => (
     </p>
 
     <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-      {/* §2b.7: the only primary CTA on the site. */}
-      <ButtonLink href={siteConfig.links.earlyAccess} size="lg">
-        {hero.primaryCta}
-      </ButtonLink>
       <ButtonLink href={hero.secondaryCtaHref} size="lg" variant="outline">
         {hero.secondaryCta}
       </ButtonLink>

@@ -19,7 +19,7 @@ gotchas** - not a restatement of either.
 | 4 - T&T `/tnt` | Done, committed. **Cannot fully close** - §5.5 needs the nine Indic strings. |
 | 5 - Lawman `/lawman` | Done, committed. |
 | 6 - LawSafe `/lawsafe` | Done, **uncommitted**. Adapted per §3.4; draft reviewed before build. |
-| 7 - Form, polish, audit | **Not started. Next.** Form is UI-only; no destination chosen. |
+| 7 - Form, polish, audit | In progress, uncommitted. **No form** - early access was withdrawn. |
 
 All five routes exist: `/`, `/about`, `/tnt`, `/lawman`, `/lawsafe`.
 
@@ -118,6 +118,28 @@ rung, ~0.010 at the top) - that is deliberate and load-bearing, see "Traps" belo
 16. **"What the likely timelines and costs look like" is cut** from what the app returns.
     It was the closest thing on the page to a promise about an outcome. Do not restore it
     without a decision.
+
+**Taken at the start of Phase 7**
+
+17. **Early access is withdrawn, site-wide.** No form was built and none should be. All
+    seven "Request early access" buttons are gone, `siteConfig.links.earlyAccess` is gone,
+    the `primaryCta` field is gone from all four content files, and the four sections that
+    used `#early-access` as a fragment target now carry ids named for their own subject.
+    `components/sections/lawman-cta.tsx` and `lawsafe-cta.tsx` are renamed
+    `*-closing.tsx`: they lost their only button, and a component called `Cta` that renders
+    no call to action is what the next reader believes. `/tnt`'s A12 keeps its name because
+    it keeps its secondary link to `/about`.
+
+    **This is a deliberate deviation from two spec items.** §2b.7 makes "Request early
+    access" the only primary CTA the site may use, and the §7 checklist requires it on
+    every page; the site now has no primary CTA anywhere. §6's Phase 7 asks for the form,
+    which does not exist. Restoring any of it starts with putting the constant back in
+    `config/site.ts`, where a comment says so.
+
+    **Consequence worth knowing:** `/tnt`'s A12 still says "we would like to hear about the
+    workload" and `/about` C7 still says "we would like to talk". Both invitations now have
+    no button behind them. The email in `siteConfig.links.email` is the only contact
+    mechanism left, and it is reachable only through the social cluster.
 
 ---
 
@@ -373,8 +395,10 @@ page on the site.
   this becomes real work - Phase 7.
 - **Touch targets** - theme toggle, GitHub link and hamburger are all 36×36, under the
   44×44 guideline. Parity, not a regression, but it is now three controls.
-- **The circuit board is `hidden sm:block`** so it never paints at 360px, but its
-  `next/dynamic` chunk still downloads there. Gate the import, not just the display.
+- ~~**The circuit board is `hidden sm:block`**~~ - fixed in Phase 7. `StackDisplay` now
+  gates the *render* on a `matchMedia("(min-width: 40rem)")` hook, so the chunk is not
+  fetched at 360px at all. Verified: zero framer-motion, lucide or `stack-circuit`
+  requests at 360px, board still draws at 1200px.
 - **No OG image anywhere.** `head.tsx` falls back to title and description and emits
   `twitter:card=summary`, correctly. `/` has a distinct OG line and the others do not.
 

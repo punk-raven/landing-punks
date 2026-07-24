@@ -87,7 +87,6 @@ export interface LawsafeHeroContent {
   boundary: string;
   eyebrow: string;
   headline: string;
-  primaryCta: string;
   status: ProductStatus;
   /** What "in design" means concretely, next to the chip. */
   statusLine: string;
@@ -164,7 +163,6 @@ export const lawsafeHero: LawsafeHeroContent = {
     "In design. What exists today is the product vision and its scope, not a build.",
   boundary:
     "LawSafe explains and connects. It does not give legal advice, does not represent anyone, and does not decide anything. Where a matter needs professional judgement, a qualified advocate provides it.",
-  primaryCta: "Request early access",
 };
 
 /* Why LawSafe exists - vision §2 --------------------------------------------- */
@@ -361,5 +359,4 @@ export const lawsafeClosingCta = {
     "It is whether the relationship between people and their own legal system changes. Checking your legal position before you sign, complain, or give up should become a reflex - the way people check a map before a journey. Fewer avoidable disputes should reach the courts, because the confusion behind them was resolved upstream. If more people can actually exercise rights they already have on paper, that is the result worth having.",
   statusLine:
     "LawSafe is in design. What exists today is the product vision and its scope.",
-  primaryCta: "Request early access",
 };

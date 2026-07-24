@@ -1,6 +1,4 @@
-import { siteConfig } from "@/config/site";
 import { lawsafeHero } from "@/content/lawsafe";
-import { ButtonLink } from "@/components/button";
 import { Section } from "@/components/section";
 import { StatusChip } from "@/components/status-chip";
 import { eyebrow, prose, subtitle, title } from "@/components/primitives";
@@ -53,12 +51,5 @@ export const LawsafeHero = () => (
     >
       {lawsafeHero.boundary}
     </p>
-
-    <div className="mt-10">
-      {/* §2b.7: the only primary CTA on the site. */}
-      <ButtonLink href={siteConfig.links.earlyAccess} size="lg">
-        {lawsafeHero.primaryCta}
-      </ButtonLink>
-    </div>
   </Section>
 );

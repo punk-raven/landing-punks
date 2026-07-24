@@ -1,6 +1,4 @@
-import { siteConfig } from "@/config/site";
 import { tntHero } from "@/content/tnt";
-import { ButtonLink } from "@/components/button";
 import { Section } from "@/components/section";
 import { StatusChip } from "@/components/status-chip";
 import { ScriptColumn } from "@/components/ui/script-column";
@@ -50,14 +48,7 @@ export const TntHero = () => (
       </p>
     </div>
 
-    <div className="mt-10">
-      {/* §2b.7: the only primary CTA on the site. */}
-      <ButtonLink href={siteConfig.links.earlyAccess} size="lg">
-        {tntHero.primaryCta}
-      </ButtonLink>
-    </div>
-
-    <ul className="mt-14 grid gap-x-8 gap-y-4 border-t border-separator pt-8 sm:grid-cols-2 lg:grid-cols-4">
+    <ul className="mt-12 grid gap-x-8 gap-y-4 border-t border-separator pt-8 sm:grid-cols-2 lg:grid-cols-4">
       {tntHero.proof.map((claim) => (
         <li
           key={claim}

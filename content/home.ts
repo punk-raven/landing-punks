@@ -37,7 +37,10 @@ export interface HomeHeroContent {
   headline: string;
   /** Four text claims, §2b.2: no logos, no testimonials, no "trusted by". */
   proof: string[];
-  primaryCta: string;
+  /**
+   * There is no `primaryCta` here. B7 carried this page's `#early-access`
+   * target and was removed, so the hero's request button went with it.
+   */
   secondaryCta: string;
   secondaryCtaHref: string;
   subheadline: string;
@@ -95,7 +98,6 @@ export const hero: HomeHeroContent = {
   headline: "India should not have to rent its intelligence.",
   subheadline:
     "PunkRaven is a technology company building the AI layers Indian software keeps importing - speech across all 22 scheduled languages, and reasoning that grounds every claim in a real, retrieved source. We build the infrastructure, and we build on it ourselves to prove it works. Everything runs on hardware you control, and says plainly when it cannot verify what it is about to tell you.",
-  primaryCta: "Request early access",
   secondaryCta: "See what we are building",
   secondaryCtaHref: "#what-we-build",
   proof: [
@@ -289,18 +291,13 @@ export const whereWeAre = {
   ] satisfies StatusRow[],
 };
 
-/* B7. Final call to action -------------------------------------------------- */
-
-export const closingCta = {
-  heading:
-    "If you are building for people who do not speak English, we would like to hear about the workload.",
-  body: "Tell us the languages, the volume, and whether the work is live or batch. If the work is research over a body of authoritative material, tell us the corpus and how often it changes. That is usually enough for us to say whether we are useful to you yet, and to say so plainly if we are not.",
-  primaryCta: "Request early access",
-  secondaryCta: "Read about the company",
-  secondaryCtaHref: "/about",
-  microCopy:
-    "We will tell you honestly where each project stands before you commit anything.",
-};
+/* B7. Final call to action - removed ----------------------------------------
+ *
+ * The closing CTA band was removed from the homepage on request, so its copy is
+ * deleted rather than parked here unrendered - the same rule this file applies
+ * to B8 below. `git log` for `pages/index.tsx` recovers both the copy and
+ * `components/sections/cta-band.tsx` if the section comes back.
+ */
 
 /* B8. Footer notes - not built ----------------------------------------------
  *

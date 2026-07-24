@@ -1,23 +1,19 @@
-import { siteConfig } from "@/config/site";
 import { whereWeAre } from "@/content/about";
-import { ButtonLink } from "@/components/button";
 import { Section } from "@/components/section";
 import { StatusChip } from "@/components/status-chip";
 import { subtitle, title } from "@/components/primitives";
 
-const HEADING_ID = "early-access";
+const HEADING_ID = "where-we-are";
 
 /**
- * C7. Where we are, and the page's only call to action.
+ * C7. Where we are.
  *
- * The section id is `early-access` because `siteConfig.links.earlyAccess`
- * resolves to `#early-access` until Phase 7 builds the form. That keeps the
- * homepage and this page pointing at the same constant, and keeps the CTA from
- * ever shipping a link that lands nowhere on the page it is on.
- *
- * "Request early access" is the only primary CTA on the site. There is no
- * secondary button here: the homepage CTA band offers "Read about the company",
- * which from this page would be a link to itself.
+ * IT NO LONGER CARRIES A BUTTON. Early access was withdrawn across the site at
+ * Phase 7, so the "Request early access" link is gone and the id moved off
+ * `early-access` onto the section's own subject. The heading and the closing
+ * line are unchanged: C7 was always the status section first and the ask
+ * second, so it survives the removal intact where a pure CTA band would not
+ * have.
  *
  * The three status lines are a list, not the homepage's table. Two columns of
  * three rows do not need table semantics, and the chips carry the actual claim -
@@ -70,11 +66,5 @@ export const AboutStatus = () => (
     <p className="mt-10 max-w-measure font-body text-base leading-[1.75] text-pretty text-muted">
       {whereWeAre.closing}
     </p>
-
-    <div className="mt-8">
-      <ButtonLink href={siteConfig.links.earlyAccess} size="lg">
-        {whereWeAre.primaryCta}
-      </ButtonLink>
-    </div>
   </Section>
 );

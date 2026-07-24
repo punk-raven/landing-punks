@@ -5,19 +5,11 @@ import { useTheme } from "next-themes";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
-import { measure } from "@/components/primitives";
-import {
-  GithubIcon,
-  Logo,
-  MoonFilledIcon,
-  SunFilledIcon,
-} from "@/components/icons";
+import { SocialLinks } from "@/components/social-links";
+import { iconButton, measure } from "@/components/primitives";
+import { Logo, MoonFilledIcon, SunFilledIcon } from "@/components/icons";
 
 const MOBILE_MENU_ID = "navbar-mobile-menu";
-
-/** Shared with the GitHub link and the hamburger so the cluster stays uniform. */
-const ICON_BUTTON =
-  "inline-flex size-9 items-center justify-center rounded-md text-muted transition-colors hover:text-foreground";
 
 /**
  * Two-state theme toggle, not a three-way picker. next-themes runs
@@ -50,7 +42,7 @@ const ThemeToggle = () => {
   return (
     <button
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      className={ICON_BUTTON}
+      className={iconButton()}
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
@@ -142,23 +134,24 @@ export const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-1">
-              {/* First in the cluster, and outside the disclosure menu, so the
-                  order is [theme] [github] [menu] at every breakpoint. */}
+              {/* The theme toggle is first in the cluster and outside the
+                  disclosure menu, so the order is [theme] [socials] [menu] and
+                  the toggle keeps its position at every breakpoint.
+
+                  The four social links drop below `md` for the same reason the
+                  nav links do: at 375px, five 36px targets plus the wordmark
+                  overflow the bar. They reappear at the foot of the open
+                  disclosure menu, so no destination is unreachable on a phone -
+                  and the footer carries the same cluster on every page. */}
               <ThemeToggle />
-              <a
-                aria-label={`${siteConfig.name} on GitHub`}
-                className={ICON_BUTTON}
-                href={siteConfig.links.github}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <GithubIcon aria-hidden="true" size={20} />
-              </a>
+              <div className="hidden md:block">
+                <SocialLinks />
+              </div>
               <button
                 aria-controls={MOBILE_MENU_ID}
                 aria-expanded={isMenuOpen}
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                className={clsx(ICON_BUTTON, "md:hidden")}
+                className={clsx(iconButton(), "md:hidden")}
                 type="button"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
@@ -197,24 +190,31 @@ export const Navbar = () => {
           )}
           id={MOBILE_MENU_ID}
         >
-          <ul
-            className={clsx(measure({ width: "band" }), "flex flex-col py-2")}
-          >
-            {siteConfig.navItems.map((item) => (
-              <li key={item.href}>
-                <NextLink
-                  aria-current={
-                    isCurrent(pathname, item.href) ? "page" : undefined
-                  }
-                  className="block py-2 font-body text-base text-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground"
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </NextLink>
-              </li>
-            ))}
-          </ul>
+          <div className={clsx(measure({ width: "band" }), "py-2")}>
+            <ul className="flex flex-col">
+              {siteConfig.navItems.map((item) => (
+                <li key={item.href}>
+                  <NextLink
+                    aria-current={
+                      isCurrent(pathname, item.href) ? "page" : undefined
+                    }
+                    className="block py-2 font-body text-base text-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground"
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </NextLink>
+                </li>
+              ))}
+            </ul>
+
+            {/* Negative inline start offset only - the icon buttons carry 8px
+                of their own padding either side, so a flush-left row would sit
+                8px right of the text links above it. */}
+            <div className="-ml-2 mt-2 border-t border-separator pt-2">
+              <SocialLinks />
+            </div>
+          </div>
         </div>
       </nav>
     </header>

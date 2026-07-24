@@ -1,5 +1,4 @@
 import { homeMeta } from "@/content/home";
-import { CTABand } from "@/components/sections/cta-band";
 import { Hero } from "@/components/sections/hero";
 import { PrincipleList } from "@/components/sections/principle-list";
 import { ProblemCards } from "@/components/sections/problem-cards";
@@ -9,9 +8,18 @@ import { StatusTable } from "@/components/sections/status-table";
 import DefaultLayout from "@/layouts/default";
 
 /**
- * Homepage - `docs/copy/punkraven-company-copy.md` Part B, B1 to B7 in order
+ * Homepage - `docs/copy/punkraven-company-copy.md` Part B, B1 to B6 in order
  * (spec §3.3). B0 is page metadata and is wired into `<head>` rather than
  * rendered.
+ *
+ * B7 (the closing CTA band) was removed on request, and everything that only
+ * existed for it went too rather than staying as dead code: `closingCta` in
+ * `content/home.ts`, `components/sections/cta-band.tsx`, and B1's "Request
+ * early access" button, which resolved against the `#early-access` id B7
+ * carried. `git log` for this file is the way back.
+ *
+ * `/` therefore has no primary CTA and no `#early-access` target. `/tnt`,
+ * `/lawman` and `/about` each still carry their own and are unchanged.
  *
  * B8 (footer notes) is deliberately not built. The spec lists the homepage as
  * "B1 through B8", but unlike `/tnt`'s A13 - which §3.3 calls mandatory, not
@@ -28,14 +36,14 @@ import DefaultLayout from "@/layouts/default";
  * product ahead of the stack display.
  *
  * Elevation alternates to segment the page (§5.4): sunken hero, base problem,
- * sunken stack display, base products, sunken principles, base status, sunken
- * CTA. Every boundary is one OKLCh-L rung (ΔL 0.048), and it is the same rhythm
- * in both themes - a section never changes polarity, only elevation.
+ * sunken stack display, base products, sunken principles, base status. Every
+ * boundary is one OKLCh-L rung (ΔL 0.048), and it is the same rhythm in both
+ * themes - a section never changes polarity, only elevation.
  *
- * Dropping B8 leaves seven sections, which is an odd count, so the sunken CTA
- * now meets the sunken footer with no rung between them. Parity cannot fix that
- * - flipping either one only moves the collision earlier - so the footer draws
- * its own top edge instead. See the note in `components/site-footer.tsx`.
+ * With B7 gone the page ends on a base status table, so the sunken footer sits
+ * one rung below it and the boundary is carried by elevation. The footer still
+ * draws its own top edge for the routes that end on a sunken section; see the
+ * note in `components/site-footer.tsx`.
  */
 export default function IndexPage() {
   return (
@@ -52,8 +60,6 @@ export default function IndexPage() {
       <PrincipleList />
       {/* B6 */}
       <StatusTable />
-      {/* B7 */}
-      <CTABand />
     </DefaultLayout>
   );
 }

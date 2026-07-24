@@ -1,6 +1,7 @@
 import type { StackLayer } from "@/content/home";
 
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
 import { stack } from "@/content/home";
 import { Section } from "@/components/section";
@@ -25,6 +26,39 @@ const StackCircuit = dynamic(() => import("./stack-circuit"), {
   loading: () => null,
   ssr: false,
 });
+
+/**
+ * True once the viewport is at least Tailwind's `sm` (40rem), false before the
+ * first client paint and at every narrower width.
+ *
+ * THIS EXISTS TO GATE A DOWNLOAD, NOT A DISPLAY. The circuit board was
+ * previously mounted always and hidden with `hidden sm:block`, which stops it
+ * painting at 360px but does nothing about the bytes: `next/dynamic` fetches the
+ * chunk when the component renders, and CSS visibility is downstream of that. On
+ * the narrowest, most bandwidth-constrained viewport the site had, framer-motion
+ * and lucide were still being pulled down to draw an ornament nobody could see.
+ * Gating the render gates the fetch.
+ *
+ * It starts `false` so the first client render matches the `ssr: false` server
+ * output - the board is decorative and its absence for one frame costs nothing.
+ * The listener stays attached because a desktop window can be dragged narrow and
+ * a tablet can be rotated.
+ */
+const useIsAtLeastSm = () => {
+  const [isAtLeastSm, setIsAtLeastSm] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 40rem)");
+    const sync = () => setIsAtLeastSm(query.matches);
+
+    sync();
+    query.addEventListener("change", sync);
+
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
+  return isAtLeastSm;
+};
 
 const HEADING_ID = "what-we-build";
 
@@ -92,61 +126,73 @@ const Layer = ({
  * mobile the group stacks plainly and the connector is dropped; the divider and
  * both group labels stay, because they carry the actual argument.
  */
-export const StackDisplay = () => (
-  <Section
-    elevation="sunken"
-    id={HEADING_ID}
-    labelledBy={`${HEADING_ID}-heading`}
-    spacing="lg"
-  >
-    <h2
-      className={title({ className: "max-w-[26ch]", size: "lg" })}
-      id={`${HEADING_ID}-heading`}
+export const StackDisplay = () => {
+  const isAtLeastSm = useIsAtLeastSm();
+
+  return (
+    <Section
+      elevation="sunken"
+      id={HEADING_ID}
+      labelledBy={`${HEADING_ID}-heading`}
+      spacing="lg"
     >
-      {stack.heading}
-    </h2>
+      <h2
+        className={title({ className: "max-w-[26ch]", size: "lg" })}
+        id={`${HEADING_ID}-heading`}
+      >
+        {stack.heading}
+      </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {stack.body}
-    </p>
+      <p className={subtitle({ className: "mt-6 max-w-measure" })}>
+        {stack.body}
+      </p>
 
-    <div className="mt-12 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:gap-14">
-      <div>
-        <h3 className={eyebrow()}>{stack.infrastructureLabel}</h3>
+      <div className="mt-12 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:gap-14">
+        <div>
+          <h3 className={eyebrow()}>{stack.infrastructureLabel}</h3>
 
-        <div className="relative mt-5 lg:pl-8">
-          {/* Desktop-only connector, §5.4. Decorative: the same "these two are
+          <div className="relative mt-5 lg:pl-8">
+            {/* Desktop-only connector, §5.4. Decorative: the same "these two are
               one system" claim is carried by the group label above it. */}
-          <span
-            aria-hidden="true"
-            className="absolute inset-y-4 left-0 hidden w-px bg-sheen-alt lg:block"
-          />
-          <ul className="flex flex-col gap-4">
-            {stack.infrastructure.map((layer) => (
-              <Layer key={layer.name} emphasis="infrastructure" layer={layer} />
+            <span
+              aria-hidden="true"
+              className="absolute inset-y-4 left-0 hidden w-px bg-sheen-alt lg:block"
+            />
+            <ul className="flex flex-col gap-4">
+              {stack.infrastructure.map((layer) => (
+                <Layer
+                  key={layer.name}
+                  emphasis="infrastructure"
+                  layer={layer}
+                />
+              ))}
+            </ul>
+          </div>
+
+          {/* The visible divider. It stays at every width. */}
+          <hr className={sectionRule({ className: "my-10" })} />
+
+          <h3 className={eyebrow()}>{stack.applicationLabel}</h3>
+
+          <ul className="mt-5 flex flex-col gap-4 lg:pl-8">
+            {stack.application.map((layer) => (
+              <Layer key={layer.name} emphasis="application" layer={layer} />
             ))}
           </ul>
         </div>
 
-        {/* The visible divider. It stays at every width. */}
-        <hr className={sectionRule({ className: "my-10" })} />
-
-        <h3 className={eyebrow()}>{stack.applicationLabel}</h3>
-
-        <ul className="mt-5 flex flex-col gap-4 lg:pl-8">
-          {stack.application.map((layer) => (
-            <Layer key={layer.name} emphasis="application" layer={layer} />
-          ))}
-        </ul>
+        {/* Rendered rather than hidden below `sm`, so the chunk is not fetched at
+          360px. See `useIsAtLeastSm`. */}
+        {isAtLeastSm ? (
+          <div aria-hidden="true">
+            <StackCircuit />
+          </div>
+        ) : null}
       </div>
 
-      <div aria-hidden="true" className="hidden sm:block">
-        <StackCircuit />
-      </div>
-    </div>
-
-    <p className={prose({ className: "mt-12 max-w-measure text-muted" })}>
-      {stack.supporting}
-    </p>
-  </Section>
-);
+      <p className={prose({ className: "mt-12 max-w-measure text-muted" })}>
+        {stack.supporting}
+      </p>
+    </Section>
+  );
+};

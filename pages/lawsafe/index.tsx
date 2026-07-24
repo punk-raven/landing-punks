@@ -1,5 +1,5 @@
 import { lawsafeMeta } from "@/content/lawsafe";
-import { LawsafeCta } from "@/components/sections/lawsafe-cta";
+import { LawsafeClosing } from "@/components/sections/lawsafe-closing";
 import { LawsafeHero } from "@/components/sections/lawsafe-hero";
 import { LawsafePrinciples } from "@/components/sections/lawsafe-principles";
 import { LawsafeWhatItDoes } from "@/components/sections/lawsafe-what-it-does";
@@ -44,7 +44,7 @@ export default function LawsafePage() {
       <LawsafeWho />
       <LawsafeWhatItDoes />
       <LawsafePrinciples />
-      <LawsafeCta />
+      <LawsafeClosing />
     </DefaultLayout>
   );
 }

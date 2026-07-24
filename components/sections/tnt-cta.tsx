@@ -1,19 +1,19 @@
-import { siteConfig } from "@/config/site";
 import { tntClosingCta } from "@/content/tnt";
 import { ButtonLink } from "@/components/button";
 import { Section } from "@/components/section";
 import { subtitle, title } from "@/components/primitives";
 
-const HEADING_ID = "early-access";
+const HEADING_ID = "tnt-closing";
 
 /**
  * A12. Final call to action. Sunken elevation, matching the hero and the site
  * footer - the anchor treatment, not a dark band.
  *
- * The section id is `early-access` because `siteConfig.links.earlyAccess`
- * resolves to `#early-access` until Phase 7 builds the form. Every "Request
- * early access" on the site points at the same constant, so no CTA ever ships a
- * link that lands nowhere on the page it is on.
+ * THE PRIMARY BUTTON IS GONE. Early access was withdrawn across the site at
+ * Phase 7, so this section keeps only its secondary link and the id moved off
+ * `early-access`, which was the fragment target for a link that no longer
+ * exists. This is still a call to action - unlike `/lawman` and `/lawsafe`,
+ * which lost their only button and are named `*-closing` as a result.
  *
  * A12's secondary CTA in the copy is "Read the technical plan", and there is no
  * URL for the plan set anywhere in the sources. The secondary link goes to
@@ -40,9 +40,6 @@ export const TntCta = () => (
     </p>
 
     <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-      <ButtonLink href={siteConfig.links.earlyAccess} size="lg">
-        {tntClosingCta.primaryCta}
-      </ButtonLink>
       <ButtonLink
         href={tntClosingCta.secondaryCtaHref}
         size="lg"

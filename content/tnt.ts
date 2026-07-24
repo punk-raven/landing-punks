@@ -47,7 +47,6 @@ import type { ProductStatus } from "@/components/status-chip";
 export interface TntHeroContent {
   eyebrow: string;
   headline: string;
-  primaryCta: string;
   /** Four short text claims. No logos, no testimonials, no "trusted by". */
   proof: string[];
   status: ProductStatus;
@@ -188,7 +187,6 @@ export const tntHero: TntHeroContent = {
     "Audio in. Transcript and translation out. All 22 scheduled Indian languages.",
   subheadline:
     "T&T is a self-hosted speech pipeline that turns Indian-language audio into a clean transcript and a translation through a single API call. Two engines, one queue, one deployment unit. MIT-licensed weights, so there is no per-call vendor fee and no data leaving your infrastructure.",
-  primaryCta: "Request early access",
   /**
    * Part C's own mitigation: "label the page in development, early access
    * opening near the hero". The wording is taken from `/about` C7 so the two
@@ -707,7 +705,6 @@ export const tntObjections = {
 export const tntClosingCta = {
   heading: "Bring speech to the languages your product already has users in",
   body: "T&T is being built as one deployable unit with a documented contract, an honest confidence signal and a cost model that survives contact with growth. If you have Indian-language audio and a reason to keep it on your own infrastructure, we would like to hear about the workload.",
-  primaryCta: "Request early access",
   /* A0 and A12 both give "Read the technical plan" as the secondary CTA. It is
      not rendered anywhere on this page - there is no URL for the plan set. See
      the note on `tntHero.status` above. */

@@ -187,6 +187,26 @@ export const statusChip = tv({
 });
 
 /**
+ * Square hit target for a bare icon - the theme toggle, the hamburger and every
+ * social link. One recipe rather than a string per call site, because the header
+ * and footer clusters have to stay optically identical and they live in
+ * different files.
+ *
+ * `size-9` is 36px, under the 44px WCAG 2.5.8 AAA target but at the AA floor of
+ * 24px with room to spare, and the icons sit in a row with `gap-1` so the
+ * effective spacing clears the adjacent-target exception. The colour is `muted`
+ * resolving to `foreground` on hover; focus is not styled here because the
+ * global `:focus-visible` rule in styles/globals.css draws it with `--focus`,
+ * which flips with the theme.
+ */
+export const iconButton = tv({
+  base: [
+    "inline-flex size-9 items-center justify-center rounded-md",
+    "text-muted transition-colors hover:text-foreground",
+  ],
+});
+
+/**
  * Button - HeroUI's own recipe, re-exported so a link can be dressed as a
  * button without going through the `<button>` element. It emits BEM classes
  * (`button button--md button--primary`), and the house shape and type face are

@@ -1,6 +1,4 @@
-import { siteConfig } from "@/config/site";
 import { lawmanHero } from "@/content/lawman";
-import { ButtonLink } from "@/components/button";
 import { Section } from "@/components/section";
 import { StatusChip } from "@/components/status-chip";
 import { eyebrow, subtitle, title } from "@/components/primitives";
@@ -38,13 +36,6 @@ export const LawmanHero = () => (
       <p className="max-w-measure font-body text-sm leading-relaxed text-muted">
         {lawmanHero.statusLine}
       </p>
-    </div>
-
-    <div className="mt-10">
-      {/* §2b.7: the only primary CTA on the site. */}
-      <ButtonLink href={siteConfig.links.earlyAccess} size="lg">
-        {lawmanHero.primaryCta}
-      </ButtonLink>
     </div>
   </Section>
 );

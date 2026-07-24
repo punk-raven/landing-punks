@@ -9,8 +9,10 @@ import { eyebrow, prose, sectionRule, title } from "@/components/primitives";
 
 /**
  * One homepage product block. Every block carries a status chip (§2b.6) and a
- * secondary link through to its own page - never a primary CTA. The only
- * primary CTA on the site is "Request early access" (§2b.7).
+ * secondary link through to its own page - never a primary CTA. §2b.7 allowed
+ * exactly one primary CTA, "Request early access"; it was withdrawn site-wide
+ * at Phase 7, so these are now the only calls to action the site has, and they
+ * navigate rather than ask.
  */
 export const ProductBlock = ({ product }: { product: ProductBlockContent }) => (
   <article className="grid gap-x-10 gap-y-5 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">

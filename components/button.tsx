@@ -27,8 +27,9 @@ export interface ButtonLinkProps
 }
 
 /**
- * A link that looks like a button - what the site's primary CTA actually is
- * (spec §2b.7: "Request early access", which navigates rather than acts). It
+ * A link that looks like a button - what every call to action on the site
+ * actually is, now that the primary "Request early access" CTA §2b.7 defined
+ * has been withdrawn and only navigation links remain. It
  * has to be an anchor: rendering navigation as a `<button>` breaks
  * middle-click, "open in new tab", and the screen-reader role.
  */

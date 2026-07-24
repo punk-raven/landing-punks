@@ -51,7 +51,6 @@ import type { ProductStatus } from "@/components/status-chip";
 export interface LawmanHeroContent {
   eyebrow: string;
   headline: string;
-  primaryCta: string;
   status: ProductStatus;
   /** What "specified" means concretely, next to the chip. */
   statusLine: string;
@@ -127,7 +126,6 @@ export const lawmanHero: LawmanHeroContent = {
    */
   statusLine:
     "Fully specified, and not yet built. Everything on this page describes the intended product, not running software.",
-  primaryCta: "Request early access",
 };
 
 /* What is Lawman ------------------------------------------------------------- */
@@ -309,14 +307,12 @@ export const whenToUse = {
  * The source's closing CTA is a single line: "Get early access - built in India,
  * for Indian law."
  *
- * TWO DELIBERATE DIVERGENCES FROM IT, BOTH ON THE RECORD.
+ * THE ASK IS GONE FROM IT. Early access was withdrawn across the site at
+ * Phase 7, so the button this section carried no longer exists and the source's
+ * verb goes with it. What is left of the source line is kept below as
+ * supporting text.
  *
- *   The label is "Request early access", not "Get early access". §2b.7 makes
- *     "Request early access" the only primary CTA on the site, the same document
- *     supplies "Request early access" in this page's own hero, and `/`, `/about`
- *     and `/tnt` all use it. Two labels for one ask on one page is a worse
- *     outcome than diverging from a line the source itself contradicts eight
- *     screens earlier.
+ * ONE DELIBERATE DIVERGENCE REMAINS, ON THE RECORD.
  *
  *   The heading is authored. Removing the verb from the source line leaves
  *     "built in India, for Indian law", which is kept below as supporting text
@@ -333,6 +329,5 @@ export const whenToUse = {
  */
 export const lawmanClosingCta = {
   heading: "Specified, not shipped.",
-  primaryCta: "Request early access",
   supporting: "Built in India, for Indian law.",
 };
