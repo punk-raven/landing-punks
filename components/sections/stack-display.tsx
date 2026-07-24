@@ -48,9 +48,14 @@ const Layer = ({
   >
     <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
       <h4 className={title({ size: "sm" })}>
-        {layer.name}{" "}
+        {layer.name}
+        {/* The separator opens with a non-breaking space, not a JSX `{" "}`
+            between the two nodes. Accessible-name computation trims each text
+            node before joining them, so an ordinary space between them is
+            dropped and the heading is announced as "T&T- the language layer".
+            The nbsp survives the trim because it is inside the node. */}
         <span className="font-body text-base font-normal text-muted">
-          - {layer.role}
+          {`\u00a0- ${layer.role}`}
         </span>
       </h4>
       {/* §2b.6: every product carries a visible status label, everywhere it
