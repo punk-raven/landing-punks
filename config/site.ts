@@ -26,5 +26,15 @@ export const siteConfig = {
   ],
   links: {
     github: "https://github.com/punk-raven/landing-punks",
+    /**
+     * The only primary CTA on the site (spec §2b.7: "Request early access",
+     * never "Get your API key" / "Start building" / "Sign up" / "Try it free").
+     *
+     * It points at the closing CTA band until the early-access form exists in
+     * Phase 7 of §6. One constant so that phase changes the destination in one
+     * place rather than hunting call sites - and so no CTA ever ships pointing
+     * at a route that 404s.
+     */
+    earlyAccess: "#early-access",
   },
 };

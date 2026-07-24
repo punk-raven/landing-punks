@@ -1,12 +1,12 @@
 import NextLink from "next/link";
 
 import { siteConfig } from "@/config/site";
-import { Band } from "@/components/band";
+import { Section } from "@/components/section";
 import { Logo } from "@/components/icons";
 
 /**
- * Site footer. Dark band, per spec §5.1 ("dark sections: hero, CTA band,
- * footer").
+ * Site footer. Sunken elevation, the same anchor treatment as the hero and the
+ * CTA - one rung below the page default, in whichever theme is active.
  *
  * The disclaimer is not optional decoration: spec §2a.4 makes it mandatory on
  * every page, because a software company that builds tools sits in a different
@@ -14,7 +14,7 @@ import { Logo } from "@/components/icons";
  * behind a link, and do not drop it from a page.
  */
 export const SiteFooter = () => (
-  <Band as="footer" spacing="sm" tone="ink">
+  <Section as="footer" elevation="sunken" spacing="sm">
     <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
       <div className="flex items-center gap-2">
         <Logo aria-hidden="true" size={24} />
@@ -56,5 +56,5 @@ export const SiteFooter = () => (
       {siteConfig.name} builds software. It does not provide legal services and
       is not a law firm.
     </p>
-  </Band>
+  </Section>
 );

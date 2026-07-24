@@ -5,11 +5,19 @@ import { tv } from "tailwind-variants";
  * Type scale, spec §5.3: a real 1.25 ratio, no more than four sizes on a page.
  * From a 1rem base: 1 / 1.25 / 1.5625 / 1.953 / 2.441 / 3.052.
  *
- * There is no colour variant here on purpose. The site has no theme toggle; it
- * alternates `.band--paper` and `.band--ink` sections (see styles/globals.css)
- * and every band re-declares `--foreground` / `--muted` / `--accent` on itself.
- * So headings inherit the right colour from the band they sit in, and a `dark:`
- * variant would have nothing to hook onto.
+ * There is no colour variant here on purpose, and none of the recipes below
+ * carries a dark-mode variant either. Sections differ by ELEVATION, never by
+ * polarity: in light mode every background is light and in dark mode every
+ * background is dark, so `--foreground` / `--muted` / `--accent` are global,
+ * declared once at `:root` and once at `:root.dark` (see styles/globals.css),
+ * and legible on every elevation rung in both themes. A heading inherits the
+ * right colour wherever it sits, with nothing to add at the call site.
+ *
+ * That is also why `statusChip` and `sectionRule` below need no theme handling:
+ * they read `var(--uncertain*)` through arbitrary values, and the amber flips
+ * with the rest of the semantic block. Reaching for a dark-mode variant in this
+ * file is a signal that a token is missing from `:root.dark`, not that a variant
+ * is needed.
  */
 export const title = tv({
   base: "font-display font-semibold tracking-tight text-balance",
@@ -72,8 +80,8 @@ export const prose = tv({
 });
 
 /**
- * Measure, spec §5.4: 68ch for prose, 1120px for full bands. `prose` is the
- * reading column; `band` is the outer content width; `full` opts out for
+ * Measure, spec §5.4: 68ch for prose, 1120px for full-width sections. `prose` is
+ * the reading column; `band` is the outer content width; `full` opts out for
  * elements that must bleed.
  */
 export const measure = tv({
@@ -91,18 +99,17 @@ export const measure = tv({
 });
 
 /**
- * Band, spec §5.4/§5.1: alternating light and dark sections are how the site
- * segments a page. The `band--*` classes come from styles/globals.css and
- * re-declare the semantic tokens on the section itself, so nested content -
- * including HeroUI components - adapts without extra classes.
+ * Section, spec §5.4. Elevation, not polarity: in light mode every background is
+ * light and in dark mode every background is dark. `base` is the page default;
+ * `sunken` is one OKLCh-L rung below it (ΔL 0.048, above the 0.045 perceptibility
+ * floor), which is what carries section rhythm now that bands are gone.
  */
-export const band = tv({
-  base: "w-full bg-background text-foreground",
+export const section = tv({
+  base: "w-full text-foreground",
   variants: {
-    tone: {
-      paper: "band--paper",
-      pure: "band--pure",
-      ink: "band--ink",
+    elevation: {
+      base: "bg-background",
+      sunken: "bg-sunken",
     },
     /* Generous vertical rhythm - this is a reading site, not a dashboard. */
     spacing: {
@@ -113,13 +120,13 @@ export const band = tv({
     },
   },
   defaultVariants: {
+    elevation: "base",
     spacing: "md",
-    tone: "paper",
   },
 });
 
 /**
- * Section rule - a hairline in --rule, or the amber estimate divider.
+ * Section rule - a hairline in --separator, or the amber estimate divider.
  *
  * The amber is read as `var(--uncertain)` rather than through a `border-uncertain`
  * utility on purpose: `--uncertain*` is deliberately not mapped in `@theme
