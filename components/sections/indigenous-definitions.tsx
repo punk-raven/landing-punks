@@ -16,6 +16,12 @@ const HEADING_ID = "what-indigenous-means";
  * component: this one is definitions and takes a hairline above each term, C6 is
  * commitments and takes a filled card. The distinction is what stops the page
  * turning into one long undifferentiated list.
+ *
+ * Section 7.1 asks for a question-shaped `<h3>` above the answer block, and it
+ * is added additively: the declarative `<h2>` stays, the question sits under it,
+ * and the answer paragraph directly beneath is self-contained so an extractor
+ * lifting it alone still gets a complete answer. The `<dl>` follows as its own
+ * thing - the question heads the paragraph, not the glossary.
  */
 export const IndigenousDefinitions = () => (
   <Section
@@ -35,7 +41,15 @@ export const IndigenousDefinitions = () => (
       {indigenous.body}
     </p>
 
-    <dl className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2">
+    <h3 className={title({ className: "mt-12", size: "sm" })}>
+      {indigenous.question}
+    </h3>
+
+    <p className={prose({ className: "mt-3 max-w-measure text-muted" })}>
+      {indigenous.answer}
+    </p>
+
+    <dl className="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
       {indigenous.items.map((item) => (
         <div key={item.term} className="border-t border-separator pt-5">
           <dt className={title({ size: "sm" })}>{item.term}</dt>

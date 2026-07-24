@@ -1,5 +1,7 @@
 import type { ProductStatus } from "@/components/status-chip";
 
+import { siteConfig } from "@/config/site";
+
 /**
  * Homepage content - `docs/copy/punkraven-company-copy.md` Part B, sections B0
  * to B8, hand-transcribed per spec §3.1.
@@ -209,7 +211,16 @@ export const products: ProductBlockContent[] = [
       "Works in Indian languages, by voice or text. Reads real legal documents. Runs on infrastructure you control.",
     ],
     status: "specified",
-    cta: { label: "Learn more", href: "/lawman" },
+    /**
+     * B4's Lawman anchor, content spec 8.2. The source document's label is
+     * "Learn more" - the only one of the three product anchors that does not
+     * name its target, and a crawler reads the anchor text as the description
+     * of the destination. The substitution is a linking decision rather than a
+     * copy change, and it is the one place this file departs from a straight
+     * transcription; it lives here so the anchor and its destination stay
+     * defined together.
+     */
+    cta: { label: "Explore Lawman", href: "/lawman" },
   },
   {
     /* Written out in full inside company-copy B4. */
@@ -306,13 +317,42 @@ export const whereWeAre = {
   ] satisfies StatusRow[],
 };
 
-/* B7. Final call to action - removed ----------------------------------------
+/* B7. Final call to action - replaced ---------------------------------------
  *
- * The closing CTA band was removed from the homepage on request, so its copy is
- * deleted rather than parked here unrendered - the same rule this file applies
- * to B8 below. `git log` for `pages/index.tsx` recovers both the copy and
- * `components/sections/cta-band.tsx` if the section comes back.
+ * The copy document's B7 band was removed from the homepage on request and its
+ * copy deleted rather than parked here unrendered - the same rule this file
+ * applies to B8 below. `git log` for `pages/index.tsx` recovers both that copy
+ * and `components/sections/cta-band.tsx` if it is ever wanted back.
+ *
+ * What occupies that slot now is a different section with different copy: the
+ * closing ask below, from `docs/website-content.md` 4.1. Rendered by
+ * `components/sections/closing-ask.tsx`.
  */
+
+/**
+ * The closing ask, content spec 4.1 "Primary CTA".
+ *
+ * The spec's destination is `/contact`, which is proposed and does not exist, so
+ * this points at the address already in `config/site.ts` instead of creating a
+ * route. The button names the mechanism because that is what actually happens
+ * when it is clicked: it opens a mail client, and a label that hid that would be
+ * the same overclaiming the rest of the page argues against.
+ *
+ * THIS IS NOT EARLY ACCESS COMING BACK. There is no programme, no form, no
+ * waiting list and no date behind it - it is one address, and the reply is
+ * whatever the reply is. Early access was withdrawn deliberately and the
+ * `earlyAccess` constant went with it; see the comment in `config/site.ts`.
+ *
+ * `ctaHref` and `note` both read the address out of `config/site.ts` so the
+ * printed address and the button's destination cannot drift apart.
+ */
+export const closingAsk = {
+  heading: "Tell us about the workload.",
+  body: "The languages, the volume, and whether the work is live or batch. Or the body of authoritative material you need reasoned over, and the boundary it is not allowed to leave. We will say plainly whether we are useful to you yet.",
+  ctaLabel: "Email us about the workload",
+  ctaHref: `mailto:${siteConfig.links.email}`,
+  note: `The button opens your mail client, addressed to ${siteConfig.links.email}. Nothing is running yet, so the honest version of this conversation is a conversation.`,
+};
 
 /* B8. Footer notes - not built ----------------------------------------------
  *

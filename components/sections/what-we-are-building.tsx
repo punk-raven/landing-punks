@@ -1,5 +1,7 @@
 import type { BuildingBlock } from "@/content/about";
 
+import NextLink from "next/link";
+
 import { whatWeAreBuilding } from "@/content/about";
 import { Section } from "@/components/section";
 import { StatusChip } from "@/components/status-chip";
@@ -12,6 +14,16 @@ import {
 } from "@/components/primitives";
 
 const HEADING_ID = "what-we-are-building";
+
+/**
+ * Inline contextual link. Underlined at rest rather than on hover: colour alone
+ * is not a sufficient distinguisher inside a run of body text.
+ *
+ * Section 8.2 puts this route's three outbound links on the block roles, and
+ * `NextLink` is what carries them - "the language layer" to `/tnt`, "the
+ * reasoning layer" to `/lawman`, "the first application" to `/lawsafe`.
+ */
+const INLINE_LINK = "font-medium text-accent underline underline-offset-4";
 
 const Block = ({
   block,
@@ -39,7 +51,10 @@ const Block = ({
             node before joining them, so an ordinary space is dropped and the
             heading is announced as "T&Tthe language layer". */}
         <span className="font-body text-base font-normal text-muted">
-          {`\u00a0- ${block.role}`}
+          {"\u00a0- "}
+          <NextLink className={INLINE_LINK} href={block.href}>
+            {block.role}
+          </NextLink>
         </span>
       </h4>
       {/* Every product carries a visible status label everywhere it appears -

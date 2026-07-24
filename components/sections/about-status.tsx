@@ -1,19 +1,20 @@
 import { whereWeAre } from "@/content/about";
+import { ButtonLink } from "@/components/button";
 import { Section } from "@/components/section";
 import { StatusChip } from "@/components/status-chip";
-import { subtitle, title } from "@/components/primitives";
+import { prose, subtitle, title } from "@/components/primitives";
+import { siteConfig } from "@/config/site";
 
 const HEADING_ID = "where-we-are";
 
 /**
  * C7. Where we are.
  *
- * IT NO LONGER CARRIES A BUTTON. Early access was withdrawn across the site at
- * Phase 7, so the "Request early access" link is gone and the id moved off
- * `early-access` onto the section's own subject. The heading and the closing
- * line are unchanged: C7 was always the status section first and the ask
- * second, so it survives the removal intact where a pure CTA band would not
- * have.
+ * Status first, ask second - which is why this section survived early access
+ * being withdrawn across the site at Phase 7 where a pure CTA band would not
+ * have. The "Request early access" link is gone for good and the id moved off
+ * `early-access` onto the section's own subject; the button here is a `mailto:`
+ * and nothing behind it is gated, waitlisted or dated.
  *
  * The three status lines are a list, not the homepage's table. Two columns of
  * three rows do not need table semantics, and the chips carry the actual claim -
@@ -63,8 +64,28 @@ export const AboutStatus = () => (
       ))}
     </ul>
 
-    <p className="mt-10 max-w-measure font-body text-base leading-[1.75] text-pretty text-muted">
+    <p className={prose({ className: "mt-10 max-w-measure text-muted" })}>
       {whereWeAre.closing}
+    </p>
+
+    {/* The one conversion action on the site. It is a `mailto:`, not a link to
+        a `/contact` route: that route is proposed and not built, and the
+        alternatives were linking a 404 or reintroducing the withdrawn early
+        access. The micro-copy below says what the click does, because a button
+        that opens a mail client without warning is a worse surprise than a
+        plainer label would have been. */}
+    <div className="mt-8">
+      <ButtonLink
+        href={`mailto:${siteConfig.links.email}`}
+        size="lg"
+        variant="primary"
+      >
+        {whereWeAre.ctaLabel}
+      </ButtonLink>
+    </div>
+
+    <p className="mt-4 max-w-measure font-body text-sm leading-relaxed text-muted">
+      {whereWeAre.ctaNote(siteConfig.links.email)}
     </p>
   </Section>
 );

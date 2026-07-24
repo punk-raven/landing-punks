@@ -1,7 +1,7 @@
 import { whereWeAre } from "@/content/home";
 import { Section } from "@/components/section";
 import { StatusChip } from "@/components/status-chip";
-import { prose, subtitle, title } from "@/components/primitives";
+import { subtitle, title } from "@/components/primitives";
 
 const HEADING_ID = "where-we-are";
 
@@ -27,11 +27,12 @@ export const StatusTable = () => (
       {whereWeAre.heading}
     </h2>
 
+    {/* One paragraph, not two. `whereWeAre.body` had a second element and the
+        second `<p>` that rendered it survived the cut, emitting an empty
+        paragraph on every load. The cut sentence announced early access and
+        must not come back; see the comment in `content/home.ts`. */}
     <p className={subtitle({ className: "mt-6 max-w-measure" })}>
       {whereWeAre.body[0]}
-    </p>
-    <p className={prose({ className: "mt-4 max-w-measure text-muted" })}>
-      {whereWeAre.body[1]}
     </p>
 
     <div className="mt-10 overflow-x-auto">

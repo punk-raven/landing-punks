@@ -1,25 +1,32 @@
 import { lawmanClosingCta } from "@/content/lawman";
 import { Section } from "@/components/section";
-import { subtitle, title } from "@/components/primitives";
+import { button, prose, subtitle, title } from "@/components/primitives";
 
 const HEADING_ID = "lawman-closing";
 
 /**
- * Closing section.
+ * Closing section, and the site's first conversion action.
  *
- * IT NO LONGER CARRIES A BUTTON. Early access was withdrawn across the whole
- * site at Phase 7, so every "Request early access" is gone and
- * `siteConfig.links.earlyAccess` with them. This file is named `lawman-closing`
- * rather than `lawman-cta` for that reason: a component called `Cta` that
- * renders no call to action is exactly the kind of thing the next reader
- * believes. The section id moved off `early-access` for the same reason - it was
- * a fragment target for a link that no longer exists.
+ * THE BUTTON IS A `mailto:`, NOT A ROUTE. §4.4 names the primary CTA "Tell us
+ * about the corpus" pointing at `/contact`, but `/contact` is only proposed in
+ * §3.2 and does not exist, and linking a dead route is worse than not linking
+ * one. So the destination is `siteConfig.links.email`, composed once in
+ * `content/lawman.ts`, the label names what the click actually does, and the
+ * address is printed as micro-copy underneath so it is usable without a mail
+ * client. When `/contact` ships, the destination moves there and the label
+ * becomes §4.4's.
  *
- * What is left is the page's closing statement, and it still earns its place:
- * the heading is the status one last time in the site's own vocabulary, at the
- * point where a reader has finished the argument, and the supporting line is the
- * source's own closing. `content/lawman.ts` records why both are worded the way
- * they are.
+ * Early access is not what this section asks for. It was withdrawn across the
+ * whole site at Phase 7 along with `siteConfig.links.earlyAccess`, and no
+ * waitlist, beta or launch date replaces it. This file is named `lawman-closing`
+ * rather than `lawman-cta` from that period; the name is kept because the
+ * section id `lawman-closing` is a live fragment target.
+ *
+ * `mailto:` opens a mail client rather than a document, so the anchor gets
+ * neither `target="_blank"` - which would leave an empty tab behind - nor `rel`,
+ * the same call `components/social-links.tsx` makes. It is a plain `<a>` dressed
+ * with the `button` recipe rather than a `next/link`, because there is no client
+ * route to prefetch.
  *
  * There is no status chip here and no second `StatusChip` on the page. The
  * heading says in words what the chip in the hero says as a label, and pairing
@@ -40,6 +47,23 @@ export const LawmanClosing = () => (
 
     <p className={subtitle({ className: "mt-6 max-w-measure" })}>
       {lawmanClosingCta.supporting}
+    </p>
+
+    <p className={prose({ className: "mt-5 max-w-measure text-muted" })}>
+      {lawmanClosingCta.body}
+    </p>
+
+    <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <a
+        className={button({ size: "lg", variant: "primary" })}
+        href={lawmanClosingCta.ctaHref}
+      >
+        {lawmanClosingCta.ctaLabel}
+      </a>
+    </div>
+
+    <p className="mt-6 max-w-measure font-body text-sm leading-relaxed text-muted">
+      {lawmanClosingCta.microCopy}
     </p>
   </Section>
 );

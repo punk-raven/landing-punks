@@ -9,7 +9,19 @@ export const siteConfig = {
    * as CSS, which is presentation and leaves the accessible name intact.
    */
   name: "PunkRaven",
-  description: "PunkRaven",
+  /**
+   * The site-level meta description, verbatim from the `/` row of the meta
+   * description table in `docs/website-content.md` section 6.2 (150 chars,
+   * inside the 150 to 160 target). `layouts/head.tsx` falls back to this for
+   * both `description` and `og:description` on any page that does not pass its
+   * own, so it has to read as the whole site rather than as one route.
+   *
+   * It states no figure, no date and no stage claim that would go stale: the
+   * two capabilities are described in the present tense of what is being built,
+   * which stays true from pre-launch through launch.
+   */
+  description:
+    "PunkRaven builds applied AI infrastructure in India: speech across all 22 scheduled languages, and reasoning that grounds every claim in a real source.",
   /**
    * The single source of truth for site navigation - the desktop bar, the
    * mobile disclosure menu and the footer all render from this one list.
@@ -20,6 +32,14 @@ export const siteConfig = {
    * applications built on it. Reordering this list reorders the argument on
    * every page at once, which is why it is one list. About comes last because
    * it is the page a reader reaches for after the products, not before them.
+   *
+   * The navigation specification in `docs/website-content.md` section 3.3
+   * asks for exactly this list in exactly this order, so nothing here changed
+   * when that spec landed. The one addition it wants is a rightmost Contact
+   * item, and that is held: section 3.2 marks `/contact` as Proposed and the
+   * route does not exist, so the entry would render a link to a 404 in the
+   * header and the footer at once. Add it in the same change that ships the
+   * page, not before.
    */
   navItems: [
     {

@@ -32,6 +32,16 @@ export const TntLanguages = () => (
       {tntLanguages.body[1]}
     </p>
 
+    {/* §7.1 question heading over its §7.2 answer block, above the tiers - an
+        extractor that truncates takes the top. Same markup and heading level as
+        the question headings in A11. */}
+    <h3 className={title({ className: "mt-12", size: "sm" })}>
+      {tntLanguages.question}
+    </h3>
+    <p className={prose({ className: "mt-3 max-w-measure text-muted" })}>
+      {tntLanguages.answer}
+    </p>
+
     <ul className="mt-12 grid gap-8 md:grid-cols-2">
       {tntLanguages.tiers.map((tier) => (
         <li key={tier.label}>

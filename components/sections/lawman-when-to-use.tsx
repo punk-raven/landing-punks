@@ -19,6 +19,12 @@ const HEADING_ID = "when-to-use-lawman";
  * to use Lawman", and a heading that says only that frames everything under the
  * second column as a caveat before a reader reaches it.
  *
+ * Both column headings are symmetric questions - "When should you use Lawman?"
+ * and "When should you not use Lawman?" - and they are questions in
+ * `content/lawman.ts` rather than here. §7.1 requires the second one in that
+ * form; the first matches it so the pair reads as peers. Turning either into a
+ * statement breaks the requirement and unbalances the columns.
+ *
  * Sunken elevation. The page's centrepiece gets the anchor treatment, one rung
  * below the mechanism grid above it and the ask below it.
  */

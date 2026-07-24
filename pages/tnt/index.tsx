@@ -15,17 +15,26 @@ import { TntWhatItIs } from "@/components/sections/tnt-what-it-is";
 import DefaultLayout from "@/layouts/default";
 
 /**
- * T&T page - `docs/copy/tnt-website-copy.md` Part A, A1 to A13 in order (spec
- * §3.3: "the most complete document of the four; follow it closely"). A0 is page
- * metadata and is wired into `<head>` rather than rendered.
+ * T&T page - `docs/website-content.md` section 4.3, blocks A1 to A13 in order.
+ * A0 is page metadata: it lives in `tntMeta` in `content/tnt.ts` with the rest
+ * of the copy, and is wired into `<head>` rather than rendered. Nothing on this
+ * page overrides it, so the page and the head cannot disagree.
  *
- * The order is the source's own and is also the argument: the problem, then what
- * the thing is, then the two claims that are safe to make (coverage and
+ * The order is the source's own and is also the argument: the problem, then
+ * what the thing is, then the two claims that are safe to make (coverage and
  * confidence), then the two that are not yet (speed and cost), then how it
  * deploys, the contract, who it is for, the objections, and the ask. Do not
  * reorder it, and in particular do not move speed and cost ahead of coverage -
  * the sections that can stand on their figures come after the sections that can
  * stand without any.
+ *
+ * NO "READ THE TECHNICAL PLAN" BUTTON, in the hero or in A12, even though A0
+ * and A12 both name it as the secondary CTA. No source document gives a URL for
+ * the planning document set - A13 asserts the set is public while nothing names
+ * where - and `siteConfig.links.github` points at this website's repository,
+ * not at those documents. A button onto a document nobody can open is the one
+ * kind of overclaim a page about calibrated honesty cannot make. It returns
+ * when a URL exists, and until then A12's secondary link goes to `/about`.
  *
  * ELEVATION. Thirteen sections is more than alternation can carry on its own: a
  * strict s/b/s/b down thirteen bands reads as stripes rather than rhythm, and it

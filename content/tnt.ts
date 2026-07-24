@@ -42,6 +42,8 @@
 
 import type { ProductStatus } from "@/components/status-chip";
 
+import { siteConfig } from "@/config/site";
+
 /* Types ---------------------------------------------------------------------- */
 
 export interface TntHeroContent {
@@ -163,16 +165,24 @@ export interface EstimateNote {
  *   - The meta description ends "2-5x cheaper than stitching two managed cloud
  *     APIs together". That is the derived cost estimate Part C holds for
  *     re-verification, and a meta description is published copy like any other.
- *     Replaced with the licensing and deployment claims, which are safe.
+ *     Replaced with the licensing claim and the stage, which are safe.
+ *
+ * The title and description are also held to a length that survives a result
+ * snippet, per section 6.2 of `docs/website-content.md`. The pair this file
+ * shipped first ran 74 and 188 characters and truncated in both Google and the
+ * AI answer engines; these run 59 and 151. The description ends on the stage,
+ * which is the one qualifier an extractor is most likely to drop and the one
+ * this page can least afford to lose. They live here rather than in the page,
+ * because governance section 10.3 puts a title or a meta description in the
+ * content module so that the page and the head cannot disagree.
  *
  * A0 supplies no OG image, so none is claimed - `layouts/head.tsx` emits a
  * `summary` card rather than `summary_large_image` for exactly that reason.
  */
 export const tntMeta = {
-  title:
-    "T&T - speech to text and translation for all 22 scheduled Indian languages",
+  title: "T&T - speech and translation, 22 scheduled Indian languages",
   description:
-    "Self-hosted transcription and translation for all 22 scheduled Indian languages, through one API. MIT-licensed models, no per-call vendor fee, and no audio leaving your infrastructure.",
+    "Self-hosted transcription and translation for all 22 scheduled Indian languages through one API. MIT-licensed weights, no per-call fee. Planning stage.",
   ogTitle:
     "Audio in. Transcript and translation out. 22 scheduled Indian languages.",
   ogDescription:
@@ -332,6 +342,20 @@ export const tntLanguages = {
     "Both models cover the full scheduled list in single checkpoints, so complete coverage costs nothing extra in memory or money. T&T never filters by language.",
     "What it does instead is tell you the truth about quality.",
   ],
+  /**
+   * The AEO pair from section 7 of `docs/website-content.md`: a question-shaped
+   * H3 (7.1) over a self-contained 52-word answer (7.2), both verbatim. The
+   * addition is additive by design - the declarative H2 above it is the house
+   * voice and is not converted.
+   *
+   * It sits ABOVE the tier lists, not below them. An extractor that truncates
+   * takes the top, and the one thing this answer exists to carry downstream is
+   * that the coverage is tiered rather than uniform. Composed entirely from
+   * copy already on this page, so it is not a new claim.
+   */
+  question: "Which Indian languages does T&T support?",
+  answer:
+    "T&T covers all 22 scheduled Indian languages in single model checkpoints, so complete coverage costs nothing extra. Coverage is tiered honestly rather than flattened: ten languages plus the English pivot are production grade, and the remaining twelve, including Kashmiri, Santali, Manipuri and Bodo, carry higher error rates. Every response states its tier.",
   tiers: [
     {
       label: "Tier A - production grade",
@@ -705,6 +729,20 @@ export const tntObjections = {
 export const tntClosingCta = {
   heading: "Bring speech to the languages your product already has users in",
   body: "T&T is being built as one deployable unit with a documented contract, an honest confidence signal and a cost model that survives contact with growth. If you have Indian-language audio and a reason to keep it on your own infrastructure, we would like to hear about the workload.",
+  /**
+   * The primary call to action, and the first conversion action on any route.
+   *
+   * A12 names it "Tell us about the workload" and points it at `/contact`.
+   * `/contact` is marked Proposed in the site map and does not exist, so the
+   * destination is the address already in `config/site.ts`, which is otherwise
+   * exposed only as an unlabelled icon. The label names the click rather than
+   * implying a page, and `microCopyAddress` prints the address so the reader
+   * knows where it goes before pressing it. This is not early access: there is
+   * no list, no form, no queue and no date, and none of those may come back
+   * with it.
+   */
+  primaryCta: "Email us about the workload",
+  primaryCtaHref: `mailto:${siteConfig.links.email}`,
   /* A0 and A12 both give "Read the technical plan" as the secondary CTA. It is
      not rendered anywhere on this page - there is no URL for the plan set. See
      the note on `tntHero.status` above. */
@@ -712,6 +750,7 @@ export const tntClosingCta = {
   secondaryCtaHref: "/about",
   microCopy:
     "Tell us the languages, the audio volume, and whether you need live or batch. That is enough for us to tell you what it would cost.",
+  microCopyAddress: `The address is ${siteConfig.links.email}.`,
 };
 
 /* A13. Footer notes ---------------------------------------------------------- */
