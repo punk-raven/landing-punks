@@ -49,7 +49,9 @@ export const SiteFooter = () => (
           "Footer" landmark makes that list read as four more pages.
 
           `sm:items-end` right-aligns both rows against the wordmark opposite.
-          The icon row is nudged by its own padding, hence the -mr-2. */}
+          The icon row is nudged by its own padding, hence the -mr-3: the 44px
+          targets carry 12px either side of a 20px icon. Re-derived from -2 when
+          the target grew from 36px to 44px. */}
       <div className="flex flex-col gap-4 sm:items-end">
         <nav aria-label="Footer">
           <ul className="flex flex-wrap gap-x-6 gap-y-2 sm:justify-end">
@@ -66,7 +68,7 @@ export const SiteFooter = () => (
           </ul>
         </nav>
 
-        <div className="-ml-2 sm:-ml-0 sm:-mr-2">
+        <div className="-ml-3 sm:-ml-0 sm:-mr-3">
           <SocialLinks />
         </div>
       </div>

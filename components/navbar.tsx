@@ -139,7 +139,7 @@ export const Navbar = () => {
                   the toggle keeps its position at every breakpoint.
 
                   The four social links drop below `md` for the same reason the
-                  nav links do: at 375px, five 36px targets plus the wordmark
+                  nav links do: at 375px, five 44px targets plus the wordmark
                   overflow the bar. They reappear at the foot of the open
                   disclosure menu, so no destination is unreachable on a phone -
                   and the footer carries the same cluster on every page. */}
@@ -208,10 +208,11 @@ export const Navbar = () => {
               ))}
             </ul>
 
-            {/* Negative inline start offset only - the icon buttons carry 8px
-                of their own padding either side, so a flush-left row would sit
-                8px right of the text links above it. */}
-            <div className="-ml-2 mt-2 border-t border-separator pt-2">
+            {/* Negative inline start offset only - the icon buttons carry 12px
+                of their own padding either side (44px box, 20px icon), so a
+                flush-left row would sit 12px right of the text links above it.
+                Re-derived from 8px when the target grew from 36px to 44px. */}
+            <div className="-ml-3 mt-2 border-t border-separator pt-2">
               <SocialLinks />
             </div>
           </div>

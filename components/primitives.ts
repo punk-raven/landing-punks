@@ -192,16 +192,31 @@ export const statusChip = tv({
  * and footer clusters have to stay optically identical and they live in
  * different files.
  *
- * `size-9` is 36px, under the 44px WCAG 2.5.8 AAA target but at the AA floor of
- * 24px with room to spare, and the icons sit in a row with `gap-1` so the
- * effective spacing clears the adjacent-target exception. The colour is `muted`
- * resolving to `foreground` on hover; focus is not styled here because the
- * global `:focus-visible` rule in styles/globals.css draws it with `--focus`,
- * which flips with the theme.
+ * `size-11` is 44px, the WCAG 2.5.5 target size. The box is grown for real
+ * rather than left at 36px and padded out with an invisible `after:-inset-1`
+ * overlay: these controls sit in rows with `gap-1`, so a 4px overlay each side
+ * would meet its neighbour's inside the 4px gap and the later sibling would
+ * paint over it, leaving every control but the last a 40px-wide target that
+ * still measures 44 if you only read the pseudo-element's own box. A real box
+ * has no such edge case, and `document.elementFromPoint` agrees with it.
+ *
+ * Nothing about the glyph changes - the icons are sized at their call sites and
+ * stay there. The recipe paints no fill and no border, so `rounded-md` and the
+ * hover state have no rectangle to grow with the box: hover is a colour swap,
+ * `muted` to `foreground`. The one visible consequence is the focus ring, and
+ * it is the right one - focus is not styled here because the global
+ * `:focus-visible` rule in styles/globals.css draws `2px solid var(--focus)` at
+ * `outline-offset: 2px`, and that outline now traces the real 44px target
+ * instead of a 36px sub-region of it.
+ *
+ * The 44px box carries 12px of its own padding either side of a 20px icon, so a
+ * flush-left icon row sits 12px right of the text above it. The `-ml-3` /
+ * `-mr-3` nudges in components/site-footer.tsx and in the navbar's disclosure
+ * menu are re-derived from that; they were `-2` while this was `size-9`.
  */
 export const iconButton = tv({
   base: [
-    "inline-flex size-9 items-center justify-center rounded-md",
+    "inline-flex size-11 items-center justify-center rounded-md",
     "text-muted transition-colors hover:text-foreground",
   ],
 });

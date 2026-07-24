@@ -188,7 +188,8 @@ that a sole boundary uses `--border` and never `--separator`.
   latency-sensitive buyer matters: `/tnt`'s A6 currently tells a reader that latency
   will be published once measured, so that reader leaves with nothing actionable.
 - **Statistic verification owner** - nobody owns re-verifying the held figures.
-- **Form destination** - blocks Phase 7.
+- ~~**Form destination**~~ - moot. Early access was withdrawn at Phase 7, so there is no
+  form and nothing to point one at. See decision 17.
 - **CircuitBoard source** - what ships is an agent reimplementation, not the Componentry
   source pasted in chat. Missing `CircuitPattern`, `CircuitNode`, `CircuitTrace`, the
   glow filter and the status colour system; gained the reduced-motion guard.
@@ -221,6 +222,35 @@ to a browser default face, which is the failure §5.3 forbids. **Odia's family i
 the loader.
 
 ---
+
+## The Phase 7 audit - what was actually measured
+
+Run against a production build on `localhost:3001`, through `chrome-devtools-axi`.
+
+- **Viewport sweep.** 360 / 768 / 1024 / 1440 / 1920 across all five routes, 25
+  combinations, every one at `scrollWidth - clientWidth === 0`. At 1920 the content is
+  centred in its 1120px band with the 68ch measure intact.
+- **Keyboard.** Tab order on `/lawsafe` is skip link, wordmark, the five nav links in
+  §2a.1 order, theme toggle, four social links, then the footer. `:focus-visible` paints
+  `2px solid rgb(133, 132, 235)` on every stop. The skip link resolves to `#main` and
+  moves focus to `<main>`. At 360 the disclosure menu opens on Enter, all nine items are
+  reachable, and the tenth Tab exits into page content - no trap.
+- **Reduced motion.** Tested through the real code path rather than assumed: the CLI has
+  no reduced-motion emulation, so `window.matchMedia` was patched and `StackDisplay`
+  remounted with a client-side nav. Pulse paths went 3 to 0 while the three static traces
+  stayed, which is exactly what the guard in `components/ui/circuit-board.tsx` promises.
+  The global `@media (prefers-reduced-motion: reduce)` block in `globals.css` caps
+  everything else, and nothing in the codebase uses `animate-*`, `transition-transform`,
+  `transition-all` or a transform hover.
+- **Lighthouse.** 100 for Accessibility, Best Practices, SEO and Agentic Browsing, on `/`
+  and `/lawsafe`, desktop and mobile. Zero failed audits out of 56. **The CLI does not run
+  the Performance category**, so Web Vitals were measured directly instead: FCP 64ms,
+  LCP 64ms, **CLS 0**. The two paint figures are localhost numbers and mean little; CLS 0
+  is layout-independent and does mean something.
+- **Contrast.** All 39 ratios in `globals.css` re-derived with an independent WCAG 2.x
+  implementation. No failures, largest deviation 0.012. Worst-case margins are thin: the
+  non-text amber clears 3:1 by 0.64, the text amber clears 4.5:1 by 0.18. Re-measure
+  rather than eyeball if either amber or the sunken rung moves.
 
 ## Verification status - read before trusting anything
 
@@ -390,11 +420,21 @@ page on the site.
 
 ## Out of scope but pending
 
-- **`/tnt` and `/lawman` are not in `config/site.ts` `navItems`.** Spec §3.2 wants the
-  product list in the footer and a nav flyout. With three product pages after Phase 6
-  this becomes real work - Phase 7.
-- **Touch targets** - theme toggle, GitHub link and hamburger are all 36×36, under the
-  44×44 guideline. Parity, not a regression, but it is now three controls.
+- ~~**`/tnt` and `/lawman` are not in `navItems`**~~ - done in Phase 7. All three product
+  pages are in `config/site.ts` in the §2a.1 order, and the header and footer both render
+  from that one list. §3.2 also mentions a nav flyout; there is none, and the flat list
+  is the deliberate answer - a flyout for three items is machinery the site does not need.
+- ~~**Touch targets**~~ - fixed in Phase 7. `iconButton` went `size-9` to `size-11`, so
+  all thirteen icon controls measure 44×44. The box was grown for real rather than
+  expanded with an `after:-inset-*` overlay: the cluster rows use `gap-1`, so a 4px
+  overlay each side would meet its neighbour inside that gap and the later sibling would
+  paint over it, leaving every control but the last with a 40px hit region while still
+  measuring 44. The recipe paints no fill and no border, so the only visible consequence
+  is that the focus ring now traces the real target. Glyphs are unchanged at 20px (24px
+  hamburger). **Both optical nudges had to be re-derived** - 44px around a 20px glyph is
+  12px of self-padding, not 8px - so the footer and the mobile disclosure row went from
+  `-2` to `-3`. Verified by `elementFromPoint` scan, not by assertion: hit span 44.5 in
+  both axes on all thirteen.
 - ~~**The circuit board is `hidden sm:block`**~~ - fixed in Phase 7. `StackDisplay` now
   gates the *render* on a `matchMedia("(min-width: 40rem)")` hook, so the chunk is not
   fetched at 360px at all. Verified: zero framer-motion, lucide or `stack-circuit`
