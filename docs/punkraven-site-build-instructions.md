@@ -290,6 +290,28 @@ is not.
 Dark sections (hero, CTA band, footer) invert to `--ink` background with `--paper` text.
 Do not build a full dark-mode toggle; the site alternates light and dark bands by design.
 
+> **SUPERSEDED - both sentences above, and the token values in the block, no longer describe
+> what is built.** Left in place because this is a source document; the build deviates from it
+> deliberately and the deviation is recorded here so the two do not silently disagree.
+>
+> 1. **There IS a dark-mode toggle.** `next-themes`, class strategy, defaulting to the OS, with
+>    a two-state toggle in the navbar. The original instruction was followed, then reversed on
+>    the owner's decision.
+> 2. **The site no longer alternates light and dark bands.** It runs one uniform light theme and
+>    one uniform dark theme: in light mode every background is light, in dark mode every
+>    background is dark. Sections differentiate by *elevation*, not polarity, through
+>    `<Section elevation="base" | "sunken">`. The band system was deleted.
+> 3. **The token values were re-derived.** The identity rules in this section survive - corvid
+>    blue-shifted character held numerically at hue 264, and the amber rule in §5.2 intact and
+>    mechanically enforced - but the literal hexes above were computed for alternating bands and
+>    do not meet WCAG AA on the current elevation ladders. `#5B4FCF` measures 4.25:1 and
+>    `#17968F` 2.54:1 on the light sunken rung. Their *hues* are held exactly (281.6 and 188.8);
+>    their lightnesses are not.
+>
+> The live palette is `styles/globals.css`, which carries the full measurement table. The
+> reasoning is in `CLAUDE.md` under "Sections and dark mode". §5.2, §5.3, §5.4 and §5.6 are
+> unaffected and still govern.
+
 ### 5.2 The amber rule - the one thing that makes this site theirs
 
 **`--signal` amber is reserved exclusively for uncertainty, status, and unverified claims.**
