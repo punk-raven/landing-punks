@@ -5,7 +5,7 @@ import { prose, subtitle, title } from "@/components/primitives";
 const HEADING_ID = "what-tnt-is";
 
 /**
- * A3. What T&T is - two engines and the seam between them.
+ * A3. What TNT is - two engines and the seam between them.
  *
  * The seam card deliberately carries no model identifier: it is the part that is
  * built rather than downloaded, and giving it a checkpoint name would flatten
@@ -20,16 +20,11 @@ export const TntWhatItIs = () => (
     labelledBy={`${HEADING_ID}-heading`}
     spacing="lg"
   >
-    <h2
-      className={title({ className: "max-w-[24ch]", size: "lg" })}
-      id={`${HEADING_ID}-heading`}
-    >
+    <h2 className={title({ size: "lg" })} id={`${HEADING_ID}-heading`}>
       {tntWhatItIs.heading}
     </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {tntWhatItIs.body}
-    </p>
+    <p className={subtitle({ className: "mt-6" })}>{tntWhatItIs.body}</p>
 
     <ul className="mt-12 grid gap-6 md:grid-cols-3">
       {tntWhatItIs.cards.map((card) => (
@@ -53,7 +48,7 @@ export const TntWhatItIs = () => (
         applies to it. */}
     <p
       className={prose({
-        className: "mt-8 max-w-measure rounded-md border border-border p-5",
+        className: "mt-8 rounded-md border border-border p-5",
       })}
     >
       {tntWhatItIs.callout}

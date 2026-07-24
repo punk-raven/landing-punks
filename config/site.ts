@@ -11,8 +11,8 @@ export const siteConfig = {
   name: "PunkRaven",
   /**
    * The site-level meta description, verbatim from the `/` row of the meta
-   * description table in `docs/website-content.md` section 6.2 (150 chars,
-   * inside the 150 to 160 target). `layouts/head.tsx` falls back to this for
+   * description table in `docs/website-content.md` section 6.2 (inside the
+   * 150 to 160 target). `layouts/head.tsx` falls back to this for
    * both `description` and `og:description` on any page that does not pass its
    * own, so it has to read as the whole site rather than as one route.
    *
@@ -21,14 +21,14 @@ export const siteConfig = {
    * which stays true from pre-launch through launch.
    */
   description:
-    "PunkRaven builds applied AI infrastructure in India: speech across all 22 scheduled languages, and reasoning that grounds every claim in a real source.",
+    "PunkRaven builds self-hosted AI infrastructure: speech across all 22 scheduled Indian languages, and reasoning that grounds every claim in a real source.",
   /**
    * The single source of truth for site navigation - the desktop bar, the
    * mobile disclosure menu and the footer all render from this one list.
    */
   /**
    * The product order is §2a.1's, the same one the homepage, `/about` and the
-   * product blocks use: T&T, Lawman, LawSafe - infrastructure before the
+   * product blocks use: TNT, LawMan, LawSafe - infrastructure before the
    * applications built on it. Reordering this list reorders the argument on
    * every page at once, which is why it is one list. About comes last because
    * it is the page a reader reaches for after the products, not before them.
@@ -47,11 +47,11 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "T&T",
+      label: "TNT",
       href: "/tnt",
     },
     {
-      label: "Lawman",
+      label: "LawMan",
       href: "/lawman",
     },
     {

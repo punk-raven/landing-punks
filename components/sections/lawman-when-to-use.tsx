@@ -6,7 +6,7 @@ import { title } from "@/components/primitives";
 const HEADING_ID = "when-to-use-lawman";
 
 /**
- * When to use Lawman, and when not to. Spec §3.3 calls this section "unusual and
+ * When to use LawMan, and when not to. Spec §3.3 calls this section "unusual and
  * valuable" and it is the reason the page is worth building carefully: a company
  * publishing the cases where its own product is the wrong tool is the most
  * persuasive thing on the page.
@@ -16,11 +16,11 @@ const HEADING_ID = "when-to-use-lawman";
  * here. This section supplies a heading and the pair, and nothing else.
  *
  * The `<h2>` names both halves on purpose. The source labels the section "When
- * to use Lawman", and a heading that says only that frames everything under the
+ * to use LawMan", and a heading that says only that frames everything under the
  * second column as a caveat before a reader reaches it.
  *
- * Both column headings are symmetric questions - "When should you use Lawman?"
- * and "When should you not use Lawman?" - and they are questions in
+ * Both column headings are symmetric questions - "When should you use LawMan?"
+ * and "When should you not use LawMan?" - and they are questions in
  * `content/lawman.ts` rather than here. §7.1 requires the second one in that
  * form; the first matches it so the pair reads as peers. Turning either into a
  * statement breaks the requirement and unbalances the columns.

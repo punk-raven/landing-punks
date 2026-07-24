@@ -6,7 +6,7 @@ const HEADING_ID = "honest-confidence";
 
 /**
  * A5. Honest confidence - the section that states the company's whole thesis in
- * T&T's terms, and the reason the API returns more than a transcript.
+ * TNT's terms, and the reason the API returns more than a transcript.
  *
  * The response fields are set in the data face (§5.3). They are deliberately NOT
  * amber: a field that reports confidence is a designed part of the contract, not

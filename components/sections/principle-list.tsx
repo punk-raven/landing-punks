@@ -26,9 +26,7 @@ export const PrincipleList = () => (
       {principles.heading}
     </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {principles.body}
-    </p>
+    <p className={subtitle({ className: "mt-6" })}>{principles.body}</p>
 
     <ol className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2">
       {principles.items.map((principle) => (

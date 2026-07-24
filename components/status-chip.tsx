@@ -3,8 +3,8 @@ import type { VariantProps } from "tailwind-variants";
 import { statusChip } from "@/components/primitives";
 
 /**
- * The three product statuses, spec §2b.6: `Planning` for T&T, `Specified` for
- * Lawman, `In design` for LawSafe. Sentence case, exactly as written there.
+ * The three product statuses, spec §2b.6: `Planning` for TNT, `Specified` for
+ * LawMan, `In design` for LawSafe. Sentence case, exactly as written there.
  */
 export const STATUS_LABELS = {
   planning: "Planning",

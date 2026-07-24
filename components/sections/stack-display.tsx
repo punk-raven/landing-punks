@@ -86,7 +86,7 @@ const Layer = ({
         {/* The separator opens with a non-breaking space, not a JSX `{" "}`
             between the two nodes. Accessible-name computation trims each text
             node before joining them, so an ordinary space between them is
-            dropped and the heading is announced as "T&T- the language layer".
+            dropped and the heading is announced as "TNT- the language layer".
             The nbsp survives the trim because it is inside the node. */}
         <span className="font-body text-base font-normal text-muted">
           {`\u00a0- ${layer.role}`}
@@ -106,8 +106,8 @@ const Layer = ({
  * B3. What we build - the stack display.
  *
  * Spec §5.4 calls this the second most important element on the site, and §2a.2
- * makes its shape a build rule: **two tiers, not three equal layers.** T&T and
- * Lawman are grouped as the infrastructure and carry the vertical weight; a
+ * makes its shape a build rule: **two tiers, not three equal layers.** TNT and
+ * LawMan are grouped as the infrastructure and carry the vertical weight; a
  * visible divider separates them from LawSafe, which sits below as the one
  * application. A reader scanning this for three seconds has to come away with
  * "they build AI infrastructure and shipped something on it", not "they make
@@ -147,7 +147,7 @@ export const StackDisplay = () => {
         {stack.body}
       </p>
 
-      <div className="mt-12 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:gap-14">
+      <div className="mt-12 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] lg:gap-14">
         <div>
           <h3 className={eyebrow()}>{stack.infrastructureLabel}</h3>
 
@@ -184,7 +184,7 @@ export const StackDisplay = () => {
         {/* Rendered rather than hidden below `sm`, so the chunk is not fetched at
           360px. See `useIsAtLeastSm`. */}
         {isAtLeastSm ? (
-          <div aria-hidden="true">
+          <div aria-hidden="true" className="self-center">
             <StackCircuit />
           </div>
         ) : null}

@@ -20,9 +20,7 @@ export const ProblemCards = () => (
       {problem.heading}
     </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {problem.body}
-    </p>
+    <p className={subtitle({ className: "mt-6" })}>{problem.body}</p>
 
     <ul className="mt-12 grid gap-6 md:grid-cols-3">
       {problem.cards.map((card) => (

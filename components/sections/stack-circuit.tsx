@@ -34,10 +34,10 @@ import { CircuitBoard } from "@/components/ui/circuit-board";
  *
  * Two consequences worth knowing before editing:
  *
- * 1. The extreme marks on the x axis are the "Lawman" and "LawSafe" *labels*,
+ * 1. The extreme marks on the x axis are the "LawMan" and "LawSafe" *labels*,
  *    not the nodes. Centring the whole figure therefore costs the node circles
  *    their own symmetry (they sit 53 from the left edge and 57 from the right)
- *    because "LawSafe" is 9 units wider than "Lawman". That is the correct
+ *    because "LawSafe" is 9 units wider than "LawMan". That is the correct
  *    trade - the figure is what gets centred - but it means the numbers look
  *    wrong until you measure them.
  * 2. Because the labels set the horizontal extent, **renaming a product changes
@@ -45,7 +45,7 @@ import { CircuitBoard } from "@/components/ui/circuit-board";
  */
 const StackCircuit = () => (
   <CircuitBoard
-    className="mx-auto max-w-[28rem]"
+    className="mx-auto max-w-[32rem]"
     connections={[
       { from: "tnt", to: "junction", animated: true },
       { from: "lawman", to: "junction", animated: true },
@@ -57,14 +57,14 @@ const StackCircuit = () => (
         id: "tnt",
         x: 76,
         y: 66,
-        label: "T&T",
+        label: "TNT",
         icon: <AudioLines className="size-5" />,
       },
       {
         id: "lawman",
         x: 76,
         y: 194,
-        label: "Lawman",
+        label: "LawMan",
         icon: <ScrollText className="size-5" />,
       },
       { id: "junction", x: 228, y: 130, size: 14 },

@@ -10,8 +10,8 @@ const HEADING_ID = "where-we-are";
  *
  * This is the "we have not built this yet" section that spec §5.2 lists as one of
  * the four places amber is allowed - it arrives here through the status chip in
- * the Stage column, which is the whole point of the chip. Rows are ordered T&T,
- * Lawman, LawSafe (§2a.1).
+ * the Stage column, which is the whole point of the chip. Rows are ordered TNT,
+ * LawMan, LawSafe (§2a.1).
  *
  * A real `<table>`: three projects against three attributes is genuinely
  * tabular, and a screen-reader user gets the row and column headers with it.
@@ -31,9 +31,7 @@ export const StatusTable = () => (
         second `<p>` that rendered it survived the cut, emitting an empty
         paragraph on every load. The cut sentence announced early access and
         must not come back; see the comment in `content/home.ts`. */}
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {whereWeAre.body[0]}
-    </p>
+    <p className={subtitle({ className: "mt-6" })}>{whereWeAre.body[0]}</p>
 
     <div className="mt-10 overflow-x-auto">
       <table className="w-full border-collapse text-left">

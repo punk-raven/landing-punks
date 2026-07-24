@@ -3,14 +3,13 @@ import { AboutStatus } from "@/components/sections/about-status";
 import { Commitments } from "@/components/sections/commitments";
 import { HowWeBuild } from "@/components/sections/how-we-build";
 import { IndigenousDefinitions } from "@/components/sections/indigenous-definitions";
-import { TheName } from "@/components/sections/the-name";
 import { WhatWeAreBuilding } from "@/components/sections/what-we-are-building";
 import { WhyWeExist } from "@/components/sections/why-we-exist";
 import { aboutMeta } from "@/content/about";
 import DefaultLayout from "@/layouts/default";
 
 /**
- * About page - `docs/website-content.md` section 4.2, blocks C1 to C8 in order.
+ * About page - `docs/website-content.md` section 4.2, blocks C1 to C7 in order.
  *
  * A composition file. Every string lives in `content/about.ts` and every piece
  * of markup in `components/sections/`, which is the arrangement the rest of the
@@ -23,14 +22,14 @@ import DefaultLayout from "@/layouts/default";
  * the layers are missing (C2), what building them properly means (C3), how we
  * build (C4), and only then what the products are (C5), with law arriving as the
  * hardest available test rather than as the subject. Within C5 the order is
- * T&T, Lawman, LawSafe: infrastructure before application. Do not reorder these.
+ * TNT, LawMan, LawSafe: infrastructure before application. Do not reorder these.
  *
  * Three rules bind every string on this page, and all three are enforced in
  * `content/about.ts` where the strings are.
  *
  *   Section 2.1 - PunkRaven is a technology company. Law appears only as the
  *     hardest available test of a grounded system, never as what the company is
- *     for. C5 names T&T's non-legal buyers for exactly this reason.
+ *     for. C5 names TNT's non-legal buyers for exactly this reason.
  *
  *   Section 2.3 - no figures. C2 and C4 are written with numbers in the source
  *     copy and are de-numbered; every held figure is gated on a verification
@@ -41,10 +40,12 @@ import DefaultLayout from "@/layouts/default";
  *   Section 2.5 - no sentence over 40 words, no paragraph over 5 sentences.
  *
  * Elevation alternates to segment the page: sunken hero, base C2, sunken C3,
- * base C4, sunken C5, base C6, sunken C7, base C8, with the site footer sunken
- * again beneath it. Each section owns its own elevation, so reordering the list
- * below breaks the rhythm. Every boundary is one OKLCh-L rung, and it is the
- * same rhythm in both themes - a section changes elevation, never polarity.
+ * base C4, sunken C5, base C6, sunken C7, with the site footer sunken again
+ * beneath it. C7 is the closing section and shares the sunken anchor with the
+ * footer, so those two sit as one deliberate region rather than a broken double.
+ * Each section owns its own elevation, so reordering the list below breaks the
+ * rhythm. Every boundary is one OKLCh-L rung, and it is the same rhythm in both
+ * themes - a section changes elevation, never polarity.
  */
 export default function AboutPage() {
   return (
@@ -56,7 +57,6 @@ export default function AboutPage() {
       <WhatWeAreBuilding />
       <Commitments />
       <AboutStatus />
-      <TheName />
     </DefaultLayout>
   );
 }

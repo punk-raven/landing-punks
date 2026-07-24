@@ -35,7 +35,7 @@ export const LawsafePrinciples = () => (
       {lawsafePrinciples.northStar.heading}
     </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
+    <p className={subtitle({ className: "mt-6" })}>
       {lawsafePrinciples.northStar.body}
     </p>
 
@@ -54,11 +54,11 @@ export const LawsafePrinciples = () => (
       {lawsafePrinciples.willNotDo.heading}
     </h3>
 
-    <ul className="mt-6 grid gap-4 md:grid-cols-2">
+    <ul className="mt-6 grid items-stretch gap-4 md:grid-cols-2">
       {lawsafePrinciples.willNotDo.items.map((item) => (
         <li
           key={item}
-          className="rounded-md border border-separator bg-surface p-5 text-surface-foreground"
+          className="h-full rounded-md border border-separator bg-surface p-5 text-surface-foreground"
         >
           <p className={prose({ className: "text-muted" })}>{item}</p>
         </li>

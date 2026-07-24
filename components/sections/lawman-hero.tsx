@@ -8,7 +8,7 @@ import { eyebrow, prose, subtitle, title } from "@/components/primitives";
  * hero and the site footer share. Not a dark band: in light mode this is a light
  * section.
  *
- * THE BOUNDARY LINE BELONGS HERE AND NOT IN THE COMPARISON COLUMNS. Lawman is a
+ * THE BOUNDARY LINE BELONGS HERE AND NOT IN THE COMPARISON COLUMNS. LawMan is a
  * research and drafting instrument, not counsel, and a reader meets that where
  * they meet the product rather than below the fold. The comparison section still
  * carries the one disclaiming sentence that uses the word §2.3 bars; this line
@@ -16,7 +16,7 @@ import { eyebrow, prose, subtitle, title } from "@/components/primitives";
  *
  * The status chip and the line beside it are the page-level status the copy
  * accepts on, and they are the reason the rest of the page can stay in the
- * present indicative. `lawman-summary.md` opens with a note saying Lawman is
+ * present indicative. `lawman-summary.md` opens with a note saying LawMan is
  * fully specified but not yet built and that all the copy below describes the
  * intended product; without that said plainly at the top, the page reads as a
  * description of a working system. The wording matches `/about` C7.

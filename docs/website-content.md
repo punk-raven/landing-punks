@@ -25,7 +25,7 @@ and it wins where a page and a copy doc disagree about what is currently publish
 9. [Content gaps and backlog](#9-content-gaps-and-backlog)
 10. [Governance](#10-governance)
 
-**Open questions carried by this document** (each is also flagged in place): Q1 the T&T
+**Open questions carried by this document** (each is also flagged in place): Q1 the TNT
 dependency, Q2 the verification owner, Q3 the production domain, Q4 the conversion path, Q5
 the Indic script strings, Q6 the technical plan URL. All six are listed in
 [9. Content gaps and backlog](#9-content-gaps-and-backlog).
@@ -33,6 +33,16 @@ the Indic script strings, Q6 the technical plan URL. All six are listed in
 ---
 
 ## 1. Positioning and audience
+
+**Amendment, 2026-07-25 (user request).** The site's "India" framing was dialed back and the
+copy reframed product-first. Rhetorical nationalism - "India should own its intelligence", "rent
+its intelligence", "the layers India keeps importing", "indigenous" as a label, "sovereign by
+construction" - is cut or reframed to the concrete product properties it stood for: self-hosted
+infrastructure that runs inside the customer's own network, speech and translation across the 22
+scheduled Indian languages, and grounded reasoning that states plainly what it cannot verify.
+India stays where it is a fact - the 22 scheduled Indian languages, Indian law, the Bar Council
+of India, Rule 36 - and as one or two grounding mentions, never as a rallying cry. Sections 1, 2
+and 5 reflect the new frame; sections 4, 6 and 7 are updated where they quoted a changed string.
 
 Derived by applying the `product-marketing` framework to `docs/copy/*`. There is no
 `.agents/product-marketing.md` in this repo; one was **not** created, because this task is
@@ -57,8 +67,8 @@ the argument: infrastructure before application, everywhere.
 
 | Layer | Project | What it is | Status |
 |---|---|---|---|
-| Infrastructure | **T&T** | Speech to text and translation across all 22 scheduled Indian languages, self-hosted, behind one API | Planning |
-| Infrastructure | **Lawman** | Grounded, citation-verified reasoning over a body of authoritative material, currently Indian law | Specified |
+| Infrastructure | **TNT** | Speech to text and translation across all 22 scheduled Indian languages, self-hosted, behind one API | Planning |
+| Infrastructure | **LawMan** | Grounded, citation-verified reasoning over a body of authoritative material, currently Indian law | Specified |
 | Application | **LawSafe** | Chat-first legal understanding for any citizen, then a verified advocate | In design |
 
 Source: `punkraven-company-copy.md` A2 for the table; statuses from B6 and C7, and they are
@@ -66,7 +76,7 @@ rendered as status chips in `content/home.ts` `whereWeAre` and `content/about.ts
 
 **Why law came first, and why it is not the identity.** Law is the hardest available test of a
 grounded system: the sources are authoritative, the language is exact, and a fluent invention
-is a liability rather than a rough draft (`punkraven-company-copy.md` B3, C5). Lawman's design
+is a liability rather than a rough draft (`punkraven-company-copy.md` B3, C5). LawMan's design
 separates skill from facts, which makes the domain corpus a parameter rather than a hard-coded
 identity (`lawman-summary.md`, "How it works"; `punkraven-company-copy.md` A2). That makes the
 technology-company claim architectural, not aspirational.
@@ -99,22 +109,22 @@ a law firm (`punkraven-company-copy.md` A4).
 |---|---|---|
 | Indian languages are somebody else's long tail | The largest Indian languages get decent coverage; the other twelve scheduled languages get an apology | `punkraven-company-copy.md` B2 card 1 |
 | Fluent and wrong is the default failure mode | A misheard word is translated confidently into something never said; a fabricated reference arrives correctly formatted; neither surfaces as an error | `punkraven-company-copy.md` B2 card 2 |
-| Rented intelligence is a permanent tax | Per-call pricing to an offshore vendor scales against every product that grows; the weights are never yours; sensitive material leaves the country | `punkraven-company-copy.md` B2 card 3 |
+| A metered offshore API is a cost that never stops | Per-call pricing to an offshore vendor scales against every product that grows; the weights are never yours; sensitive material leaves the country | `punkraven-company-copy.md` B2 card 3 |
 | The seam between recognition and translation is nobody's product | Sold separately, so punctuation, sentence splitting, number formatting and protected terms become the buyer's bug | `tnt-website-copy.md` A2 card 1 |
-| General models do not know current law and cannot say which parts went stale | Knowledge frozen at training time; fabricated authority; cannot be trusted with confidential files; does not know when to stop | `lawman-summary.md`, "Why Lawman is required" |
+| General models do not know current law and cannot say which parts went stale | Knowledge frozen at training time; fabricated authority; cannot be trusted with confidential files; does not know when to stop | `lawman-summary.md`, "Why LawMan is required" |
 
 ### 1.4 The three differentiators, in priority order
 
 1. **Calibrated honesty as an engineering property.** Every PunkRaven system returns what it
-   does not know. T&T scores recognition and translation confidence separately per segment and
-   publishes a quality tier per language. Lawman verifies each citation against source text
+   does not know. TNT scores recognition and translation confidence separately per segment and
+   publishes a quality tier per language. LawMan verifies each citation against source text
    before the answer is shown, and abstains when it cannot. This belief appears identically in
    all three product documents, which makes it the company's thesis rather than any one
    product's feature. (`punkraven-company-copy.md` A3.1)
-2. **Sovereign by construction.** MIT-licensed weights and single-unit deployment mean the
-   systems run inside the customer's boundary. Nothing calls out. Nobody can reprice a per-call
-   licence under you. (`punkraven-company-copy.md` A3.2)
-3. **Built for Indian reality, not adapted to it.** All 22 scheduled languages, not the four
+2. **Runs where your data is allowed to be.** MIT-licensed weights and single-unit deployment
+   mean the systems run inside the customer's boundary. Nothing calls out. Nobody can reprice a
+   per-call licence under you. (`punkraven-company-copy.md` A3.2)
+3. **Built for the language, not translated into it.** All 22 scheduled languages, not the four
    that are easy. Domain structure learned properly rather than a foreign model asked politely
    about it. Scanned documents at the print quality Indian institutions actually produce.
    (`punkraven-company-copy.md` A3.3)
@@ -163,6 +173,15 @@ marketplace, or a legal-tech company (`punkraven-company-copy.md` Part E).
 and ask what industry the company is in. If the answer is "legal", the copy has failed
 regardless of what else passes (`punkraven-site-build-instructions.md` §2a.6).
 
+**Lead with the product; name India where it is a fact.** The copy describes what the systems do
+first. India is the market and the language and legal domain, not a rallying cry. "22 scheduled
+Indian languages", "Indian law", "Bar Council of India" and "Rule 36" are load-bearing facts and
+stay. National-pride framing - "own its intelligence", "rent its intelligence", "the layers India
+keeps importing", "indigenous" as a label, "sovereign by construction" - does not lead, and is
+reframed to the concrete property it stood for: self-hosted, built for the language,
+domain-trained, open weights, honest about what it cannot verify. See the 2026-07-25 amendment in
+[1. Positioning and audience](#1-positioning-and-audience).
+
 ### 2.2 Allowed claims
 
 A claim may be published if it is (a) a structural or architectural property of a designed
@@ -173,7 +192,7 @@ Framing rules that make an allowed claim stay allowed:
 
 | Claim type | Allowed framing | Banned framing |
 |---|---|---|
-| Lawman citation verification, abstention, fail-closed | "is built to", "is designed to", "is trained to" | "does", "has", "reliably", any observed-behaviour phrasing |
+| LawMan citation verification, abstention, fail-closed | "is built to", "is designed to", "is trained to" | "does", "has", "reliably", any observed-behaviour phrasing |
 | Self-hosting, "nothing calls out" | A design property of the architecture | Case-study phrasing, "customers run it inside" |
 | LawSafe advocate verification | A design commitment | Any implication that a verified panel exists today |
 | API request/response shape | "the contract" | "the sandbox", "try it", any implication of a live endpoint |
@@ -204,7 +223,7 @@ Grep this list before publishing any page.
 | Rule | Test |
 |---|---|
 | Company pages (`/`, `/about`) speak as **"we"** | First person plural is correct on `/` and `/about` only |
-| Product pages (`/tnt`, `/lawman`, `/lawsafe`) speak in the **third person, product as subject** | "Lawman retrieves...", "T&T returns...". `lawsafe-page-copy.md` states this conversion explicitly: the vision doc's "we envision an India where" becomes third-person product utility, matching `/lawman`. |
+| Product pages (`/tnt`, `/lawman`, `/lawsafe`) speak in the **third person, product as subject** | "LawMan retrieves...", "TNT returns...". `lawsafe-page-copy.md` states this conversion explicitly: the vision doc's "we envision an India where" becomes third-person product utility, matching `/lawman`. |
 | Second person for the reader's situation, not the company's ambition | "your infrastructure", "the languages your product already has users in" |
 | Sentence case everywhere | All-caps permitted **only** on eyebrows and status chips, set small with wide tracking in the data face (`build instructions` §5.3) |
 | Bold lead-in phrase, then the explanation | The pattern used in B5, C3, C6 and `lawman-summary.md` "How it works" |
@@ -233,14 +252,14 @@ tone, cut it.
 
 ### 2.7 Ordering is an editorial rule, not a layout preference
 
-**T&T, then Lawman, then LawSafe.** In the nav, the homepage blocks, the footer product list,
+**TNT, then LawMan, then LawSafe.** In the nav, the homepage blocks, the footer product list,
 the stack display, the sitemap, and inside `/about` C5. Leading with LawSafe re-categorises the
 company in the reader's head (`punkraven-company-copy.md` Part E; build instructions §2a.1).
 `config/site.ts` `navItems` is the single list that enforces it.
 
 ### 2.8 Two easily-confused names
 
-**Lawman reasons. LawSafe is what a citizen opens.** These two are the pair readers most easily
+**LawMan reasons. LawSafe is what a citizen opens.** These two are the pair readers most easily
 confuse, and the company copy names them as such (`punkraven-company-copy.md` Part E). Any page
 mentioning both must make the distinction in the same sentence or the adjacent one.
 
@@ -255,8 +274,8 @@ render from `config/site.ts` `navItems`, so they can never disagree.
 
 ```
 PunkRaven (/)                              [EXISTS] L0
-├── T&T (/tnt)                             [EXISTS] L1  infrastructure - speech
-├── Lawman (/lawman)                       [EXISTS] L1  infrastructure - reasoning
+├── TNT (/tnt)                             [EXISTS] L1  infrastructure - speech
+├── LawMan (/lawman)                       [EXISTS] L1  infrastructure - reasoning
 ├── LawSafe (/lawsafe)                     [EXISTS] L1  application
 └── About (/about)                         [EXISTS] L1  company
 ```
@@ -293,7 +312,7 @@ Every row below is **proposed**, not built. Nothing in `pages/` corresponds to i
 
 ### 3.3 Navigation specification
 
-**Header** (from `config/site.ts` `navItems`, in this order): Home, T&T, Lawman, LawSafe,
+**Header** (from `config/site.ts` `navItems`, in this order): Home, TNT, LawMan, LawSafe,
 About. Plus the social cluster and the theme toggle. **Proposed:** add Contact as the rightmost
 item once `/contact` exists; it is the only nav item that should ever be visually distinguished
 as an action.
@@ -303,7 +322,7 @@ disclaimer. **Proposed** column grouping once the backlog lands:
 
 | Column | Links |
 |---|---|
-| Infrastructure | T&T, Lawman |
+| Infrastructure | TNT, LawMan |
 | Built on it | LawSafe |
 | Company | About, Careers, Contact |
 | Legal | Privacy, Terms |
@@ -312,7 +331,7 @@ The two-tier grouping in the footer restates the category argument for free, in 
 on every page where a reader scans product names side by side.
 
 **Breadcrumbs.** Not needed at one level. Required if `/languages` lands under `/tnt`, in which
-case: `Home > T&T > Languages`.
+case: `Home > TNT > Languages`.
 
 **Mandatory on every route:** the footer disclaimer, "PunkRaven builds software. It does not
 provide legal services and is not a law firm" (build instructions §2a.4, and it is rendered
@@ -342,23 +361,23 @@ Section-by-section:
 |---|---|---|---|---|---|
 | B1 | Hero | Applied AI infrastructure - built in India | India should not have to rent its intelligence. | Subheadline: the two layers named, plus "we build on it ourselves to prove it works", plus "runs on hardware you control" and "says plainly when it cannot verify". Proof strip, four items, no logos: 22 scheduled languages / MIT-licensed weights, self-hosted / every claim carries its source or is withheld / runs inside your own network. | Secondary only |
 | B2 | The problem | none | Most software built for India was built somewhere else and pointed at India. | Body plus three problem cards: long-tail languages, fluent-and-wrong, rented intelligence as a permanent tax | none |
-| B3 | Stack display | none | Two layers of infrastructure. One application, to prove they work. | **Two tiers, not three equal layers.** Upper group "The infrastructure" carrying T&T and Lawman with more vertical weight; a visible divider; below it "Built on it" carrying LawSafe. Each band: name, layer role, one sentence, status chip. Closes on the supporting line about why law came first. | none |
-| B4 | Product blocks | T&T / Lawman / LawSafe, in that order | Per product | T&T uses `tnt-website-copy.md` Part B **Variant B** verbatim. Lawman uses `lawman-summary.md` Part 2 **Variant A** verbatim. LawSafe uses the block written out in `punkraven-company-copy.md` B4. Never mix variants. | Explore T&T `/tnt`; Learn more `/lawman`; Explore LawSafe `/lawsafe` |
+| B3 | Stack display | none | Two layers of infrastructure. One application, to prove they work. | **Two tiers, not three equal layers.** Upper group "The infrastructure" carrying TNT and LawMan with more vertical weight; a visible divider; below it "Built on it" carrying LawSafe. Each band: name, layer role, one sentence, status chip. Closes on the supporting line about why law came first. | none |
+| B4 | Product blocks | TNT / LawMan / LawSafe, in that order | Per product | TNT uses `tnt-website-copy.md` Part B **Variant B** verbatim. LawMan uses `lawman-summary.md` Part 2 **Variant A** verbatim. LawSafe uses the block written out in `punkraven-company-copy.md` B4. Never mix variants. | Explore TNT `/tnt`; Learn more `/lawman`; Explore LawSafe `/lawsafe` |
 | B5 | How we build | none | The same six rules, in every system we ship. | Six principle blocks: grounded or silent / confidence is part of the contract / runs where your data is allowed to be / built for the language not translated into it / skill in the model, facts in the sources / we say what we have not built yet | none |
-| B6 | Where we are | none | Early, and saying so. | Body plus a three-row status table (T&T Planning, Lawman Specified, LawSafe In design) with what exists today per row. **The source's second sentence, "We are opening early access to teams who...", is cut and must not return while the site has no way to ask.** | none |
+| B6 | Where we are | none | Early, and saying so. | Body plus a three-row status table (TNT Planning, LawMan Specified, LawSafe In design) with what exists today per row. **The source's second sentence, "We are opening early access to teams who...", is cut and must not return while the site has no way to ask.** | none |
 | B7 | Closing CTA | - | **Removed on request.** Restoring it means restoring a destination first. | - | - |
 | B8 | Footer notes | - | **Not built.** Four of the five notes are carried elsewhere; note 5 ("neither is legal advice") is a real, flagged loss on this route only. See [9. Gaps](#9-content-gaps-and-backlog) G4. | - | - |
 
 **Must NOT appear on `/`:** any number that is not a plain structural fact (§2b.5 bars latency,
 cost and accuracy figures from this route entirely); a logo strip; a testimonial; the word
-"legal" describing PunkRaven; any product ahead of the stack display; LawSafe ahead of T&T or
-Lawman; a benchmark; a launch date.
+"legal" describing PunkRaven; any product ahead of the stack display; LawSafe ahead of TNT or
+LawMan; a benchmark; a launch date.
 
 ### 4.2 `/about` - About [EXISTS: `pages/about/index.tsx`]
 
 | Field | Value |
 |---|---|
-| Page goal | Convert a reader who already grasps the category into someone who believes the company is serious. This is where "indigenous" is defined concretely and where the constraints are published. |
+| Page goal | Convert a reader who already grasps the category into someone who believes the company is serious. This is where the build decisions are defined concretely and where the constraints are published. |
 | Target audience | Engineer, partner, funder, and the buyer doing diligence after a product page |
 | Primary intent | Navigational: "about PunkRaven", "who builds PunkRaven" |
 | Secondary intent | Informational: "indigenous AI India", "self-hosted AI infrastructure India" |
@@ -366,19 +385,19 @@ Lawman; a benchmark; a launch date.
 
 | ID | Block | Heading | Notes |
 |---|---|---|---|
-| C1 | Hero | We build the layers India keeps importing. | Eyebrow "About PunkRaven" |
-| C2 | Why we exist | Rented intelligence is not the same as having any. | **De-numbered.** The source opens with 886M internet users and 98 per cent Indic consumption; both are held pending Q2 and replaced with the structural claim they were evidence for. Do not restore the figures without the owner. |
-| C3 | What indigenous means here | Indigenous is a build decision, not a flag on a foreign API. | Five bolded lead-ins: built for the language / domain learned properly / weights open and deployment yours / economics stay here / sovereign by construction, not by assurance. Names BNS, BNSS and BSA as the codes that replaced the colonial-era ones in 2024 - this is the one date on the page and it is a matter of public record. |
+| C1 | Hero | We build the layers underneath. | Eyebrow "About PunkRaven" |
+| C2 | Why we exist | A foreign API comes with someone else's priorities. | **De-numbered.** The source opens with 886M internet users and 98 per cent Indic consumption; both are held pending Q2 and replaced with the structural claim they were evidence for. Do not restore the figures without the owner. |
+| C3 | What we build, concretely | A set of build decisions, not a label. | Five bolded lead-ins: built for the language / domain learned properly / weights open and deployment yours / economics yours to plan / says plainly what it cannot verify. Names BNS, BNSS and BSA as the codes that replaced the colonial-era ones in 2024 - this is the one date on the page and it is a matter of public record. The export key stays `indigenous`; only the values changed. |
 | C4 | How we build | Systems that know what they do not know. | **De-numbered.** Stanford RegLab's *Large Legal Fictions* is still attributed; the 58-88 / 17 / 34 per cent figures and the two commercial product names are cut. Naming a competitor's failure rate without the verified figure behind it is worse than dropping it. |
-| C5 | What we are building | Two layers, and the first thing we built on them. | T&T, Lawman, LawSafe in that order. **T&T's non-legal buyers must be named here** and must not be cut for space: contact centres, consumer apps, government services, media, education. They are the proof the capability is horizontal. |
+| C5 | What we are building | Two layers, and the first thing we built on them. | TNT, LawMan, LawSafe in that order. **TNT's non-legal buyers must be named here** and must not be cut for space: contact centres, consumer apps, government services, media, education. They are the proof the capability is horizontal. |
 | C6 | What we will not do | The constraints define us as much as the features. | Six commitments. The most quotable section on the site; it should be visually distinct. |
-| C7 | Where we are | Pre-launch, and specific about it. | Three status lines with chips, ordered T&T, Lawman, LawSafe |
+| C7 | Where we are | Pre-launch, and specific about it. | Three status lines with chips, ordered TNT, LawMan, LawSafe |
 | C8 | The name | Why PunkRaven | Punk is the refusal; Raven is the disposition. Marked optional in the source; kept, because it humanises an otherwise dry page. First thing to cut if the page runs long. |
 
 **Must NOT appear on `/about`:** figures of any kind; the word "legal" describing the company;
 named competitors; a domain the company has not committed to; NyayaSetu; a customer.
 
-### 4.3 `/tnt` - T&T [EXISTS: `pages/tnt/index.tsx`]
+### 4.3 `/tnt` - TNT [EXISTS: `pages/tnt/index.tsx`]
 
 | Field | Value |
 |---|---|
@@ -394,7 +413,7 @@ named competitors; a domain the company has not committed to; NyayaSetu; a custo
 | A1 | Hero | Audio in. Transcript and translation out. All 22 scheduled Indian languages. | Status chip `Planning` plus a status line. Proof strip is four items; the source's second item, "~1 second for a 30 second clip", is **held** and replaced with "Confidence and quality tier on every response", which is a designed property rather than a measurement. |
 | - | Indic script block | (nine scripts, one sentence) | **Blocked.** Every string is empty until a native reader of that script supplies and checks it (Q5). A mangled script on a page about language coverage is a self-inflicted wound. |
 | A2 | The problem | Indian-language speech is still the hard part | Three cards. Card 3's Rs 90-180 figure is **held**. |
-| A3 | What T&T is | One service. Two engines. One queue. | Recognition card, translation card, seam card, plus the no-text-to-speech callout |
+| A3 | What TNT is | One service. Two engines. One queue. | Recognition card, translation card, seam card, plus the no-text-to-speech callout |
 | A4 | Language coverage | All 22 scheduled languages. No add-on pricing. | Tier A named in full (ten plus the English pivot); Tier B stated as the remaining 12 including Kashmiri, Santali, Manipuri and Bodo. **The tier split must never be flattened into "22 languages supported".** |
 | A5 | Honest confidence | Confidence is part of the contract, not a footnote | The five response fields |
 | A6 | Speed | We will publish latency once we have measured it. | **Rewritten.** All figures held. What survives: latency is one number per lane, the four lanes, the p50/p95/p99 structure, and the source's own closing line. Carries a `Figures held` note. |
@@ -410,7 +429,7 @@ named competitors; a domain the company has not committed to; NyayaSetu; a custo
 audience; "22+"; a flattened tier claim; a live-endpoint implication; a logo strip; a
 "Read the technical plan" button with no URL behind it.
 
-### 4.4 `/lawman` - Lawman [EXISTS: `pages/lawman/index.tsx`]
+### 4.4 `/lawman` - LawMan [EXISTS: `pages/lawman/index.tsx`]
 
 | Field | Value |
 |---|---|
@@ -422,11 +441,11 @@ audience; "22+"; a flattened tier claim; a live-endpoint implication; a logo str
 
 | Block | Heading | Notes |
 |---|---|---|
-| Hero | Indian law, answered with the source attached. | Eyebrow "Lawman". Status chip `Specified` plus a status line. |
-| What is Lawman | (source has no heading; the section defines the entity) | The single constraint: a legal answer is only worth having if you can trace it back to the authority it came from. Everything else follows from it. |
-| Why Lawman is required | (five failure modes) | Invents authority / does not know current law / does not know Indian law specifically / cannot be trusted with your files / does not know when to stop |
+| Hero | Indian law, answered with the source attached. | Eyebrow "LawMan". Status chip `Specified` plus a status line. |
+| What is LawMan | (source has no heading; the section defines the entity) | The single constraint: a legal answer is only worth having if you can trace it back to the authority it came from. Everything else follows from it. |
+| Why LawMan is required | (five failure modes) | Invents authority / does not know current law / does not know Indian law specifically / cannot be trusted with your files / does not know when to stop |
 | How it works | (ten mechanisms) | Grounded never freehand / every reference checked / skill in the model, facts in the sources / step by step and checks its own work / trained to abstain / fails closed / built in Indian languages / reads real legal documents / runs where you decide / a human still signs |
-| When to use Lawman | Two genuine columns | **"Do not use Lawman when" renders at equal visual weight to "Use Lawman when". Do not soften or shorten it.** A company publishing the cases where its product is the wrong tool is the most persuasive thing on the page. The word "advice" appears exactly once on this route, inside the sentence disclaiming it. |
+| When to use LawMan | Two genuine columns | **"Do not use LawMan when" renders at equal visual weight to "Use LawMan when". Do not soften or shorten it.** A company publishing the cases where its product is the wrong tool is the most persuasive thing on the page. The word "advice" appears exactly once on this route, inside the sentence disclaiming it. |
 | Closing | Specified, not shipped. | Authored heading, on the record: the source line was "Get early access - built in India, for Indian law", and the verb went with early access. The remainder is kept as supporting text. An owner may replace the heading; it must not be replaced with anything that reads as shipped. |
 
 **Must NOT appear on `/lawman`:** the word "advice" outside the disclaiming sentence; any
@@ -450,7 +469,7 @@ the site. Source of record is `docs/copy/lawsafe-page-copy.md`, itself adapted f
 
 | Block | Heading | Notes |
 |---|---|---|
-| Hero (vision §1) | Understanding your rights should be as easy as sending a message. | Eyebrow "LawSafe - built on T&T and Lawman" **but see Q1** - that eyebrow asserts a dependency Part D marks unverified. Status chip `In design` plus a status line. Carries a **boundary line**: LawSafe explains and connects; it does not give legal advice, does not represent anyone, and does not decide anything. |
+| Hero (vision §1) | Understanding your rights should be as easy as sending a message. | Eyebrow "LawSafe - built on TNT and LawMan" **but see Q1** - that eyebrow asserts a dependency Part D marks unverified. Status chip `In design` plus a status line. Carries a **boundary line**: LawSafe explains and connects; it does not give legal advice, does not represent anyone, and does not decide anything. |
 | Why LawSafe exists (§2) | India does not have a shortage of law. It has a shortage of access to it. | **Every statistic held.** The argument runs qualitatively: the backlog is the visible symptom, the deeper problem is that most people never reach the courthouse door. Concrete wrongs named: a cheque that bounced, a deposit a landlord will not return, a fraudulent transaction, a denied insurance claim, harassment online. |
 | Who it is for (§3) | Three cards | Citizen / small business, founder and independent professional / the advocate. Card 3 is not decoration: it is the answer to "are you disintermediating lawyers". |
 | What it does (§4) | One promise: grounded understanding first, a verified human when you need one. | Four blocks: the app, the shortlist, what it is built on, scope. **"No panel exists yet - verification is a design commitment, not a live roster" must stay.** Scope is six to eight examples, never the forty-plus list. The answer structure is: what the law says, which provision applies, the realistic options, what to do next. The "likely timelines and costs" clause was cut at review as the closest thing on the page to a promise about outcomes; it does not come back. |
@@ -476,26 +495,40 @@ Three levels. A page may sharpen the level above it. **A page may never contradi
 
 ### 5.1 Level 1 - company
 
-> **India should not have to rent its intelligence.**
+> **Self-hosted AI infrastructure: speech and grounded reasoning.**
 > PunkRaven builds AI infrastructure for Indian languages and high-stakes domains: two layers,
-> and one application built on both to prove they work. Everything runs on hardware you
+> and one application alongside them. Everything runs on hardware you
 > control, and says plainly when it cannot verify what it is about to tell you.
+
+**Amendment, 2026-07-24 (owner ruling).** LawSafe is an entirely separate application, **not**
+built on TNT and LawMan. The Level-1 message above previously read "one application built on
+both to prove they work"; it is reframed to "one application alongside them", and the site copy
+(`content/home.ts` `stack` and the LawSafe product block) is reframed from a dependent stack to
+siblings. The two infrastructure layers are *intended to join the application after its MVP* -
+that is a roadmap claim and **must not appear in site copy**. This ruling resolves
+[10.4](#104-known-source-conflicts) conflict 1.
+
+**Amendment, 2026-07-25 (user request).** The Level-1 headline previously read "India should not
+have to rent its intelligence." It is reframed product-first because the site over-used "India"
+and read as nationalism rather than as product description. The supporting paragraph is unchanged;
+India stays named where it is a fact. Full rationale in the amendment at
+[1. Positioning and audience](#1-positioning-and-audience).
 
 Three supporting pillars, in priority order, each of which every product page must be
 consistent with:
 
-| Pillar | Company statement | How T&T expresses it | How Lawman expresses it | How LawSafe expresses it |
+| Pillar | Company statement | How TNT expresses it | How LawMan expresses it | How LawSafe expresses it |
 |---|---|---|---|---|
 | Calibrated honesty | Grounded, or silent. Confidence is part of the contract. | `asr_confidence`, `mt_confidence`, `quality_tier` per segment; low-confidence spans flagged | Citations verified before display; trained abstention; fails closed | Grounded or silent; every substantive answer carries its legal basis |
-| Sovereign by construction | Runs where your data is allowed to be. | MIT weights, one deployment unit, nothing calls out | Deployable on your own infrastructure; confidential material never leaves | Privacy is not a setting; DPDP Act, 2023 |
+| A deployment you control | Runs where your data is allowed to be. | MIT weights, one deployment unit, nothing calls out | Deployable on your own infrastructure; confidential material never leaves | Privacy is not a setting; DPDP Act, 2023 |
 | Built for Indian reality | Built for the language, not translated into it. | All 22 scheduled languages in single checkpoints, tiers stated | Indian statutory structure, court hierarchy, procedure and drafting convention; reads scanned output | Vernacular-first; English is a barrier, not a bridge |
 
 ### 5.2 Level 2 - product
 
 | Product | One-line message | The single differentiator it owns | What it must not claim |
 |---|---|---|---|
-| **T&T** | Audio in. Transcript and translation out. All 22 scheduled Indian languages. | The seam between recognition and translation, shipped as product rather than left as a tutorial. | Any latency or cost number; a live endpoint; text-to-speech; a flattened language claim |
-| **Lawman** | Indian law, answered with the source attached. | A legal answer is only worth having if you can trace it back to the authority it came from. | Advice; accuracy scores; model or stack names; observed behaviour |
+| **TNT** | Audio in. Transcript and translation out. All 22 scheduled Indian languages. | The seam between recognition and translation, shipped as product rather than left as a tutorial. | Any latency or cost number; a live endpoint; text-to-speech; a flattened language claim |
+| **LawMan** | Indian law, answered with the source attached. | A legal answer is only worth having if you can trace it back to the authority it came from. | Advice; accuracy scores; model or stack names; observed behaviour |
 | **LawSafe** | Understanding your rights should be as easy as sending a message. | Understanding first, transaction second - free at the first mile, in the language the person actually speaks. | Advice; a live advocate panel; any statistic; any outcome, timeline or cost promise |
 
 ### 5.3 Level 3 - page
@@ -507,16 +540,16 @@ Each page inherits its product message and adds only section-level specificity. 
 
 | Risk | The rule that prevents it |
 |---|---|
-| A product page implies the company is a legal business | Two of three products work on law. Law is stated on the company pages only as the hardest available test, never as what the company is for. T&T's non-legal buyers are named on `/about` C5 to prove the capability is horizontal. |
+| A product page implies the company is a legal business | Two of three products work on law. Law is stated on the company pages only as the hardest available test, never as what the company is for. TNT's non-legal buyers are named on `/about` C5 to prove the capability is horizontal. |
 | A page implies something shipped | Status chip on every product block and every product hero, a status line beside it, and a status table on `/` and `/about`. Anything in the present tense about a system is a design property, not a report. |
 | A page promises a domain the company has not committed to | The portability claim is structural only: "the corpus is a parameter". No named second vertical, anywhere. |
 
 **The dependency claim is the one live inconsistency inside the message hierarchy.** B3, B4 and
-the `/lawsafe` eyebrow present the three products as a dependent stack ("LawSafe - built on T&T
-and Lawman"), and `lawsafe-page-copy.md` L4 states it outright. `punkraven-company-copy.md`
+the `/lawsafe` eyebrow present the three products as a dependent stack ("LawSafe - built on TNT
+and LawMan"), and `lawsafe-page-copy.md` L4 states it outright. `punkraven-company-copy.md`
 Part D marks the same claim **"Inference, not stated in any source doc"** and requires
 confirmation, and build instructions §8.1 lists it as an open decision. Until Q1 is resolved,
-treat "built on T&T and Lawman" as **provisional**. If it is false, B3 reframes from a stack to
+treat "built on TNT and LawMan" as **provisional**. If it is false, B3 reframes from a stack to
 a family of related products and the `/lawsafe` eyebrow changes with it.
 
 ---
@@ -546,22 +579,22 @@ to 160.
 |---|---|---|---|
 | `/` | `PunkRaven - applied AI infrastructure, built in India` | 52 | Keep. Current, and correct. |
 | `/about` | `About PunkRaven - why we build our own layers` | 44 | Keep. Current. |
-| `/tnt` | `T&T - speech and translation, 22 scheduled Indian languages` | 58 | **Change.** Current is `T&T - speech to text and translation for all 22 scheduled Indian languages` at 74 chars and truncates. |
-| `/lawman` | `Lawman - Indian law, answered with the source attached` | 53 | Keep. Current. |
+| `/tnt` | `TNT - speech and translation, 22 scheduled Indian languages` | 58 | **Change.** Current is `TNT - speech to text and translation for all 22 scheduled Indian languages` at 74 chars and truncates. |
+| `/lawman` | `LawMan - Indian law, answered with the source attached` | 53 | Keep. Current. |
 | `/lawsafe` | `LawSafe - describe what happened, understand where you stand` | 59 | Keep. Current. |
 | `/contact` *(proposed)* | `Contact PunkRaven - tell us about the workload` | 45 | New |
 | `/languages` *(proposed)* | `All 22 scheduled Indian languages, with the quality tiers stated` | 63 | New. Over by 3; acceptable, the tail is the least load-bearing part. |
-| `/careers` *(proposed)* | `Careers at PunkRaven - build the layers India keeps importing` | 60 | New |
+| `/careers` *(proposed)* | `Careers at PunkRaven - build the layers underneath` | 50 | New |
 
 | Route | Meta description | Chars | Verdict |
 |---|---|---|---|
-| `/` | `PunkRaven builds applied AI infrastructure in India: speech across all 22 scheduled languages, and reasoning that grounds every claim in a real source.` | 150 | **Change.** Current runs 199 chars and truncates. |
-| `/about` | `PunkRaven is a technology company building indigenous AI infrastructure for India. What indigenous means to us, how we build, and what we will not do.` | 148 | Keep. Current. |
+| `/` | `PunkRaven builds self-hosted AI infrastructure: speech across all 22 scheduled Indian languages, and reasoning that grounds every claim in a real source.` | 153 | **Change.** Reframed off the "India" banner per the 2026-07-25 amendment; carried in `config/site.ts`. |
+| `/about` | `PunkRaven is a technology company building self-hosted AI infrastructure for Indian languages and high-stakes domains. How we build, and what we will not do.` | 157 | **Change.** Reframed off "indigenous" per the 2026-07-25 amendment. |
 | `/tnt` | `Self-hosted transcription and translation for all 22 scheduled Indian languages through one API. MIT-licensed weights, no per-call fee. Planning stage.` | 149 | **Change.** Current runs 188 chars. |
-| `/lawman` | `Lawman is an AI system for Indian law. It grounds every claim in a retrieved source, checks the reference before you see it, and abstains when it cannot.` | 151 | **Change.** Current runs 205 chars. |
+| `/lawman` | `LawMan is an AI system for Indian law. It grounds every claim in a retrieved source, checks the reference before you see it, and abstains when it cannot.` | 151 | **Change.** Current runs 205 chars. |
 | `/lawsafe` | `LawSafe lets any Indian describe a legal problem in their own language and understand where they stand, then reach a Bar Council-verified advocate. In design.` | 156 | **Change.** Current runs 214 chars. |
 | `/contact` *(proposed)* | `Tell PunkRaven about the workload: the languages, the volume, and whether the work is live or batch. We will say plainly whether we are useful to you yet.` | 152 | New |
-| `/languages` *(proposed)* | `Every one of the 22 scheduled Indian languages T&T covers, split into production-grade Tier A and the higher-error-rate Tier B, with nothing rounded up.` | 150 | New |
+| `/languages` *(proposed)* | `Every one of the 22 scheduled Indian languages TNT covers, split into production-grade Tier A and the higher-error-rate Tier B, with nothing rounded up.` | 150 | New |
 | `/careers` *(proposed)* | `PunkRaven is pre-launch and building AI infrastructure in India. What we will not do, what we are building, and what the engineering actually looks like.` | 151 | New |
 
 Every description above states the stage or is stage-neutral. None reintroduces a held figure,
@@ -574,14 +607,14 @@ all of them block on Q3.
 
 | Route | H1 | Canonical | Primary keyword | Secondary keywords |
 |---|---|---|---|---|
-| `/` | India should not have to rent its intelligence. | `https://<domain>/` | PunkRaven | applied AI infrastructure India, Indian language AI infrastructure, self-hosted AI India, indigenous AI India |
-| `/about` | We build the layers India keeps importing. | `https://<domain>/about` | About PunkRaven | indigenous AI infrastructure, sovereign AI India, AI that admits uncertainty |
+| `/` | Speech and reasoning, self-hosted. | `https://<domain>/` | PunkRaven | applied AI infrastructure India, Indian language AI infrastructure, self-hosted AI India, indigenous AI India |
+| `/about` | We build the layers underneath. | `https://<domain>/about` | About PunkRaven | indigenous AI infrastructure, sovereign AI India, AI that admits uncertainty |
 | `/tnt` | Audio in. Transcript and translation out. All 22 scheduled Indian languages. | `https://<domain>/tnt` | Indian language speech to text and translation | self-hosted transcription India, 22 scheduled languages ASR, IndicConformer, IndicTrans2, Indic speech API, self-hosted speech translation |
 | `/lawman` | Indian law, answered with the source attached. | `https://<domain>/lawman` | AI for Indian law | citation-verified legal AI, grounded legal research AI, self-hosted legal AI India, AI legal hallucination |
 | `/lawsafe` | Understanding your rights should be as easy as sending a message. | `https://<domain>/lawsafe` | LawSafe | know your legal rights India, Bar Council verified advocate, vernacular legal help India |
 | `/contact` *(proposed)* | Tell us about the workload. | `https://<domain>/contact` | contact PunkRaven | - |
 | `/languages` *(proposed)* | All 22 scheduled Indian languages, and the quality tier of each. | `https://<domain>/languages` | 22 scheduled Indian languages speech recognition | Santali speech to text, Kashmiri ASR, Manipuri transcription, Bodo speech recognition, Indic language coverage |
-| `/careers` *(proposed)* | Build the layers India keeps importing. | `https://<domain>/careers` | PunkRaven careers | AI infrastructure jobs India |
+| `/careers` *(proposed)* | Build the layers underneath. | `https://<domain>/careers` | PunkRaven careers | AI infrastructure jobs India |
 
 **No keyword cannibalisation risk exists today.** The five routes target five disjoint intents.
 The one risk to watch is `/lawman` and `/lawsafe` both drifting toward "legal AI India"; the
@@ -630,12 +663,12 @@ the answer block where a real question exists. Do not convert the H2s.
 |---|---|---|
 | `/` | What is PunkRaven? | B1, immediately under the hero |
 | `/` | What does PunkRaven build? | B3, on the stack display |
-| `/about` | What does "indigenous AI" mean? | C3 |
-| `/tnt` | Which Indian languages does T&T support? | A4 |
-| `/tnt` | How is T&T different from calling Whisper and a translation API? | A11, already question-shaped in the source |
-| `/tnt` | Can T&T run entirely on our own hardware? | A11, already question-shaped |
-| `/lawman` | What is Lawman? | The "What is Lawman" section, already named for it |
-| `/lawman` | When should you not use Lawman? | The comparison section |
+| `/about` | What makes PunkRaven's AI different? | C3 |
+| `/tnt` | Which Indian languages does TNT support? | A4 |
+| `/tnt` | How is TNT different from calling Whisper and a translation API? | A11, already question-shaped in the source |
+| `/tnt` | Can TNT run entirely on our own hardware? | A11, already question-shaped |
+| `/lawman` | What is LawMan? | The "What is LawMan" section, already named for it |
+| `/lawman` | When should you not use LawMan? | The comparison section |
 | `/lawsafe` | What is LawSafe? | Under the hero |
 | `/lawsafe` | Does LawSafe give legal advice? | Adjacent to the boundary line. **The single most important extractable answer on the site.** |
 
@@ -651,17 +684,17 @@ copy, so none of them is a new claim.
 > a real retrieved source. It is pre-launch. Its systems run inside the customer's own network
 > and state plainly what they cannot verify.
 
-**What is T&T?** (48 words)
-> T&T is PunkRaven's self-hosted speech pipeline. It turns Indian-language audio into a clean
+**What is TNT?** (48 words)
+> TNT is PunkRaven's self-hosted speech pipeline. It turns Indian-language audio into a clean
 > transcript and a translation through one API call, across all 22 scheduled Indian languages,
 > using MIT-licensed model weights so nothing leaves the customer's infrastructure. Every
-> segment returns a recognition and a translation confidence score. T&T is at planning stage.
+> segment returns a recognition and a translation confidence score. TNT is at planning stage.
 
-**What is Lawman?** (47 words)
-> Lawman is PunkRaven's reasoning layer, built for Indian law as its first body of authority. It
+**What is LawMan?** (47 words)
+> LawMan is PunkRaven's reasoning layer, built for Indian law as its first body of authority. It
 > retrieves the governing material before answering, attributes each claim to its source,
 > verifies every reference against the source text, and abstains when the sources do not support
-> an answer. Lawman is specified and not yet built.
+> an answer. LawMan is specified and not yet built.
 
 **What is LawSafe?** (50 words)
 > LawSafe is PunkRaven's first application: a chat-first way for any Indian to describe a legal
@@ -673,8 +706,8 @@ copy, so none of them is a new claim.
 > and does not decide anything. Where a matter needs professional judgement, a qualified
 > advocate provides it. PunkRaven builds software and is not a law firm.
 
-**Which Indian languages does T&T support?** (52 words)
-> T&T covers all 22 scheduled Indian languages in single model checkpoints, so complete coverage
+**Which Indian languages does TNT support?** (52 words)
+> TNT covers all 22 scheduled Indian languages in single model checkpoints, so complete coverage
 > costs nothing extra. Coverage is tiered honestly rather than flattened: ten languages plus the
 > English pivot are production grade, and the remaining twelve, including Kashmiri, Santali,
 > Manipuri and Bodo, carry higher error rates. Every response states its tier.
@@ -687,8 +720,8 @@ wherever they appear, and the two easily-confused ones must never be defined in 
 | Entity | Canonical definition | Never |
 |---|---|---|
 | PunkRaven | A technology company building applied AI infrastructure for Indian languages and high-stakes domains, based in India, pre-launch | A legal-tech company |
-| T&T | PunkRaven's speech layer: self-hosted transcription and translation across all 22 scheduled Indian languages behind one API. Planning stage. | A translation vendor |
-| Lawman | PunkRaven's reasoning layer: grounded, citation-verified reasoning over a body of authoritative material, currently Indian law. Specified, not built. | A chatbot; the citizen-facing product |
+| TNT | PunkRaven's speech layer: self-hosted transcription and translation across all 22 scheduled Indian languages behind one API. Planning stage. | A translation vendor |
+| LawMan | PunkRaven's reasoning layer: grounded, citation-verified reasoning over a body of authoritative material, currently Indian law. Specified, not built. | A chatbot; the citizen-facing product |
 | LawSafe | PunkRaven's first application: chat-first legal understanding for a citizen, then a verified advocate. In design. | The reasoning system; a law firm; a live marketplace |
 | 22 scheduled languages | The 22 languages in the Eighth Schedule of the Constitution of India | "22+"; "all Indian languages" |
 
@@ -733,17 +766,17 @@ work on law because law is the hardest available test of a grounded system, not 
 the company's category.
 
 ## Status - read this before summarising anything below
-- T&T: planning stage. A complete technical specification, a costed deployment plan and a
+- TNT: planning stage. A complete technical specification, a costed deployment plan and a
   documented API contract exist. A running service does not.
-- Lawman: fully specified, not yet built.
+- LawMan: fully specified, not yet built.
 - LawSafe: in design. What exists is the product vision and its scope.
 - There are no customers, no benchmarks, and no published performance or cost figures.
 
 ## Infrastructure
-- [T&T](/tnt): self-hosted transcription and translation for all 22 scheduled Indian
+- [TNT](/tnt): self-hosted transcription and translation for all 22 scheduled Indian
   languages behind one API. MIT-licensed weights. Coverage is tiered: ten languages plus the
   English pivot are production grade, the remaining twelve carry higher error rates.
-- [Lawman](/lawman): grounded, citation-verified reasoning over a body of authoritative
+- [LawMan](/lawman): grounded, citation-verified reasoning over a body of authoritative
   material, currently Indian law. Retrieves before answering, verifies every reference against
   the source text, and abstains when the sources do not support an answer. A research and
   drafting instrument, not legal advice.
@@ -753,7 +786,7 @@ the company's category.
   Council-verified advocate. Explains and connects; does not advise, represent or decide.
 
 ## Company
-- [About](/about): what indigenous means here, how we build, and what we will not do.
+- [About](/about): what makes PunkRaven's systems different, how we build, and what we will not do.
 ```
 
 Two notes on the file. It **must** carry the status block, and the status block **must** sit
@@ -783,9 +816,9 @@ wrong here:
 
 | Source | Target | Anchor text | Type | Status |
 |---|---|---|---|---|
-| All 5 routes | All 5 routes | Home, T&T, Lawman, LawSafe, About | Header nav | Exists |
-| All 5 routes | All 5 routes | Home, T&T, Lawman, LawSafe, About | Footer nav | Exists |
-| `/` B4 | `/tnt` | Explore T&T | Contextual | Exists |
+| All 5 routes | All 5 routes | Home, TNT, LawMan, LawSafe, About | Header nav | Exists |
+| All 5 routes | All 5 routes | Home, TNT, LawMan, LawSafe, About | Footer nav | Exists |
+| `/` B4 | `/tnt` | Explore TNT | Contextual | Exists |
 | `/` B4 | `/lawman` | Learn more | Contextual | Exists |
 | `/` B4 | `/lawsafe` | Explore LawSafe | Contextual | Exists |
 | `/` B1 | `#what-we-build` | See what we are building | In-page | Exists |
@@ -802,21 +835,21 @@ Anchor text is descriptive in every row. No "click here", no "read more".
 
 | Source | Target | Anchor text | Placement | Depends on |
 |---|---|---|---|---|
-| `/` B4 Lawman block | `/lawman` | Explore Lawman | Replaces "Learn more", which is a weak anchor and the only one of the three that does not name its target | - |
-| `/about` C5 | `/tnt` | the language layer | Inside the T&T paragraph | - |
-| `/about` C5 | `/lawman` | the reasoning layer | Inside the Lawman paragraph | - |
+| `/` B4 LawMan block | `/lawman` | Explore LawMan | Replaces "Learn more", which is a weak anchor and the only one of the three that does not name its target | - |
+| `/about` C5 | `/tnt` | the language layer | Inside the TNT paragraph | - |
+| `/about` C5 | `/lawman` | the reasoning layer | Inside the LawMan paragraph | - |
 | `/about` C5 | `/lawsafe` | the first application | Inside the LawSafe paragraph | - |
 | `/about` C7 | `/contact` | Tell us what you are working on | Closing | Q4 |
 | `/tnt` A4 | `/languages` | the full language list, tier by tier | End of the coverage section | `/languages` shipping |
 | `/tnt` A12 | `/contact` | Tell us about the workload | Closing, primary | Q4 |
-| `/lawman` "What is Lawman" | `/about` | how PunkRaven builds | Inside the paragraph about the single constraint | - |
+| `/lawman` "What is LawMan" | `/about` | how PunkRaven builds | Inside the paragraph about the single constraint | - |
 | `/lawman` "Built in Indian languages" | `/tnt` | the speech layer underneath it | Inline | **Q1** - this asserts the dependency |
 | `/lawman` closing | `/contact` | Tell us about the corpus | Closing, primary | Q4 |
-| `/lawsafe` "What it is built on" | `/tnt` | T&T | Inline, already named in the copy | **Q1** |
-| `/lawsafe` "What it is built on" | `/lawman` | Lawman | Inline, already named in the copy | **Q1** |
+| `/lawsafe` "What it is built on" | `/tnt` | TNT | Inline, already named in the copy | **Q1** |
+| `/lawsafe` "What it is built on" | `/lawman` | LawMan | Inline, already named in the copy | **Q1** |
 | `/lawsafe` closing | `/contact` | Tell us what you are building | Closing | Q4 |
 | `/contact` | `/tnt`, `/lawman`, `/lawsafe` | the three project names | Form context or body | Q4 |
-| `/languages` | `/tnt` | how T&T handles the seam | Body | `/languages` shipping |
+| `/languages` | `/tnt` | how TNT handles the seam | Body | `/languages` shipping |
 | `/careers` | `/about` | what we will not do | Body, linking C6 specifically | `/careers` shipping |
 | `/notes/<slug>` | The relevant product page | Product name, in context | Every entry | `/notes` shipping |
 
@@ -844,10 +877,10 @@ anything shipped or that this is a law firm.
 | # | Gap | Why it matters | Intent served | Blocked by |
 |---|---|---|---|---|
 | **G1** | **No conversion action anywhere on the site.** Five routes, zero CTAs. Every page ends on prose asking the reader to get in touch, with nothing to click. `/tnt` A12 says "we would like to hear about the workload"; `/about` C7 says "we would like to talk". Neither is actionable. | The site can persuade and cannot capture. Every other item on this list is downstream of it. | Transactional | Q4. A decision, not a build: early access was withdrawn deliberately, and the fix must not reintroduce it. `engineering@punkraven.com` already exists in `config/site.ts` and is currently exposed only as an unlabelled icon. |
-| **G2** | **No verification owner for any figure.** Every latency, cost, accuracy, population and market figure on the site is held. `/tnt` A6 and A7 exist as arguments with the numbers removed. | A reader evaluating T&T for a latency-sensitive workload leaves without the number they came for. The `ai-seo` skill ranks statistics as the second-highest citation lever (+37 per cent) and this site cannot use it. | Commercial investigation | Q2. Naming an owner is the whole task; the copy is already written and held. |
+| **G2** | **No verification owner for any figure.** Every latency, cost, accuracy, population and market figure on the site is held. `/tnt` A6 and A7 exist as arguments with the numbers removed. | A reader evaluating TNT for a latency-sensitive workload leaves without the number they came for. The `ai-seo` skill ranks statistics as the second-highest citation lever (+37 per cent) and this site cannot use it. | Commercial investigation | Q2. Naming an owner is the whole task; the copy is already written and held. |
 | **G3** | **No `robots.txt`, no `sitemap.xml`, no canonical tags, no JSON-LD.** | Nothing about the site is discoverable or machine-legible beyond raw HTML. The AI-crawler allowlist in particular is a prerequisite for citation, not an optimisation. | All | Q3 for canonicals and the sitemap. `robots.txt` and JSON-LD are unblocked and can ship today. |
-| **G4** | **`/` no longer states that Lawman and LawSafe are research and drafting instruments rather than advice.** B8 was dropped, and that note was the one thing in it not carried elsewhere. The footer disclaimer is a *company-level* claim and is not the same statement. | The homepage is the most-linked route and the one most likely to be summarised in isolation. `/about` C6, `/lawman` and `/tnt` A13 still carry the product-level statement, so the site as a whole is covered; the homepage on its own is not. | Trust / compliance | Nothing. The fix is one sentence appended to the footer disclaimer, which restores it on all five routes at once. It changes a spec-mandated disclosure on four pages, so it needs a decision rather than an edit. |
-| **G5** | **`/lawsafe` publishes an unverified dependency claim.** "Built on T&T and Lawman" appears in the hero eyebrow, in `/` B4, and in `lawsafe-page-copy.md` L4, while `punkraven-company-copy.md` Part D marks the same claim an inference. | It is the load-bearing claim of the entire stack narrative. If false, `/` B3 reframes from a stack to a family. | Positioning | Q1. A question for the team, not research. |
+| **G4** | **`/` no longer states that LawMan and LawSafe are research and drafting instruments rather than advice.** B8 was dropped, and that note was the one thing in it not carried elsewhere. The footer disclaimer is a *company-level* claim and is not the same statement. | The homepage is the most-linked route and the one most likely to be summarised in isolation. `/about` C6, `/lawman` and `/tnt` A13 still carry the product-level statement, so the site as a whole is covered; the homepage on its own is not. | Trust / compliance | Nothing. The fix is one sentence appended to the footer disclaimer, which restores it on all five routes at once. It changes a spec-mandated disclosure on four pages, so it needs a decision rather than an edit. |
+| **G5** | **`/lawsafe` publishes an unverified dependency claim.** "Built on TNT and LawMan" appears in the hero eyebrow, in `/` B4, and in `lawsafe-page-copy.md` L4, while `punkraven-company-copy.md` Part D marks the same claim an inference. | It is the load-bearing claim of the entire stack narrative. If false, `/` B3 reframes from a stack to a family. | Positioning | Q1. A question for the team, not research. |
 | **G6** | **The Indic script block on `/tnt` is empty.** Nine scripts, nine empty strings, blocked until a native reader of each supplies and checks the sentence. | It is the one element on the site that *demonstrates* the central claim rather than asserting it, and the spec calls it the deliberate risk worth taking. | Proof | Q5. Nine native readers, one sentence each. |
 | **G7** | **No `/languages` page.** The 22 scheduled languages are named once, inside `/tnt` A4, on a long page. | The highest-intent informational asset the company owns, and the one topic where its honesty policy is a *ranking* advantage: nobody else publishes a tier split. Directly serves long-tail queries for the twelve languages the market rounds down. | Informational, awareness | Nothing. All content exists in `tnt-website-copy.md` A4. |
 | **G8** | **No `/contact` page.** See G1. | Also the only place a `mailto:` belongs as content rather than as an icon. | Transactional | Q4 |
@@ -879,12 +912,12 @@ expression of the category gate.
 
 | ID | Question | Owner | Blocks |
 |---|---|---|---|
-| **Q1** | Does T&T actually power LawSafe's voice and multilingual support? Presented as a dependent stack in `/` B3 and B4 and in the `/lawsafe` eyebrow; marked "Inference, not stated in any source doc" in `punkraven-company-copy.md` Part D; listed as open decision 1 in build instructions §8. | Team | G5, the `/lawsafe` linking rows, `/` B3 framing |
+| **Q1** | Does TNT actually power LawSafe's voice and multilingual support? Presented as a dependent stack in `/` B3 and B4 and in the `/lawsafe` eyebrow; marked "Inference, not stated in any source doc" in `punkraven-company-copy.md` Part D; listed as open decision 1 in build instructions §8. | Team | G5, the `/lawsafe` linking rows, `/` B3 framing |
 | **Q2** | Who owns re-verifying the held figures? No owner has been named, and the hold has propagated to every route. | Team | G2, `/tnt` A6 and A7, `/about` C2 and C4, any statistic anywhere |
 | **Q3** | What is the production domain? `punkraven.com` is **inferred** from `engineering@punkraven.com` and is an assumption. | Team | Canonicals, `og:url`, `sitemap.xml`, absolute URLs in `llms.txt` |
 | **Q4** | What is the conversion path, now that early access is withdrawn? A labelled email link, a form, or deliberately nothing. | Team | G1, G8, every proposed CTA in this document |
 | **Q5** | Who supplies and checks the nine Indic script strings for the `/tnt` hero? | Team | G6 |
-| **Q6** | Is there a public URL for the T&T planning document set? A13 asserts the documents are public. | Team | G14, `/tnt` secondary CTA |
+| **Q6** | Is there a public URL for the TNT planning document set? A13 asserts the documents are public. | Team | G14, `/tnt` secondary CTA |
 
 ---
 
@@ -932,13 +965,13 @@ between a source document and the built site.
 
 | # | Conflict | Resolution |
 |---|---|---|
-| 1 | `lawsafe-page-copy.md` L1 and L4 state that LawSafe is built on T&T and Lawman as fact. `punkraven-company-copy.md` Part D marks the same claim "Inference, not stated in any source doc" and requires confirmation. `punkraven-company-copy.md` B4 itself asserts it in the LawSafe eyebrow while Part D of the same file flags it. | **Unresolved.** Q1. Treat as provisional; see [5.4](#54-how-the-levels-nest-and-the-three-places-they-could-contradict-each-other). |
+| 1 | `lawsafe-page-copy.md` L1 and L4 state that LawSafe is built on TNT and LawMan as fact. `punkraven-company-copy.md` Part D marks the same claim "Inference, not stated in any source doc" and requires confirmation. `punkraven-company-copy.md` B4 itself asserts it in the LawSafe eyebrow while Part D of the same file flags it. | **Resolved by owner ruling, 2026-07-24.** LawSafe is an entirely separate application, NOT built on TNT and LawMan. `content/home.ts` and [5.1](#51-level-1---company) are reframed to siblings ("one application alongside them"). The two layers are intended to join the application after MVP, which is a roadmap claim that must NOT appear in site copy. Q1 is closed. |
 | 2 | Build instructions §2b.7 makes "Request early access" the only permitted primary CTA and §7 checklists it on every page. The repo withdrew early access site-wide at Phase 7 and now has no primary CTA anywhere. | **Repo wins.** The deviation is recorded in `config/site.ts` and `pages/index.tsx`. Q4 governs what replaces it. |
-| 3 | `tnt-website-copy.md` A0 gives the URL slug as "`/` or `/tnt`". Build instructions §4.2 fixes five routes with T&T at `/tnt`. | **Build instructions win.** `/tnt` is the route. |
+| 3 | `tnt-website-copy.md` A0 gives the URL slug as "`/` or `/tnt`". Build instructions §4.2 fixes five routes with TNT at `/tnt`. | **Build instructions win.** `/tnt` is the route. |
 | 4 | `tnt-website-copy.md` A13 asserts "the complete planning document set is public", while A0 and A12's secondary CTA "Read the technical plan" has no URL in any source document. | **Unresolved.** Q6. The button is not rendered; the note is kept verbatim because it is mandatory. |
 | 5 | Build instructions §3.4 asks for LawSafe's §2 statistics "with years attached" and Phase 6's gate reads "every statistic carries a year". `lawsafe-page-copy.md` holds every figure instead, satisfying the gate vacuously. | **Hold wins**, consistent with `/tnt` and `/about`. Recorded in `lawsafe-page-copy.md` decision 1. Revisit under Q2. |
 | 6 | `lawsafe-product-vision.md` §3 names company incorporation, IP registration and MCA compliance as served needs. `punkraven-company-copy.md` Part E says do not name domains the company has not committed to. | **Left standing.** They are service categories rather than committed verticals, so §2a.5 is not engaged. Flagged in `lawsafe-page-copy.md` as worth a second look. |
-| 7 | `lawman-summary.md` says Lawman works "in Indian languages, by voice or text", which implies a speech capability that T&T also claims. | **Not a contradiction, but a wording risk.** Neither page should imply two independent speech stacks. Resolves with Q1. |
+| 7 | `lawman-summary.md` says LawMan works "in Indian languages, by voice or text", which implies a speech capability that TNT also claims. | **Not a contradiction, but a wording risk.** Neither page should imply two independent speech stacks. Resolves with Q1. |
 | 8 | Build instructions §5.1 specifies a palette, an alternating light/dark band system and no dark-mode toggle. The build has a toggle, a uniform theme, and re-derived tokens. | **Already resolved in place.** The SUPERSEDED block in §5.1 records it. Content is unaffected. |
 | 9 | `punkraven-company-copy.md` B0 lists "Request early access" as the homepage primary CTA and B7 carries a full closing CTA band. Neither exists. | **Repo wins.** B7 was removed on request; see `pages/index.tsx`. |
 | 10 | `lawsafe-product-vision.md` §6.6 states in the present tense that every lawyer on the platform is Bar Council-verified. There is no platform. | **Resolved in the adaptation.** `lawsafe-page-copy.md` L4 adds "No panel exists yet - verification is a design commitment, not a live roster", and that sentence is load-bearing. |
@@ -955,6 +988,6 @@ Run before any copy change ships.
 - [ ] The word "advice" appears only inside sentences that disclaim it
 - [ ] Every product block and product hero shows a status chip
 - [ ] No figure appears that is not traceable to a source document **and** cleared by a named verification owner
-- [ ] Nav, homepage blocks, footer product list and any sitemap all order T&T, then Lawman, then LawSafe
+- [ ] Nav, homepage blocks, footer product list and any sitemap all order TNT, then LawMan, then LawSafe
 - [ ] The footer disclaimer renders on every route
 - [ ] The cold-read test passes on `/` and `/about`

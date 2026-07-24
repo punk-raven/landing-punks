@@ -1,3 +1,4 @@
+import { Heart } from "lucide-react";
 import NextLink from "next/link";
 
 import { siteConfig } from "@/config/site";
@@ -26,10 +27,10 @@ import { Logo } from "@/components/icons";
  * never `--separator`, a decorative hairline at about 1.5:1 that would leave
  * the two regions merged.
  *
- * The disclaimer is not optional decoration: spec §2a.4 makes it mandatory on
- * every page, because a software company that builds tools sits in a different
- * regulatory position from a firm providing legal services. Do not move it
- * behind a link, and do not drop it from a page.
+ * The §2a.4 legal-services disclaimer no longer lives here. By owner decision it
+ * was moved into the homepage hero (`components/sections/hero.tsx`) and now
+ * appears on `/` only, not on every route. This footer keeps just the copyright
+ * and credit line. Restore the disclaimer here if that decision is reversed.
  */
 export const SiteFooter = () => (
   <Section
@@ -38,11 +39,11 @@ export const SiteFooter = () => (
     elevation="sunken"
     spacing="sm"
   >
-    <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
-      <div className="flex items-center gap-2">
-        <Logo aria-hidden="true" size={24} />
+    <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex items-center gap-2.5">
+        <Logo aria-hidden="true" size={40} />
         {/* Uppercase as CSS, not as content - see the note in the navbar. */}
-        <span className="font-display text-sm font-semibold uppercase tracking-tight">
+        <span className="font-display text-lg font-semibold uppercase tracking-tight">
           {siteConfig.name}
         </span>
       </div>
@@ -90,9 +91,22 @@ export const SiteFooter = () => (
 
     <hr className="my-8 border-0 border-t border-separator" />
 
-    <p className="max-w-measure font-body text-sm leading-relaxed text-muted">
-      {siteConfig.name} builds software. It does not provide legal services and
-      is not a law firm.
-    </p>
+    <div className="font-body text-muted">
+      {/* Year is stamped at build time by `new Date().getFullYear()`; this page
+          is statically prerendered. The heart uses `text-foreground`, which is
+          near-black in light and near-white in dark, so it flips theme at
+          `:root` with no per-variant override. It is aria-hidden, so a reader
+          gets "Made with by Punks at PunkRaven". */}
+      <p className="text-center text-xs leading-relaxed">
+        Copyright {new Date().getFullYear()}. All Rights Reserved. Made with{" "}
+        <Heart
+          aria-hidden="true"
+          className="inline-block align-[-2px] text-foreground"
+          fill="currentColor"
+          size={14}
+        />{" "}
+        by Punks at {siteConfig.name}.
+      </p>
+    </div>
   </Section>
 );

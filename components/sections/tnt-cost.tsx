@@ -1,13 +1,6 @@
 import { tntCost } from "@/content/tnt";
-import { EstimateNote } from "@/components/estimate-note";
 import { Section } from "@/components/section";
-import {
-  eyebrow,
-  prose,
-  sectionRule,
-  subtitle,
-  title,
-} from "@/components/primitives";
+import { eyebrow, prose, subtitle, title } from "@/components/primitives";
 
 const HEADING_ID = "cost";
 
@@ -30,7 +23,7 @@ const HEADING_ID = "cost";
  * than in a footnote - it is the only reason the audio column is arithmetic
  * rather than a claim.
  *
- * Base elevation, shared with A6 above - see the note there.
+ * Base elevation, one rung below the sunken deployment section above it.
  */
 export const TntCost = () => (
   <Section
@@ -38,11 +31,6 @@ export const TntCost = () => (
     id={HEADING_ID}
     labelledBy={`${HEADING_ID}-heading`}
   >
-    {/* A6 and A7 share an elevation, so the boundary between them is drawn
-        rather than stepped. This is the one hairline on the page that separates
-        two sections instead of two things inside one. */}
-    <hr className={sectionRule({ className: "mb-12" })} />
-
     <h2
       className={title({ className: "max-w-[26ch]", size: "lg" })}
       id={`${HEADING_ID}-heading`}
@@ -50,12 +38,8 @@ export const TntCost = () => (
       {tntCost.heading}
     </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {tntCost.body[0]}
-    </p>
-    <p className={prose({ className: "mt-4 max-w-measure text-muted" })}>
-      {tntCost.body[1]}
-    </p>
+    <p className={subtitle({ className: "mt-6" })}>{tntCost.body[0]}</p>
+    <p className={prose({ className: "mt-4 text-muted" })}>{tntCost.body[1]}</p>
 
     <h3 className={eyebrow({ className: "mt-12" })}>{tntCost.regimesLabel}</h3>
 
@@ -126,10 +110,8 @@ export const TntCost = () => (
       </table>
     </div>
 
-    <p className="mt-5 max-w-measure font-body text-sm leading-relaxed text-muted">
+    <p className="mt-5 font-body text-sm leading-relaxed text-muted">
       {tntCost.scaleAssumption}
     </p>
-
-    <EstimateNote className="mt-10" note={tntCost.estimate} />
   </Section>
 );

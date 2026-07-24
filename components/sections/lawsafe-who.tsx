@@ -32,9 +32,12 @@ export const LawsafeWho = () => (
       {whoItIsFor.heading}
     </h2>
 
-    <dl className="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-3">
+    <dl className="mt-10 grid items-stretch gap-x-10 gap-y-8 md:grid-cols-3">
       {whoItIsFor.items.map((item) => (
-        <div key={item.segment} className="border-t border-separator pt-5">
+        <div
+          key={item.segment}
+          className="h-full border-t border-separator pt-5"
+        >
           <dt className={title({ size: "sm" })}>{item.segment}</dt>
           <dd className={prose({ className: "mt-3 text-muted" })}>
             {item.body}

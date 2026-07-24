@@ -71,9 +71,7 @@ export const AboutStatus = () => (
     {/* The one conversion action on the site. It is a `mailto:`, not a link to
         a `/contact` route: that route is proposed and not built, and the
         alternatives were linking a 404 or reintroducing the withdrawn early
-        access. The micro-copy below says what the click does, because a button
-        that opens a mail client without warning is a worse surprise than a
-        plainer label would have been. */}
+        access. */}
     <div className="mt-8">
       <ButtonLink
         href={`mailto:${siteConfig.links.email}`}
@@ -83,9 +81,5 @@ export const AboutStatus = () => (
         {whereWeAre.ctaLabel}
       </ButtonLink>
     </div>
-
-    <p className="mt-4 max-w-measure font-body text-sm leading-relaxed text-muted">
-      {whereWeAre.ctaNote(siteConfig.links.email)}
-    </p>
   </Section>
 );

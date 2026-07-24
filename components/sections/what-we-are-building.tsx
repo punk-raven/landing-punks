@@ -43,13 +43,13 @@ const Block = ({
           "rounded-md border border-border px-5 py-5 sm:px-7 sm:py-6"
     }
   >
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
       <h4 className={title({ size: "sm" })}>
         {block.name}
         {/* The separator opens with a non-breaking space, not a JSX `{" "}`
             between the two nodes. Accessible-name computation trims each text
             node before joining them, so an ordinary space is dropped and the
-            heading is announced as "T&Tthe language layer". */}
+            heading is announced as "TNTthe language layer". */}
         <span className="font-body text-base font-normal text-muted">
           {"\u00a0- "}
           <NextLink className={INLINE_LINK} href={block.href}>
@@ -76,14 +76,14 @@ const Block = ({
 /**
  * C5. What we are building.
  *
- * Two tiers, not three equal blocks, and the shape is the argument. T&T and
- * Lawman are grouped as the infrastructure and carry the visual weight; a
+ * Two tiers, not three equal blocks, and the shape is the argument. TNT and
+ * LawMan are grouped as the infrastructure and carry the visual weight; a
  * visible divider separates them from LawSafe, which sits below as the one
- * application. Ordered T&T, then Lawman, then LawSafe. Leading with LawSafe, or
+ * application. Ordered TNT, then LawMan, then LawSafe. Leading with LawSafe, or
  * flattening the three into equal cards, re-categorises the company in the
  * reader's head as legal software - which is the exact failure Part E names.
  *
- * T&T's block names the non-legal buyers - contact centres, consumer apps,
+ * TNT's block names the non-legal buyers - contact centres, consumer apps,
  * government services, media, education. Part D lists that sentence as one of
  * the mitigations against the legal-tech reading, and this page is where it does
  * the most work: it is the proof, on the company page, that the language layer
@@ -103,9 +103,7 @@ export const WhatWeAreBuilding = () => (
       {whatWeAreBuilding.heading}
     </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {whatWeAreBuilding.body}
-    </p>
+    <p className={subtitle({ className: "mt-6" })}>{whatWeAreBuilding.body}</p>
 
     <div className="mt-12">
       <h3 className={eyebrow()}>{whatWeAreBuilding.infrastructureLabel}</h3>

@@ -21,9 +21,7 @@ export const TntProblem = () => (
       {tntProblem.heading}
     </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {tntProblem.body}
-    </p>
+    <p className={subtitle({ className: "mt-6" })}>{tntProblem.body}</p>
 
     <ul className="mt-12 grid gap-6 md:grid-cols-3">
       {tntProblem.cards.map((card) => (
