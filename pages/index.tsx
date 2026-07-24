@@ -18,8 +18,10 @@ import DefaultLayout from "@/layouts/default";
  * early access" button, which resolved against the `#early-access` id B7
  * carried. `git log` for this file is the way back.
  *
- * `/` therefore has no primary CTA and no `#early-access` target. `/tnt`,
- * `/lawman` and `/about` each still carry their own and are unchanged.
+ * Phase 7 then withdrew early access across the whole site, so `/tnt`,
+ * `/lawman`, `/lawsafe` and `/about` lost their buttons too and the site now
+ * has no primary CTA anywhere. B6's "we are opening early access" sentence was
+ * cut in the same pass; see the note where it used to live in `content/home.ts`.
  *
  * B8 (footer notes) is deliberately not built. The spec lists the homepage as
  * "B1 through B8", but unlike `/tnt`'s A13 - which §3.3 calls mandatory, not

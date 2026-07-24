@@ -10,17 +10,21 @@ import { Logo } from "@/components/icons";
  * CTA - one rung below the page default, in whichever theme is active.
  *
  * The top edge is `--border`, not `--separator`, and it is structural rather
- * than decorative. `/tnt`, `/lawman` and `/about` each end on a sunken CTA, so
- * the footer meets a section at its own elevation with no rung between them;
- * the rule is the only thing dividing the two regions. `globals.css` states the
- * rule for exactly this case - where a boundary is the sole definition of a
- * region, use `--border` (3.09:1 or better on every rung) and never
- * `--separator`, which is a decorative hairline at about 1.5:1 and would leave
- * the two regions merged.
+ * than decorative, and it is currently redundant on every route. All five now
+ * end on `base` - `/` on the status table, `/about` on the name, `/tnt` on its
+ * notes, `/lawman` and `/lawsafe` on their closing sections - so the ΔL 0.048
+ * step to the sunken footer already divides the two regions on its own.
  *
- * On the pages that end on `base` - the homepage since its closing CTA was
- * removed - it is redundant with the elevation step, and harmless. Do not
- * downgrade it to `--separator` on the strength of those pages.
+ * KEEP IT ANYWAY, AND DO NOT DOWNGRADE IT TO `--separator` ON THAT EVIDENCE.
+ * The footer is the one component whose top edge is not guaranteed by the page
+ * above it: any page that ends on a sunken section puts the footer against its
+ * own elevation with no rung between them, and then the rule is the only thing
+ * dividing them. That was the homepage's shape until its closing CTA band was
+ * removed, and it is one section away from being true again. `globals.css`
+ * states the rule for exactly this case - where a boundary is the sole
+ * definition of a region, use `--border` (3.09:1 or better on every rung) and
+ * never `--separator`, a decorative hairline at about 1.5:1 that would leave
+ * the two regions merged.
  *
  * The disclaimer is not optional decoration: spec §2a.4 makes it mandatory on
  * every page, because a software company that builds tools sits in a different
@@ -44,9 +48,19 @@ export const SiteFooter = () => (
       </div>
 
       {/* The page links and the social cluster are separate rows, and the
-          social one is not inside the <nav>: it is the same four accounts the
-          header carries, not site navigation, and folding icon links into a
-          "Footer" landmark makes that list read as four more pages.
+          social one is not inside the <nav>.
+
+          THIS DELIBERATELY DIFFERS FROM THE HEADER, where the same `SocialLinks`
+          component does sit inside `<nav aria-label="Main">`. The rule is not
+          "icon links never go in a nav landmark" - it is that the site should
+          expose its navigation ONCE. The header's nav is that one exposure and
+          carries the whole bar, controls included, which is why its disclosure
+          menu is inside it too. This footer row is a duplicate of the header's
+          cluster, so putting it in a second "Footer" landmark would have a
+          screen reader enumerate the same four accounts again as though they
+          were four more pages. The `<nav aria-label="Footer">` above is worth
+          keeping because the page links it holds are a genuine second route to
+          the five routes; the icons are not.
 
           `sm:items-end` right-aligns both rows against the wordmark opposite.
           The icon row is nudged by its own padding, hence the -mr-3: the 44px

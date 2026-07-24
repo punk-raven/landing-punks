@@ -18,8 +18,8 @@ gotchas** - not a restatement of either.
 | 3 - About `/about` | Done, committed. |
 | 4 - T&T `/tnt` | Done, committed. **Cannot fully close** - §5.5 needs the nine Indic strings. |
 | 5 - Lawman `/lawman` | Done, committed. |
-| 6 - LawSafe `/lawsafe` | Done, **uncommitted**. Adapted per §3.4; draft reviewed before build. |
-| 7 - Form, polish, audit | In progress, uncommitted. **No form** - early access was withdrawn. |
+| 6 - LawSafe `/lawsafe` | Done, committed (`dd741da`). Adapted per §3.4; draft reviewed before build. |
+| 7 - Form, polish, audit | Done, committed (`cb02018`, `7fe43d8`). **No form** - early access was withdrawn. |
 
 All five routes exist: `/`, `/about`, `/tnt`, `/lawman`, `/lawsafe`.
 
@@ -29,13 +29,14 @@ Branch **`feat/uniform-theme-and-homepage`**, cut from `main` because `main` was
 default branch. `main` still sits at `83dcd8a`; fast-forward it whenever you like.
 
 ```
+fix(a11y): raise icon targets to 44px, and record the audit       7fe43d8
+feat(site): withdraw early access, wire the product nav           cb02018
+feat(lawsafe): build the LawSafe page from adapted copy           dd741da
+chore(skills): add thirteen marketing skills                      f2cb0ed
+feat(home): drop B8 footer notes and give the footer its own edge 6a876d9
+fix(tnt): make the A13 notes read as a section                    ff59ed7
+feat(lawman): build the Lawman page                               bdbb9a6
 feat(tnt): build the T&T page with every unverified figure held   240a031
-feat(about): build the About page                                 97816ad
-fix(a11y): keep the separator in product heading accessible names 623185b
-fix(theme): tint the light sunken rung so it reads as a material  ee0e82e
-docs: bring the handover, spec and build plan up to date          9046ac0
-feat: homepage and a uniform light/dark theme                     2da1a07
-chore(agents): drop the delegation mandate hook                   141717b
 ```
 
 `83dcd8a` (Phase 1) is titled "corvid tokens, three type roles, **band system**". The
@@ -43,8 +44,7 @@ band system no longer exists. History is accurate for what that commit did; it j
 reads misleadingly now. Not rewritten - amending a commit to match a later decision
 destroys the record of the decision.
 
-Phase 5 and the homepage-notes removal are the most recent commits; check `git log`
-for anything after `240a031`.
+`7fe43d8` is the tip. Check `git log` for anything after it.
 
 ---
 
@@ -88,7 +88,7 @@ rung, ~0.010 at the top) - that is deliberate and load-bearing, see "Traps" belo
 
 1. **T&T powers LawSafe** - confirmed, so the dependent-stack framing stands.
 2. **Reuse the existing raven `Logo`** as the wordmark. Still needs a favicon.
-3. **The form is UI-only.** Renders and validates; no backend, no destination.
+3. ~~**The form is UI-only.**~~ Superseded by decision 17 - there is no form at all.
 4. **Build the full LawSafe page** per spec §3.4.
 5. **Hold every statistic** until an owner verifies it. No owner has been named.
 6. **The nine Indic strings come from the user.** Nothing machine-translated.
@@ -222,6 +222,83 @@ to a browser default face, which is the failure §5.3 forbids. **Odia's family i
 the loader.
 
 ---
+
+## The held figures were checked against primary sources - hold them
+
+A verification pass ran the whole held-figures table in
+`docs/copy/lawsafe-page-copy.md` against issuing-body publications rather than news
+restatements. **Decision 5 is vindicated: most of these could not have been published
+safely.** This does not name an owner and does not close that blocker - it is the
+evidence an owner would decide on.
+
+- **Two have no primary source at all.** The "~80% of rural Indians unaware of free
+  legal aid (CHRI 2016)" figure circulates only in blogs and NGO explainers with no
+  report title, sample size or URL. The "~60% of Indians without access to justice"
+  figure is not on DAKSH's own key-findings page; DAKSH's nearest published numbers are
+  different and lower-impact. **Neither may ever be published on this evidence.**
+- **The pendency counts have all moved** - subordinate courts, High Courts and Supreme
+  Court alike. They change daily, so publishing any of them needs a policy for a number
+  that goes stale between deploys, not just a one-off verification.
+- **Two attributions in the source document are wrong.** "21 judges per million" is a
+  Law Ministry answer in the Rajya Sabha, not a Law Commission figure. And Law Commission
+  Report No. 245 is cited for a GDP cost estimate it does not contain - the 0.48% figure
+  is DAKSH's.
+- **The Tele-Law row is worse than "needs attribution".** Its "2.1 crore beneficiaries"
+  is the DISHA scheme's total across three programmes, not Tele-Law's. Holding it was
+  right for a second reason nobody had spotted.
+- **Safe today, with a year attached:** the IAMAI-Kantar *Internet in India 2024* pair
+  (886M active internet users, 98% accessing Indic-language content), and the Stanford
+  RegLab hallucination rates. The RegLab abstract was re-read directly and does say
+  "between 58% of the time with ChatGPT 4 and 88% with Llama 2" - but on **random
+  federal court cases**, i.e. US law. Putting it on an Indian legal-AI page implies a
+  transferability the paper does not establish. `/about` C4 already carries the argument
+  de-numbered, which sidesteps this entirely.
+
+**One claim from that pass is contested and must not be repeated as fact.** The verifier
+reported that Report No. 245 rejected the judge-to-population ratio in favour of a
+rate-of-disposal method. A follow-up search found secondary sources saying the opposite -
+that 245 settled on the ratio method and recommended 50 per million. Neither reading is
+confirmed; the primary PDF has not been read. **Do not cite Report 245 either way until
+someone opens it.**
+
+## The cold read - a proxy ran, the human gate is still open
+
+A fresh agent, barred from reading any file in the repository, browsed all five rendered
+pages and was asked what industry the company is in. **This is not the §2a.6 gate** -
+that needs a human - but it is the closest approximation available, and it surfaced
+things no one on the build could see.
+
+**Verdict: "an applied AI infrastructure company. But the site does not successfully
+communicate that, and a skimming visitor will leave thinking legal-tech."** The nav reads
+`Home | T&T | Lawman | LawSafe | About`, so two of the three products are law-named, and
+the reader's second impression at roughly ten seconds was "legal tech, with a language-AI
+story on top". It took until the fifth page to resolve, and only because `/about` says it
+outright. **A skimmer does not reach page five.** The gate as written passes; the spirit
+of it is closer to a fail.
+
+Its sharpest observation: "law is the test, not the business" is the single most repeated
+argument on the site - the homepage twice, `/about` twice. "Repeating an argument that
+hard usually means the author already knows what the reader is going to conclude."
+
+Other findings worth acting on, none of them things the build could have noticed:
+
+- **"The first thing we built on our own stack."** sits directly above an `IN DESIGN`
+  chip, and `/about` repeats it. Nothing was built. On a site whose whole proposition is
+  not overclaiming, this is the one place the tense slips. It is verbatim source copy
+  from company-copy B4, so changing it is a copy decision, not a bug fix.
+- **`/lawman` has no identified buyer.** The reader could not tell whether it is for a
+  law firm, an in-house team, a court, or another software company. It also carries zero
+  links in its body.
+- **`/lawsafe` is split down the middle.** The hero is written for a citizen; everything
+  after it ("Trust per interaction", "The measure is not downloads") is written for an
+  investor. "A person with a bounced cheque would bail before the second section."
+- **The site gives a reader nothing to do**, which is the intended consequence of
+  decision 17 but lands harder than expected: three of five pages have no links in their
+  body at all, and the only contact route is an unlabelled `mailto:` icon.
+- What it would want proof of, in order: the 22-language tier assignment (asserted, no
+  word error rate anywhere), the MIT licence claim that the whole cost argument rests on,
+  "the complete planning document set is public" (no link), and the RegLab study (no
+  link, no year, no author).
 
 ## The Phase 7 audit - what was actually measured
 
@@ -425,7 +502,7 @@ page on the site.
   from that one list. §3.2 also mentions a nav flyout; there is none, and the flat list
   is the deliberate answer - a flyout for three items is machinery the site does not need.
 - ~~**Touch targets**~~ - fixed in Phase 7. `iconButton` went `size-9` to `size-11`, so
-  all thirteen icon controls measure 44×44. The box was grown for real rather than
+  all icon controls measure 44×44 - fourteen in the DOM, nine visible at `md+` and ten below it, since the social cluster is rendered twice on mobile. The box was grown for real rather than
   expanded with an `after:-inset-*` overlay: the cluster rows use `gap-1`, so a 4px
   overlay each side would meet its neighbour inside that gap and the later sibling would
   paint over it, leaving every control but the last with a 40px hit region while still
@@ -434,7 +511,7 @@ page on the site.
   hamburger). **Both optical nudges had to be re-derived** - 44px around a 20px glyph is
   12px of self-padding, not 8px - so the footer and the mobile disclosure row went from
   `-2` to `-3`. Verified by `elementFromPoint` scan, not by assertion: hit span 44.5 in
-  both axes on all thirteen.
+  both axes on every one.
 - ~~**The circuit board is `hidden sm:block`**~~ - fixed in Phase 7. `StackDisplay` now
   gates the *render* on a `matchMedia("(min-width: 40rem)")` hook, so the chunk is not
   fetched at 360px at all. Verified: zero framer-motion, lucide or `stack-circuit`

@@ -264,7 +264,22 @@ export const whereWeAre = {
   heading: "Early, and saying so.",
   body: [
     "PunkRaven is pre-launch. T&T has a complete technical specification and is at planning stage. Lawman is fully specified and not yet built. LawSafe is in design. Nothing on this site is a description of running production software, and where we have given a number it is an engineering estimate for planning rather than a benchmarked result.",
-    "We are opening early access to teams who have a real workload, an interest in what we are building, and the patience to build alongside it.",
+    /**
+     * The source's second sentence here read "We are opening early access to
+     * teams who have a real workload, an interest in what we are building, and
+     * the patience to build alongside it." It is CUT, and it must not come back
+     * while the site has no way to ask.
+     *
+     * Early access was withdrawn site-wide at Phase 7 - every button, the
+     * `earlyAccess` constant and the form that was never built. This sentence
+     * survived that removal because it is prose rather than a CTA, and it was
+     * the worst of what survived: the other two danglers (`/tnt` A12, `/about`
+     * C7) say the company would like to hear from you, which is merely
+     * unactionable. This one announced an open programme, on the page whose
+     * whole subject is not overclaiming, with nothing on the site to act on it.
+     *
+     * Restoring early access means restoring this sentence too.
+     */
   ],
   caption: "Where each project stands",
   columns: {

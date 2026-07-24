@@ -46,7 +46,11 @@ const ThemeToggle = () => {
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
-      {isDark ? <SunFilledIcon size={20} /> : <MoonFilledIcon size={20} />}
+      {isDark ? (
+        <SunFilledIcon aria-hidden="true" size={20} />
+      ) : (
+        <MoonFilledIcon aria-hidden="true" size={20} />
+      )}
     </button>
   );
 };

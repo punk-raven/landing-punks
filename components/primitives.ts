@@ -216,7 +216,7 @@ export const statusChip = tv({
  */
 export const iconButton = tv({
   base: [
-    "inline-flex size-11 items-center justify-center rounded-md",
+    "inline-flex size-11 touch-manipulation items-center justify-center rounded-md",
     "text-muted transition-colors hover:text-foreground",
   ],
 });

@@ -33,8 +33,8 @@ import DefaultLayout from "@/layouts/default";
  * alternates with one deliberate double - A6 and A7 share `base` and are
  * separated by a hairline instead of a rung, because they are one region of the
  * page: the two sections whose figures are held. That puts the amber twice in
- * one place rather than twice at random, and it restores the homepage's ending -
- * sunken CTA, base notes, sunken footer.
+ * one place rather than twice at random, and it lands the ending on sunken A12,
+ * base A13, sunken footer.
  *
  *   sunken A1, base A2, sunken A3, base A4, sunken A5, base A6, base A7,
  *   sunken A8, base A9, sunken A10, base A11, sunken A12, base A13.

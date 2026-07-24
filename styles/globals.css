@@ -34,7 +34,7 @@
 
      Tinting is what separates a deliberate material from a lighting accident,
      and the gamut allows it exactly where it is needed: at L 0.978 the sRGB
-     ceiling on hue 264 is chroma 0.0100, but at L 0.8817 it is 0.0575 and at
+     ceiling on hue 264 is chroma 0.0100, but at L 0.8808 it is 0.0575 and at
      L 0.8291 it is 0.0845. So the top rung stays near-neutral because it has no
      choice, and the deeper rungs carry the tint because they can.
 

@@ -31,10 +31,11 @@ import DefaultLayout from "@/layouts/default";
  * that says "grounded or silent", "never a verdict" and "never a tout" is the
  * one worth anchoring.
  *
- * This route is deliberately not in `config/site.ts` `navItems` yet, the same as
- * `/tnt` and `/lawman`. Spec §3.2 wants the product list in the footer and a nav
- * flyout; with three product pages that is real work and it belongs to Phase 7.
- * The homepage product block already links here.
+ * The route is in `config/site.ts` `navItems` alongside `/tnt` and `/lawman`,
+ * in the order §2a.1 requires, and both the header and the footer render from
+ * that one list. §3.2 also asks for a nav flyout; there is none, and the flat
+ * list is the deliberate answer - a flyout for three items is machinery this
+ * site does not need.
  */
 export default function LawsafePage() {
   return (
