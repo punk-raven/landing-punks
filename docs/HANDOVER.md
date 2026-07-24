@@ -18,11 +18,10 @@ gotchas** - not a restatement of either.
 | 3 - About `/about` | Done, committed. |
 | 4 - T&T `/tnt` | Done, committed. **Cannot fully close** - §5.5 needs the nine Indic strings. |
 | 5 - Lawman `/lawman` | Done, committed. |
-| 6 - LawSafe `/lawsafe` | **Not started. Next.** Highest-exposure page; needs adaptation, not transcription. |
-| 7 - Form, polish, audit | Not started. Form is UI-only; no destination chosen. |
+| 6 - LawSafe `/lawsafe` | Done, **uncommitted**. Adapted per §3.4; draft reviewed before build. |
+| 7 - Form, polish, audit | **Not started. Next.** Form is UI-only; no destination chosen. |
 
-Four of five routes exist: `/`, `/about`, `/tnt`, `/lawman`. `/lawsafe` 404s and is
-linked from the homepage.
+All five routes exist: `/`, `/about`, `/tnt`, `/lawman`, `/lawsafe`.
 
 ### Git
 
@@ -107,6 +106,19 @@ rung, ~0.010 at the top) - that is deliberate and load-bearing, see "Traps" belo
     scrolling under it sits on the same rung, ΔL 0.0000, opaque or not.
 13. **Homepage B8 (footer notes) is not built.** See the next section.
 
+**Taken at the Phase 6 copy review** - the artifact is `.lavish/lawsafe-page-copy.html`
+
+14. **Every statistic on `/lawsafe` is held.** The alternative offered was publishing the
+    NJDG pending-case counts and the free legal aid unawareness figure with years and
+    attribution inline, holding the other nine; it was declined. Decision 5 stands
+    unchanged.
+15. **`/lawsafe`'s page title and meta description are approved** as authored. They were
+    authored because the vision doc has no metadata table - the same gap
+    `lawman-summary.md` has.
+16. **"What the likely timelines and costs look like" is cut** from what the app returns.
+    It was the closest thing on the page to a promise about an outcome. Do not restore it
+    without a decision.
+
 ---
 
 ## The one open disclosure question
@@ -141,10 +153,11 @@ that a sole boundary uses `--border` and never `--separator`.
 
 ## Owed by a human - blockers
 
-- **Cold-read test.** Now covers `/`, `/about` **and** `/tnt` and `/lawman`. A reader
-  who has **not** seen the source docs must come away describing a technology company,
-  not a legal or legal-tech one. No agent can run this; every agent on the build has
-  read the sources. This is the acceptance gate for Phases 2 to 5.
+- **Cold-read test.** Now covers all five routes. A reader who has **not** seen the
+  source docs must come away describing a technology company, not a legal or legal-tech
+  one. No agent can run this; every agent on the build has read the sources. This is the
+  acceptance gate for Phases 2 to 6, and `/lawsafe` raises the stakes on it - it is a
+  citizen-facing legal product on a technology company's site.
 - **Nine Indic strings** - blocks §5.5 on `/tnt`. Sentence: "Audio in. Transcript and
   translation out." into Devanagari, Bengali, Tamil, Telugu, Kannada, Malayalam,
   Gujarati, Gurmukhi, Odia. Verify each with a native reader. The scaffold is built and
@@ -275,20 +288,25 @@ labels, claim-status tables, `Copy notes`, Part A, unchosen variants and
 `*Optional section*` markers (spec §3.1). **Hand-transcribe. Do not build a markdown
 renderer.**
 
-Still live for Phase 6 (`/lawsafe`) - this is the highest-exposure page:
+How Phase 6 handled the LawSafe traps - all four were live and all four were hit:
 
-- **Deleting LawSafe `§0` does NOT remove NyayaSetu.** Four occurrences; two sit outside
-  `§0` - the file's top metadata line and the closing italic. A section-delete passes a
-  naive grep and still leaks. **`grep -ri nyayasetu` the whole tree before shipping.**
+- **Deleting LawSafe `§0` does NOT remove the codename.** Four occurrences; two sit
+  outside `§0` - the file's top metadata line and the closing italic. A section-delete
+  passes a naive grep and still leaks. **Grep the whole tree, case-insensitively, before
+  shipping.** It is now absent from `components`, `pages`, `content`, `config`, `layouts`
+  and `styles`, including in comments. It still appears in the source doc, in this file,
+  and in two `.lavish` artifacts, all of which are internal and one of which is the
+  instruction to check.
 - **Competitor names survive the `§7` cut.** `§3.4` excludes LawSafe `§7`, but `§6` is
-  included and names GPT-4, Llama 2, PaLM 2, Lexis+ AI and Westlaw with fabrication
-  rates. Keep the principle, drop the names and the percentages.
+  included and its first principle names three general-purpose models and two legal
+  research products with fabrication rates. The principle is kept; the names and the
+  percentages are gone.
 - **LawSafe `§4`'s scope list is 49 practice areas in one sentence.** Cut to the six the
   spec prescribes - rental agreement, cheque bounce, consumer complaint, wrongful
   termination, succession, cyber fraud. All six are source-backed.
-- **Highest-risk single string:** LawSafe `§2` cites Tele-Law's "1 crore pre-litigation
-  *advice* sessions" - a government programme's figure that reads as LawSafe's own
-  offering. Keep it unmistakably attributed or rephrase.
+- **Highest-risk single string:** LawSafe `§2` cites Tele-Law's pre-litigation session
+  count - a government programme's figure that reads as LawSafe's own offering. Held with
+  every other statistic, so it does not render at all.
 - **Claim gates use no literal "needs verification" string.** A grep finds nothing and
   passes pages that should fail. Read each Part C/D table by hand.
 - **`/about` C5 still owes nothing** - the non-legal buyers landed. But Part D misdirects
@@ -329,6 +347,24 @@ no `tone`, no `variant`, no `isNegative` - so there is no channel through which 
 edit could make the negative column recede. Keep it that way.
 
 ---
+
+**`/lawsafe`** - the only adapted page on the site, and the only one whose copy was
+drafted and reviewed before it was built (Phase 6 requires that). The draft is
+`docs/copy/lawsafe-page-copy.md`; the reviewable artifact is
+`.lavish/lawsafe-page-copy.html`. Six sections in §3.4's order. Every figure in the
+source is held, so the problem section argues structurally rather than quantitatively -
+the full held-figure table, with the source the vision doc gives for each, is in the
+draft. The not-advice boundary sits in the **hero**, not the footer, because this is a
+citizen-facing legal product and §2b.8 is a legal-exposure rule; it also carries the
+human-review requirement. The word "advice" appears once in `content/lawsafe.ts`, inside
+that sentence. The advocate panel is stated as not existing yet, which the company copy's
+Part D requires. The source's "Legal Intelligence Engine" is cut twice over: §3.4 bars
+architecture detail, and on this site Lawman is the reasoning system.
+
+One line worth a second opinion if it is ever revisited: the second audience card names
+company incorporation, IP registration and compliance. Those are service categories
+rather than committed verticals, so §2a.5 is not engaged, but this is the most exposed
+page on the site.
 
 ## Out of scope but pending
 

@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LawSafe page copy - adapted draft for review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night-0: #05080f;
+    --night-1: #0e121a;
+    --night-2: #191d25;
+    --night-sup: #242932;
+    --frost: #dde1e9;
+    --frost-soft: #989fac;
+    --sheen-lift: #8584eb;
+    --teal-lift: #3bb3ac;
+    --border: #7d838f;
+    --separator: #383d47;
+    --uncertain: #db8914;
+    --uncertain-surface: #231f1f;
+    --measure: 68ch;
+    --band: 1120px;
+    --display: "Orbitron", ui-sans-serif, system-ui, sans-serif;
+    --body: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --data: "Fira Code", ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; min-width: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--night-1);
+    color: var(--frost);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: var(--display); font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; margin: 0; }
+  p { margin: 0 0 1rem; }
+  p:last-child { margin-bottom: 0; }
+  a { color: var(--sheen-lift); }
+
+  .band { max-width: var(--band); margin: 0 auto; padding: 0 1.5rem; }
+  .measure { max-width: var(--measure); }
+  section { padding: 3.5rem 0; border-top: 1px solid var(--separator); }
+  section.sunken { background: var(--night-0); }
+  section.base { background: var(--night-1); }
+  section:first-of-type { border-top: 0; }
+
+  .eyebrow {
+    font-family: var(--data);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--frost-soft);
+    margin: 0 0 0.75rem;
+  }
+  .muted { color: var(--frost-soft); }
+  .small { font-size: 0.9rem; }
+
+  /* Document chrome ------------------------------------------------------- */
+  header.doc { background: var(--night-0); padding: 3.5rem 0 3rem; border-bottom: 1px solid var(--separator); }
+  header.doc h1 { font-size: clamp(1.75rem, 4.5vw, 2.6rem); }
+  header.doc .lede { margin-top: 1.25rem; font-size: 1.05rem; }
+
+  .chiprow { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .chip {
+    font-family: var(--data);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--border);
+    color: var(--frost-soft);
+    white-space: nowrap;
+  }
+  .chip.status {
+    border-color: var(--uncertain);
+    background: var(--uncertain-surface);
+    color: var(--uncertain);
+  }
+
+  /* Meta cards ------------------------------------------------------------ */
+  .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); }
+  .card {
+    background: var(--night-2);
+    border: 1px solid var(--separator);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+  }
+  .card h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .card p { font-size: 0.92rem; }
+
+  /* Page mock ------------------------------------------------------------- */
+  .mock {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-top: 1.75rem;
+  }
+  .mock-label {
+    font-family: var(--data);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--frost-soft);
+    background: var(--night-sup);
+    padding: 0.5rem 1.25rem;
+    border-bottom: 1px solid var(--separator);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mock-body { padding: 2rem 1.5rem; }
+  .mock-body.sunken { background: var(--night-0); }
+  .mock-body.base { background: var(--night-1); }
+  .mock-body h2 { font-size: clamp(1.3rem, 3vw, 1.75rem); margin-bottom: 1rem; }
+  .mock-body h3 { font-size: 1.02rem; margin-bottom: 0.4rem; }
+  .mock-body .sub { font-size: 1.02rem; }
+
+  .cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 0.5rem;
+    background: var(--sheen-lift);
+    color: var(--night-0);
+  }
+  .boundary {
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.1rem;
+    border-left: 2px solid var(--border);
+    background: var(--night-2);
+    font-size: 0.95rem;
+  }
+  .stack { display: grid; gap: 1.25rem; margin-top: 1.5rem; }
+  .principle { padding-left: 1rem; border-left: 1px solid var(--separator); }
+  .principle h3 { font-family: var(--body); font-weight: 600; font-size: 0.98rem; }
+  ul.tight { margin: 0.5rem 0 0; padding-left: 1.15rem; }
+  ul.tight li { margin-bottom: 0.35rem; }
+
+  /* Tables ---------------------------------------------------------------- */
+  .scroll { overflow-x: auto; margin-top: 1.5rem; border: 1px solid var(--separator); border-radius: 0.5rem; }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.9rem; }
+  th, td { text-align: left; padding: 0.7rem 1rem; border-bottom: 1px solid var(--separator); vertical-align: top; }
+  th { font-family: var(--data); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--frost-soft); background: var(--night-2); }
+  tr:last-child td { border-bottom: 0; }
+  td.flag { color: var(--uncertain); font-family: var(--data); font-size: 0.8rem; white-space: nowrap; }
+
+  /* Cut list -------------------------------------------------------------- */
+  .cut { display: grid; gap: 0.85rem; margin-top: 1.5rem; }
+  .cut-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--separator);
+    border-radius: 0.5rem;
+    background: var(--night-2);
+  }
+  @media (min-width: 720px) {
+    .cut-row { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+  }
+  .cut-row strong { font-family: var(--data); font-size: 0.85rem; color: var(--frost); }
+  .cut-row span { font-size: 0.92rem; color: var(--frost-soft); }
+
+  /* Questions ------------------------------------------------------------- */
+  .q {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--night-2);
+    padding: 1.35rem;
+    margin-top: 1.5rem;
+  }
+  .q h3 { font-size: 1.02rem; margin-bottom: 0.5rem; }
+  .q .why { font-size: 0.92rem; color: var(--frost-soft); margin-bottom: 1rem; }
+  .q label {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--separator);
+    border-radius: 0.375rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    font-size: 0.94rem;
+  }
+  .q label:hover { border-color: var(--border); }
+  .q input[type="radio"] { margin-top: 0.35rem; accent-color: var(--sheen-lift); flex: none; }
+  .q label em { display: block; font-style: normal; color: var(--frost-soft); font-size: 0.88rem; margin-top: 0.15rem; }
+  .q button {
+    margin-top: 0.5rem;
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.55rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    background: var(--night-sup);
+    color: var(--frost);
+    cursor: pointer;
+  }
+  .q button:hover { border-color: var(--sheen-lift); }
+  .q .queued { margin-left: 0.75rem; font-size: 0.85rem; color: var(--teal-lift); font-family: var(--data); }
+  textarea {
+    width: 100%;
+    min-height: 5rem;
+    background: var(--night-1);
+    color: var(--frost);
+    border: 1px solid var(--separator);
+    border-radius: 0.375rem;
+    padding: 0.65rem 0.8rem;
+    font-family: var(--body);
+    font-size: 0.94rem;
+    resize: vertical;
+  }
+
+  footer.doc { background: var(--night-0); border-top: 1px solid var(--border); padding: 2.5rem 0 3rem; }
+</style>
+</head>
+<body>
+
+<header class="doc">
+  <div class="band">
+    <p class="eyebrow">Phase 6 - LawSafe</p>
+    <h1>LawSafe page copy, adapted for review</h1>
+    <p class="lede measure">Spec §3.4 and Phase 6 require this page to be <strong>adapted</strong> from the founder's vision document, not transcribed, and require the adapted copy to be reviewed before it is built. Nothing below is in <code>content/</code> yet.</p>
+    <div class="chiprow">
+      <span class="chip status">Draft - not built</span>
+      <span class="chip">Source: lawsafe-product-vision.md</span>
+      <span class="chip">docs/copy/lawsafe-page-copy.md</span>
+    </div>
+  </div>
+</header>
+
+<section class="base">
+  <div class="band">
+    <p class="eyebrow">Where this stands</p>
+    <h2>Three things to check, then it gets built</h2>
+    <div class="grid" style="margin-top:1.5rem">
+      <div class="card">
+        <h3>The copy reads right</h3>
+        <p class="muted">Register converted from first-person aspiration to third-person product utility, matching <code>/lawman</code>. Scan the mock below.</p>
+      </div>
+      <div class="card">
+        <h3>The cuts are correct</h3>
+        <p class="muted">NyayaSetu, §7 in full, every market-size figure, and the forty-plus practice-area list are gone. So are the competitor names and their hallucination rates.</p>
+      </div>
+      <div class="card">
+        <h3>The figures decision</h3>
+        <p class="muted">Every statistic is held, which is consistent with the other three pages but leaves the problem section arguing without evidence. That is question 1.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sunken">
+  <div class="band">
+    <p class="eyebrow">The page</p>
+    <h2>Six sections, in the order §3.4 sets</h2>
+    <p class="measure muted" style="margin-top:0.75rem">Vision §1 to the hero, §2 to the problem, §3 to the audiences, §4 to what it does, §6 to the principles, §5 condensed to a close. Elevation alternates sunken - base - sunken - base - sunken - base, with the sunken site footer beneath, which is the rhythm <code>/lawman</code> and <code>/tnt</code> already use.</p>
+
+    <div class="mock">
+      <div class="mock-label"><span>L1 Hero</span><span>sunken</span></div>
+      <div class="mock-body sunken">
+        <p class="eyebrow">LawSafe - built on T&amp;T and Lawman</p>
+        <h2>Understanding your rights should be as easy as sending a message.</h2>
+        <p class="sub">LawSafe lets a person describe what happened in plain language - typed or spoken, in their own language - and get a grounded, cited explanation of where they stand and what their options are. When the matter genuinely needs a human, it connects them to a Bar Council-verified advocate who specialises in exactly that issue.</p>
+        <div class="chiprow">
+          <span class="chip status">In design</span>
+          <span class="chip">What exists today is the product vision and its scope, not a build</span>
+        </div>
+        <p class="boundary">LawSafe explains and connects. It does not give legal advice, does not represent anyone, and does not decide anything. Where a matter needs professional judgement, a qualified advocate provides it.</p>
+        <span class="cta">Request early access</span>
+      </div>
+    </div>
+
+    <div class="mock">
+      <div class="mock-label"><span>L2 Why LawSafe exists</span><span>base</span></div>
+      <div class="mock-body base">
+        <h2>India does not have a shortage of law. It has a shortage of access to it.</h2>
+        <div class="measure">
+          <p>The courts are backlogged, and that backlog is the visible symptom. The deeper problem is that most people who are wronged never reach the courthouse door in the first place, and often should not have to.</p>
+          <p>They do not know their rights. They do not know free legal aid exists. They are intimidated by lawyers and by cost, and stuck on the question of whether their problem is even a legal one.</p>
+          <p>So the wrong gets absorbed. A cheque that bounced. A deposit a landlord will not return. A fraudulent transaction, a denied insurance claim, harassment online. The cost and friction of finding out what you could do exceeds the wrong itself, so nobody finds out.</p>
+          <p><strong>If a person can describe their problem, they deserve to understand their rights - immediately, affordably, and in their own words.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock">
+      <div class="mock-label"><span>L3 Who it is for</span><span>sunken</span></div>
+      <div class="mock-body sunken">
+        <h2>Who it is for</h2>
+        <div class="grid" style="margin-top:1.25rem">
+          <div class="card">
+            <h3>The citizen with an ordinary legal problem</h3>
+            <p class="muted">The person the system fails most is not the general counsel with a panel of firms. It is the individual with a genuine legal need and nowhere obvious to turn: a rental agreement, a cheque bounce, a consumer complaint, a matrimonial matter, a will, an incident of cyber fraud. Every income band, and every one of India's languages.</p>
+          </div>
+          <div class="card">
+            <h3>The small business, founder and independent professional</h3>
+            <p class="muted">The MSME owner, the D2C founder, the freelancer, the artist. They need agreements drafted and vetted, a company incorporated, IP registered, compliance handled, debts recovered. Traditional firms are too expensive and too slow for work of that size.</p>
+          </div>
+          <div class="card">
+            <h3>The advocate</h3>
+            <p class="muted">India's legal profession is bimodal: a small elite at the top, and a very large number of junior and small-town advocates who struggle to find clients and to whom the profession's advertising restrictions offer few ethical routes to be discovered. LawSafe serves them by delivering correctly matched, context-rich work, so the advocate spends time on law rather than on triage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock">
+      <div class="mock-label"><span>L4 What it does</span><span>base</span></div>
+      <div class="mock-body base">
+        <h2>One promise: grounded understanding first, a verified human when you need one.</h2>
+        <div class="stack">
+          <div class="principle">
+            <h3>The app</h3>
+            <p class="muted">Chat-first, and deliberately as familiar as any assistant the person already uses. No forms, no legalese, no intimidation. Describe the situation in natural language, typed or spoken. Get back a structured answer: what the law says, which provision applies, what the realistic options are, and what to do next.</p>
+          </div>
+          <div class="principle">
+            <h3>The shortlist</h3>
+            <p class="muted">When the matter needs a human, the app surfaces advocates who specialise in precisely that issue, with their credentials shown. Every advocate is Bar Council-verified before they appear. <strong>No panel exists yet - verification is a design commitment, not a live roster.</strong></p>
+          </div>
+          <div class="principle">
+            <h3>What it is built on</h3>
+            <p class="muted">LawSafe is the application layer. T&amp;T carries the speech and the languages; Lawman does the grounded legal reasoning and attaches the source to every claim. LawSafe is what a person opens.</p>
+          </div>
+          <div class="principle">
+            <h3>Scope, deliberately drawn</h3>
+            <p class="muted">Law is vast and trust is fragile. The focus at first is the matters that ordinary people and small businesses actually meet: rental agreements, cheque bounce, consumer complaints, wrongful termination, succession, cyber fraud. Better to be exceptional across the problems that touch the most lives than mediocre across all of law.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock">
+      <div class="mock-label"><span>L5 The principles it is built against</span><span>sunken</span></div>
+      <div class="mock-body sunken">
+        <h2>Trust per interaction.</h2>
+        <p class="measure">Not users, not sessions, not revenue. The question under every decision is whether an interaction left a person more accurately informed than before. Growth that erodes trust is not growth.</p>
+        <div class="stack">
+          <div class="principle">
+            <h3>1. Grounded, or silent.</h3>
+            <p class="muted">LawSafe answers from current, citable Indian law or it does not answer. It would rather say a human lawyer is needed than invent a confident falsehood. Every substantive answer carries its legal basis, so it can be checked.</p>
+          </div>
+          <div class="principle">
+            <h3>2. Assistance, never a verdict.</h3>
+            <p class="muted">It informs and connects. It does not adjudicate, and it does not replace the judgement of a qualified advocate. Every experience is designed to make plain where information ends and professional representation begins.</p>
+          </div>
+          <div class="principle">
+            <h3>3. A neutral bridge, never a tout.</h3>
+            <p class="muted">LawSafe operates within Bar Council of India norms, including Rule 36. Advocates cannot advertise, bid, or buy a ranking. Matching is on genuine specialisation and verified credentials, or it does not happen.</p>
+          </div>
+          <div class="principle">
+            <h3>4. Vernacular-first.</h3>
+            <p class="muted">English is a barrier, not a bridge, for most of the people this is built for. LawSafe inherits T&amp;T's coverage of all 22 scheduled Indian languages, with its quality tiers stated rather than hidden, and is designed so a first-time reader feels respected.</p>
+          </div>
+          <div class="principle">
+            <h3>5. Privacy is not a setting.</h3>
+            <p class="muted">People will describe the most vulnerable facts of their lives. Every word is confidential by default, engineered for the letter and the spirit of the Digital Personal Data Protection Act, 2023.</p>
+          </div>
+          <div class="principle">
+            <h3>6. Verified humans at the end of the line.</h3>
+            <p class="muted">Every advocate on the platform is a real, Bar Council-verified advocate. No anonymous legal influencers, and no unqualified advice-givers. When a person is handed to a human, that human is credentialed and accountable.</p>
+          </div>
+          <div class="principle">
+            <h3>What LawSafe will not do</h3>
+            <ul class="tight muted">
+              <li>Give a definitive legal opinion dressed as certainty.</li>
+              <li>Draft or file anything for use in court without a qualified advocate in the loop.</li>
+              <li>Sell user data, or monetise attention.</li>
+              <li>Let commercial pressure override the grounded-or-silent rule.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock">
+      <div class="mock-label"><span>L6 Closing</span><span>base</span></div>
+      <div class="mock-body base">
+        <h2>The measure is not downloads.</h2>
+        <div class="measure">
+          <p>It is whether the relationship between people and their own legal system changes. Checking your legal position before you sign, complain, or give up should become a reflex - the way people check a map before a journey. Fewer avoidable disputes should reach the courts, because the confusion behind them was resolved upstream. If more people can actually exercise rights they already have on paper, that is the result worth having.</p>
+        </div>
+        <div class="chiprow"><span class="chip status">LawSafe is in design. What exists today is the product vision and its scope.</span></div>
+        <span class="cta">Request early access</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="base">
+  <div class="band">
+    <p class="eyebrow">Excisions</p>
+    <h2>What was cut, and on whose authority</h2>
+    <div class="cut">
+      <div class="cut-row"><strong>§0 A Note on the Name</strong><span>NyayaSetu is an internal codename and must never appear publicly. §3.4 and the company copy's Part E both say so. Note that deleting §0 does <em>not</em> remove the name: it also sits in the document's top metadata line and in the closing italic, so the check is <code>grep -ri nyayasetu</code> over the tree, not a section delete.</span></div>
+      <div class="cut-row"><strong>§7 Strategic Differentiation</strong><span>Names Vakilsearch, LegalKart and LawRato, discusses moats and consultation pricing. Investor material, not customer material. §3.4 excludes it in full.</span></div>
+      <div class="cut-row"><strong>GPT-4, Llama 2, PaLM 2, Lexis+ AI, Westlaw</strong><span>These survive the §7 cut because they sit in §6's first principle, which is included. §3.4 bars naming competitors, and the hallucination rates attached to them are marked "verify the study and figures directly before publishing" in the company copy's Part D. Principle 1 keeps the argument and drops both.</span></div>
+      <div class="cut-row"><strong>§4's scope list</strong><span>Forty-plus practice areas in a single sentence. Reduced to the six the spec prescribes, all six source-backed: rental agreement, cheque bounce, consumer complaint, wrongful termination, succession, cyber fraud.</span></div>
+      <div class="cut-row"><strong>The Engine, the Store, the Backend, the Admin Dashboard</strong><span>§3.4 says product surfaces only, no architecture detail. There is a second reason to cut the "Legal Intelligence Engine" specifically: on this site <em>Lawman</em> is the reasoning system, and Part E names Lawman and LawSafe as the pair readers most easily confuse.</span></div>
+      <div class="cut-row"><strong>Market sizing</strong><span>USD 2.64bn, the Tracxn startup counts, the 23% CAGR. Investor framing, excluded by §3.4 regardless of verification.</span></div>
+      <div class="cut-row"><strong>SUPACE, SUVAS, Kerala's court AI policy, PN Vignesh v. Bar Council, the March 2025 BCI directives</strong><span>Cut as condensation, not as risk. The principles they support are all kept.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sunken">
+  <div class="band">
+    <p class="eyebrow">Held</p>
+    <h2>Every statistic in the source, and where it went</h2>
+    <p class="measure muted" style="margin-top:0.75rem">Handover decision 5 holds every statistic until an owner verifies it, and no owner has been named. Spec §3.4 asks for §2's statistics with years attached and the Phase 6 gate reads "every statistic carries a year", so the two are in tension. This draft holds all of them, which is what <code>/tnt</code> and <code>/about</code> already did and which satisfies the gate vacuously.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Figure</th><th>Source as the vision doc gives it</th><th>State</th></tr></thead>
+        <tbody>
+          <tr><td>4.7 crore subordinate-court cases, 63 lakh High Court, 88,417 Supreme Court</td><td>National Judicial Data Grid, via Vision IAS / The Hindu, Sept 2025</td><td class="flag">Held</td></tr>
+          <tr><td>324 years to clear the backlog</td><td>NITI Aayog 2018 strategy paper</td><td class="flag">Held</td></tr>
+          <tr><td>21 judges per million, vs ~150 US and 50 recommended</td><td>Law Commission of India</td><td class="flag">Held</td></tr>
+          <tr><td>0.5% of GDP, ~₹50,387 crore in 2016 terms; 1.5-2% claimed</td><td>DAKSH / Law Commission Report No. 245</td><td class="flag">Held</td></tr>
+          <tr><td>~80% of rural Indians unaware of free legal aid</td><td>Commonwealth Human Rights Initiative, 2016</td><td class="flag">Held</td></tr>
+          <tr><td>20,13,081 registered advocates</td><td>Ministry of Law &amp; Justice to Rajya Sabha, Aug 2023</td><td class="flag">Held</td></tr>
+          <tr><td>886M internet users, 98% consuming Indic-language content</td><td>IAMAI-Kantar 2024. Part D: re-verify</td><td class="flag">Held</td></tr>
+          <tr><td>Tele-Law: 1 crore pre-litigation sessions, 2.1 crore beneficiaries, ~2.5 lakh CSCs</td><td>Government programme, early 2025</td><td class="flag">Held</td></tr>
+          <tr><td>~60% of Indians without access to justice</td><td>DAKSH Access to Justice Survey</td><td class="flag">Held</td></tr>
+          <tr><td>Stanford RegLab: 58-88%, 17%, 34%</td><td>Vision §6. Part D: verify directly</td><td class="flag">Held</td></tr>
+          <tr><td>Market size, Tracxn counts, CAGR</td><td>Vision §7</td><td class="flag">Excluded</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="measure small muted" style="margin-top:1.25rem">The Tele-Law line is the highest-risk single string in the source. It is a government programme's figure for advice sessions, and on a LawSafe page it reads as LawSafe's own offering. Holding it removes that risk entirely; if it is ever published it has to be unmistakably attributed.</p>
+  </div>
+</section>
+
+<section class="base">
+  <div class="band">
+    <p class="eyebrow">Decisions taken</p>
+    <h2>All three answered - building now</h2>
+    <p class="measure muted" style="margin-top:0.75rem">The mock above already reflects them. The one remaining note is not blocking.</p>
+    <div class="cut" style="margin-top:1.5rem">
+      <div class="cut-row"><strong>Figures</strong><span>Hold every one, as drafted. L2 argues qualitatively, consistent with <code>/tnt</code> and <code>/about</code>, and the Phase 6 statistics gate is satisfied vacuously. Publishing the two government-sourced figures with years was offered and declined.</span></div>
+      <div class="cut-row"><strong>Page metadata</strong><span>The authored title and meta description are approved as drafted.</span></div>
+      <div class="cut-row"><strong>Timelines and costs</strong><span>Cut from L4. The answer structure is now what the law says, which provision applies, the realistic options, what to do next - and the page no longer carries anything that reads as a promise about outcomes.</span></div>
+      <div class="cut-row"><strong>Still standing, not blocking</strong><span>Card 2 names company incorporation, IP registration and compliance. Service categories rather than committed verticals, so §2a.5 is not engaged - worth a second look if that line is ever revisited.</span></div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="doc">
+  <div class="band">
+    <p class="small muted measure">Once these are answered the page gets built as <code>pages/lawsafe/index.tsx</code> plus <code>content/lawsafe.ts</code> and six section components, following the <code>/lawman</code> pattern. Acceptance per Phase 6: NyayaSetu absent, no competitor named, no market-size figure present, scope list at six examples, and every statistic that does render carrying a year.</p>
+    <p class="small muted" style="margin-top:1rem">Design source: this project's own system - the hue-264 elevation ladder, the Orbitron / Inter / Fira Code type roles, and the amber reserved for uncertainty and status, read from <code>styles/globals.css</code>.</p>
+  </div>
+</footer>
+
+</body>
+</html>
