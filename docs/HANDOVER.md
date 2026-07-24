@@ -275,15 +275,29 @@ Open items carried forward:
 - **The circuit board is `hidden sm:block`, so it never paints at 360px** - but its
   `next/dynamic` chunk still downloads there. Wasted bytes on the narrowest viewport,
   which is also the slowest connection. Gate the import, not just the display.
-- **The light `sunken` rung reads as a flat grey box, not an anchor.** Observed, not
-  inferred. The boundary is perceptible - light base-to-sunken is 1.162:1, a slightly
-  stronger luminance step than dark's 1.069:1 - so the page still segments. But card
-  surfaces at `#F4F8FF` are 1.34:1 against sunken, a *bigger* step than sunken-to-base,
-  so ordinary cards pop harder than the hero does. The hierarchy inverts. This is the
-  known cost of dropping the dark hero. Cheapest fixes if it needs addressing: give
-  `sunken` a slight cool tint so it reads as a deliberate material rather than a
-  lighting accident, or add a hairline rule on sunken sections in light only. Neither
-  requires the band system back.
+- **The light `sunken` rung read as a flat grey box - since fixed with a cool tint,
+  and the fix is not yet confirmed on a screen.** Observed in a browser: the boundary
+  was perceptible (light base-to-sunken is 1.162:1, a slightly stronger luminance step
+  than dark's 1.069:1) but the hierarchy inverted, because a `--surface` card at
+  ΔL 0.096 stood off the sunken rung harder than the sunken rung stood off
+  `--background` at ΔL 0.048. Ordinary cards out-weighted the hero.
+
+  The fix ramps chroma with depth instead of holding it constant: `--paper-0` moved
+  from `#D5D8DE` (chroma 0.009) to `#CFD8EA` (chroma 0.027), and `--paper-sub`
+  followed it to `#BEC7D9` so HeroUI's ghost and outline button fills do not read as a
+  foreign grey patch on a tinted section. Lightness is untouched, so every ΔL still
+  holds; the largest contrast change anywhere is 0.04 and every pair was re-measured.
+  The gamut is what makes this possible only at the bottom: at L 0.978 the sRGB
+  ceiling on hue 264 is chroma 0.0100, but at L 0.8817 it is 0.0575.
+
+  A side benefit worth keeping: `--uncertain-surface` `#DCD7D5` is warm and was sitting
+  on a near-neutral field, so the "separates by hue" claim in the amber note was
+  nominal. Against a cool `#CFD8EA` it is real.
+
+  **Arithmetic only - nobody has looked at the tinted version yet.** Whether it now
+  reads as a deliberate material rather than a lighting accident is exactly the kind of
+  judgement that needs eyes. If it still falls short, the next lever is a hairline rule
+  on sunken sections in light only. Neither approach needs the band system back.
 
 ---
 

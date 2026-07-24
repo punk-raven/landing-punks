@@ -22,13 +22,34 @@
    layer(base) declarations without needing higher specificity.
    =========================================================================== */
 :root {
-  /* Light elevation ladder - oklch(L 0.010 264), steps of ΔL 0.048.
-     0.010 is the ceiling: at L 0.978 the sRGB gamut caps chroma at 0.0105 on
-     hue 264, so a higher constant chroma would force the top rung achromatic. */
-  --paper-0: #d5d8de; /* oklch(0.8817 0.0088 264.52)  sunken   */
+  /* Light elevation ladder - hue 264 throughout, steps of ΔL 0.048.
+
+     Chroma RAMPS with depth rather than being held constant, and that is a fix
+     for an observed problem, not a preference. With every rung at chroma ~0.010
+     the sunken rung read as a flat grey box rather than as an anchor section:
+     a large near-neutral field at high lightness reads as inert - grey is the
+     colour of disabled UI - and the hierarchy inverted, because a --surface card
+     at ΔL 0.096 stood off the sunken rung harder than the sunken rung stood off
+     --background at ΔL 0.048. Ordinary cards out-weighted the hero.
+
+     Tinting is what separates a deliberate material from a lighting accident,
+     and the gamut allows it exactly where it is needed: at L 0.978 the sRGB
+     ceiling on hue 264 is chroma 0.0100, but at L 0.8817 it is 0.0575 and at
+     L 0.8291 it is 0.0845. So the top rung stays near-neutral because it has no
+     choice, and the deeper rungs carry the tint because they can.
+
+     Lightness is untouched, so every ΔL in the measurement table below still
+     holds, and chroma at fixed lightness barely moves relative luminance - the
+     largest contrast change anywhere from this is 0.04. Re-measured regardless;
+     the table is current. */
+  --paper-0: #cfd8ea; /* oklch(0.8808 0.0267 264.42)  sunken   */
   --paper-1: #e4e8ef; /* oklch(0.9300 0.0104 261.79)  base     */
   --paper-2: #f4f8ff; /* oklch(0.9781 0.0103 261.79)  raised   */
-  --paper-sub: #c4c7cd; /* oklch(0.8291 0.0090 264.52)  below the ladder */
+  --paper-sub: #bec7d9; /* oklch(0.8283 0.0271 264.39)  below the ladder.
+                           Tinted to match --paper-0: --default is the fill of
+                           HeroUI's ghost, outline, secondary and tertiary
+                           buttons, and a near-neutral fill sitting on a tinted
+                           sunken section reads as a foreign grey patch. */
 
   /* Dark elevation ladder - oklch(L 0.018 264), steps of ΔL 0.048. */
   --night-0: #05080f; /* oklch(0.1342 0.0172 262.17)  sunken   */
@@ -65,16 +86,16 @@
      Contrast, measured (WCAG 2.x relative luminance, sRGB). Worst cases across
      the whole system, computed twice against independent implementations:
 
-     Light (sunken #D5D8DE / base #E4E8EF / raised #F4F8FF):
-       --foreground  #0F131B .......... 13.02 / 15.13 / 17.46  PASS (4.5)
-       --muted       #4E5564 ..........  5.24 /  6.09 /  7.02  PASS (4.5)
-       --link/--focus #5244C3 .........  4.95 /  5.75 /  6.63  PASS (4.5)
-       --border      #585E69 ..........  4.57 /  5.31 /  6.12  PASS (3.0)
-       --sheen-alt   #00736D ..........  4.00 /  4.65 /  5.37  PASS (3.0)
-       --uncertain   #9B5F00 ..........  3.65 /  4.24 /  4.89  PASS (3.0)
-       --uncertain-strong #864F00 .....  4.70 /  5.46 /  6.30  PASS (4.5)
+     Light (sunken #CFD8EA / base #E4E8EF / raised #F4F8FF):
+       --foreground  #0F131B .......... 12.98 / 15.13 / 17.46  PASS (4.5)
+       --muted       #4E5564 ..........  5.22 /  6.09 /  7.02  PASS (4.5)
+       --link/--focus #5244C3 .........  4.93 /  5.75 /  6.63  PASS (4.5)
+       --border      #585E69 ..........  4.55 /  5.31 /  6.12  PASS (3.0)
+       --sheen-alt   #00736D ..........  3.99 /  4.65 /  5.37  PASS (3.0)
+       --uncertain   #9B5F00 ..........  3.64 /  4.24 /  4.89  PASS (3.0)
+       --uncertain-strong #864F00 .....  4.68 /  5.46 /  6.30  PASS (4.5)
          and 4.70 on its own chip fill #DCD7D5
-       --default-foreground on --default #C4C7CD ..... 10.98   PASS (4.5)
+       --default-foreground on --default #BEC7D9 ..... 10.95   PASS (4.5)
 
      Dark (sunken #05080F / base #0E121A / raised #191D25):
        --foreground  #DDE1E9 .......... 15.29 / 14.30 / 12.88  PASS (4.5)
@@ -91,12 +112,14 @@
        ΔL 0.048 elevation step, not the rule, does the separating. Anywhere a
        boundary is the SOLE definition of a component, use --border, never
        --separator.
-       --uncertain-surface is isoluminant with the light sunken rung (ΔL 0.0009).
-       The chip separates by hue (warm on a hue-264 cool field) and by its
-       --uncertain border at 3.65:1, which is the boundary that carries the
-       requirement.
+       --uncertain-surface is near-isoluminant with the light sunken rung
+       (ΔL 0.0017). The chip separates by hue - a warm #DCD7D5 fill on a cool
+       hue-264 field - and by its --uncertain border at 3.64:1, which is the
+       boundary that carries the requirement. Tinting the sunken rung made that
+       hue separation real rather than nominal: against the old near-neutral
+       #D5D8DE there was almost nothing for the warm fill to read against.
 
-     Elevation, OKLCh L: light 0.8817 / 0.9300 / 0.9781, steps 0.0483 and 0.0481.
+     Elevation, OKLCh L: light 0.8808 / 0.9300 / 0.9781, steps 0.0491 and 0.0481.
      Dark 0.1342 / 0.1820 / 0.2303, steps 0.0478 and 0.0483. Threshold 0.045.
      Theme flip per rung: 0.7475 / 0.7480 / 0.7478 - every section changes. */
   --amber-line-light: #9b5f00; /* oklch(0.5399 0.1186 67.84)  non-text, 3:1 */
