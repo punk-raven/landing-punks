@@ -158,8 +158,8 @@ export interface EstimateNote {
  *
  *   - The page title and OG title say "22 Indian languages", dropping
  *     "scheduled". The site says "22 scheduled languages" everywhere, because
- *     the number is exact only with that word attached; `docs/HANDOVER.md`
- *     records the same defect in the copy doc's Variant C. Corrected here.
+ *     the number is exact only with that word attached. The copy doc's own
+ *     Variant C carries the same defect. Corrected here.
  *   - The meta description ends "2-5x cheaper than stitching two managed cloud
  *     APIs together". That is the derived cost estimate Part C holds for
  *     re-verification, and a meta description is published copy like any other.

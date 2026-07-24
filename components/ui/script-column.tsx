@@ -9,8 +9,8 @@ import { heroScriptSentence } from "@/content/tnt";
  *
  * IT IS BLOCKED, AND THIS IS THE SCAFFOLD.
  *
- * The nine strings come from the user and nothing may be machine-translated
- * (decision Q6, `docs/HANDOVER.md` "Owed by a human"). Until they arrive, every
+ * The nine strings come from the user and nothing may be machine-translated -
+ * a standing decision, and the blocker on this component. Until they arrive, every
  * `text` in `heroScriptSentence.lines` is empty and this component returns
  * `null` - no placeholder, no transliteration, no English stand-in, no Lorem and
  * no reserved vertical space. An empty column is correct. A wrong glyph on a

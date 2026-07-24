@@ -22,8 +22,8 @@
  *     out anywhere in this repository outside the source document itself, this
  *     line included. Note that deleting §0 does NOT remove it from the source:
  *     it also sits in that document's top metadata line and in its closing
- *     italic, so the check is the case-insensitive grep for it recorded in
- *     `docs/HANDOVER.md`, run over the whole tree, not a section delete.
+ *     italic, so the check is a case-insensitive grep for the codename over the
+ *     whole tree, not a section delete.
  *
  *   §7 Strategic Differentiation, in full. It names competitors, discusses
  *     moats, and quotes consultation pricing. Investor material.

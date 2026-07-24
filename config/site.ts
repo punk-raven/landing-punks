@@ -66,9 +66,9 @@ export const siteConfig = {
      * with them, and no form was built.
      *
      * That is a deliberate deviation from the §7 checklist item reading "Primary
-     * CTA is 'Request early access' on every page", recorded in
-     * `docs/HANDOVER.md`. Restoring it means restoring the constant here first,
-     * so that the label and the destination stay defined in one place.
+     * CTA is 'Request early access' on every page". Restoring it means restoring
+     * the constant here first, so that the label and the destination stay
+     * defined in one place.
      */
   },
 };
