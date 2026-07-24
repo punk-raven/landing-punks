@@ -1,11 +1,492 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
+/* There is no dark-mode toggle on this site (spec §5.1: "the site alternates
+   light and dark bands by design"). Pinning `dark:` to a class that is never
+   applied keeps the variant inert - without this, Tailwind v4's built-in
+   `dark:` would fall back to prefers-color-scheme and OS dark mode would leak
+   into a site that has no dark theme. Use `.band--ink` for dark sections. */
 @custom-variant dark (&:is(.dark *));
 
-/* `inline` so `font-sans`/`font-mono` compile to the raw var() and resolve on the
-   element, not at :root - the next/font classes live on <html>, not :root. */
+/* ---------------------------------------------------------------------------
+   PunkRaven brand tokens - spec §5.1, "corvid, not generic dark".
+   A raven is a blue-shifted near-black with violet and teal iridescence.
+   These are raw brand values. They are constant; they never flip per band.
+
+   Declared unlayered and after `@heroui/styles` so they win over HeroUI's
+   `layer(theme)` declarations without needing higher specificity.
+   --------------------------------------------------------------------------- */
+:root {
+  --ink: #0f131b; /* raven black, blue-shifted. Body text on light, bg on dark */
+  --ink-soft: #39404e; /* secondary text.            9.53:1 on --paper */
+  --ink-raised: #1a202b; /* raised surface inside a dark band */
+  --paper: #f3f5f8; /* cool paper. Deliberately NOT cream */
+  --paper-pure: #ffffff; /* card surfaces */
+  --paper-soft: #a8b2c4; /* secondary text on dark.    8.70:1 on --ink */
+  --sheen: #5b4fcf; /* violet iridescence. Primary accent, links, CTA, focus */
+  --sheen-lift: #8b82e8; /* --sheen lifted for dark bands. 5.72:1 on --ink
+                              (--sheen itself is only 3.07:1 there - enough for
+                              a focus ring but not for a link) */
+  --sheen-alt: #17968f; /* teal iridescence. Secondary accent, diagram strokes */
+  --rule: #c7ceda; /* hairlines, borders */
+}
+
+/* ---------------------------------------------------------------------------
+   The amber. Spec §5.2: reserved EXCLUSIVELY for uncertainty, status and
+   unverified claims - status chips, estimate qualifiers, low-confidence
+   markers, the "we have not built this yet" band. Never decorative, never on a
+   heading, a hover state, a border for visual interest, or a CTA. If you are
+   reaching for amber to make something look good, use --sheen.
+
+   The token is named `uncertain`, not `amber`/`warning`/`signal`, so that
+   decorative use reads as wrong at the call site. It is deliberately NOT
+   exposed through `@theme inline` either: there is no `bg-uncertain` /
+   `text-uncertain` utility, so the only way to reach the amber is the two
+   recipes allowed to have it - `statusChip` and `sectionRule` in
+   components/primitives.ts, which read `var(--uncertain*)` directly. Spec §5.2
+   says "protect it"; not generating the utilities is what protecting it means.
+
+   The three tokens are NOT declared here. They flip per band, so they live in
+   the band token contract below alongside every other band-scoped token.
+
+   Contrast, measured (WCAG 2.x relative luminance, sRGB):
+     spec value #D98A1F on --paper #F3F5F8 ...... 2.53:1  FAIL (needs 4.5:1)
+     spec fallback #B4700F on --paper ........... 3.65:1  passes SC 1.4.11
+                                                          non-text (3:1) only
+     #995F0D on --paper ......................... 4.81:1  PASS
+     #995F0D on --uncertain-surface #F8F1E7 ..... 4.69:1  PASS
+     #D98A1F on --ink #0F131B ................... 6.73:1  PASS
+     #D98A1F on --uncertain-surface #2F261C ..... 5.38:1  PASS
+
+   So §5.6's instruction to "darken to #B4700F if it does not pass" is not
+   sufficient on its own: #B4700F clears the 3:1 non-text threshold but still
+   fails the 4.5:1 text threshold, and the status chip is small text. Hence the
+   split: --uncertain is the canonical amber for rules, dots and borders
+   (non-text, 3:1); --uncertain-strong is the text-safe amber and flips per band
+   so it passes 4.5:1 on both paper and ink.
+   --------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+   Document-level HeroUI settings that do not vary by band.
+
+   --radius is left at HeroUI's 0.5rem on purpose. HeroUI derives its whole
+   radius scale from it (--radius-sm = --radius * 0.5, --radius-md = * 0.75,
+   --radius-lg = * 1, ...), so lowering the base to 0.375rem to get a 6px button
+   instead emitted 4.5px for `rounded-md` and 3px for `rounded-sm` - subpixel
+   radii that render as a soft smear rather than a corner. At HeroUI's 0.5rem
+   base, `rounded-md` is exactly 6px and `rounded-sm` exactly 4px, which is the
+   house shape the override was reaching for, on whole pixels across the scale.
+   Set the shape on the component (`.button { rounded-md }`), not on the base.
+   --------------------------------------------------------------------------- */
+:root {
+  --field-border-width: 1px;
+}
+
+/* ---------------------------------------------------------------------------
+   The band token contract.
+
+   The site segments pages by alternating light and dark sections rather than by
+   a theme toggle, so every band re-declares the semantic tokens on itself and
+   anything nested inside - including HeroUI components - adapts with no extra
+   classes.
+
+   Two rules make this actually work, and both were learned the hard way:
+
+   1. ALL THREE BANDS DECLARE THE IDENTICAL KEY SET. Same keys, different
+      values. A band that omits a key does not fall back to something sane, it
+      inherits the enclosing band's value - and bands nest in practice (the
+      sticky `.band--paper` header sits over the `.band--ink` hero). When
+      `.band--paper` declared four keys and `.band--ink` declared seventeen, a
+      paper band inside an ink band rendered --link and --focus at --sheen-lift
+      (2.98:1 on paper, fails AA and SC 1.4.11) and --uncertain at #D98A1F
+      (2.53:1, the exact value the table above documents as failing). Adding a
+      key below means adding it to all three. A missing key must show up as a
+      diff in this file, never as silent inheritance at runtime.
+
+   2. DERIVED TOKENS MUST BE RE-DERIVED PER BAND. HeroUI declares a large set of
+      calculated tokens (--accent-hover, --surface-hover, --field-*, --border-*,
+      --separator-*, --background-*, --scrollbar-thumb, ...) only on :root. A
+      var() inside a custom property is substituted on the element that DECLARES
+      the property, so those freeze at the :root values and inherit into a band
+      unchanged: inside `.band--ink`, --accent-hover still computed from --sheen
+      and white, and the primary CTA hover measured 3.76:1 on the dark hero. The
+      shared block at the end of this section restates every one of HeroUI's
+      formulas verbatim so they recompute against the band's own values.
+
+   :root is folded into `.band--paper` because the document default IS a paper
+   band - that keeps the root and the band provably identical rather than
+   approximately so.
+   --------------------------------------------------------------------------- */
+:root,
+.band--paper {
+  color-scheme: light;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --muted: var(--ink-soft);
+
+  --surface: var(--paper-pure);
+  --surface-foreground: var(--ink);
+  --overlay: var(--paper-pure);
+  --overlay-foreground: var(--ink);
+
+  --default: color-mix(in oklab, var(--ink) 7%, var(--paper-pure));
+  --default-foreground: var(--ink);
+
+  --accent: var(--sheen);
+  --accent-foreground: var(--paper-pure);
+  --link: var(--sheen);
+  --focus: var(--sheen);
+
+  --border: var(--rule);
+  --separator: var(--rule);
+
+  --field-background: var(--paper-pure);
+  --field-foreground: var(--ink);
+  --field-border: var(--rule);
+
+  --segment: var(--paper-pure);
+  --segment-foreground: var(--ink);
+
+  --uncertain: #b4700f;
+  --uncertain-strong: #995f0d;
+  --uncertain-surface: #f8f1e7;
+}
+
+.band--pure {
+  color-scheme: light;
+
+  --background: var(--paper-pure);
+  --foreground: var(--ink);
+  --muted: var(--ink-soft);
+
+  --surface: var(--paper);
+  --surface-foreground: var(--ink);
+  --overlay: var(--paper-pure);
+  --overlay-foreground: var(--ink);
+
+  --default: color-mix(in oklab, var(--ink) 7%, var(--paper-pure));
+  --default-foreground: var(--ink);
+
+  --accent: var(--sheen);
+  --accent-foreground: var(--paper-pure);
+  --link: var(--sheen);
+  --focus: var(--sheen);
+
+  --border: var(--rule);
+  --separator: var(--rule);
+
+  --field-background: var(--paper);
+  --field-foreground: var(--ink);
+  --field-border: var(--rule);
+
+  --segment: var(--paper);
+  --segment-foreground: var(--ink);
+
+  --uncertain: #b4700f;
+  --uncertain-strong: #995f0d;
+  --uncertain-surface: #f8f1e7;
+}
+
+.band--ink {
+  /* Native controls, scrollbars and autofill follow this, not --background. */
+  color-scheme: dark;
+
+  --background: var(--ink);
+  --foreground: var(--paper);
+  --muted: var(--paper-soft);
+
+  --surface: var(--ink-raised);
+  --surface-foreground: var(--paper);
+  --overlay: var(--ink-raised);
+  --overlay-foreground: var(--paper);
+
+  /* Without these, ghost/outline/tertiary buttons keep the :root neutral -
+     a near-white --default with a near-black --default-foreground, measured at
+     1.25:1 and 1.06:1 on a dark band. */
+  --default: color-mix(in oklab, var(--paper) 14%, var(--ink));
+  --default-foreground: var(--paper);
+
+  --accent: var(--sheen-lift);
+  --accent-foreground: var(--ink);
+  --link: var(--sheen-lift);
+  --focus: var(--sheen-lift);
+
+  --border: color-mix(in oklab, var(--paper) 26%, var(--ink));
+  --separator: color-mix(in oklab, var(--paper) 18%, var(--ink));
+
+  --field-background: var(--ink-raised);
+  --field-foreground: var(--paper);
+  --field-border: color-mix(in oklab, var(--paper) 26%, var(--ink));
+
+  --segment: var(--ink-raised);
+  --segment-foreground: var(--paper);
+
+  /* Amber, flipped to the values measured against --ink in the table above. */
+  --uncertain: #d98a1f;
+  --uncertain-strong: #d98a1f;
+  --uncertain-surface: #2f261c;
+}
+
+/* ---------------------------------------------------------------------------
+   Derived tokens - rule 2 above. Every formula here is HeroUI's own, copied
+   from node_modules/@heroui/styles/dist/themes/default/variables.css, and is
+   identical for all three bands by construction: only the operands change,
+   because they resolve on the band element. Do not fork a formula per band -
+   if a band needs a different value, change the operand it is built from.
+
+   The two exceptions are --surface-secondary / --surface-tertiary, which HeroUI
+   ships as flat oklch literals per theme. They are expressed here as the
+   equivalent mix off --surface so they track the band instead of freezing at
+   the light-theme values (6% and 8% reproduce HeroUI's L=0.9524 / L=0.9373 on
+   a white surface).
+   --------------------------------------------------------------------------- */
+:root,
+.band--paper,
+.band--pure,
+.band--ink {
+  /* Surfaces */
+  --surface-secondary: color-mix(
+    in oklab,
+    var(--surface) 94%,
+    var(--surface-foreground) 6%
+  );
+  --surface-secondary-foreground: var(--surface-foreground);
+  --surface-tertiary: color-mix(
+    in oklab,
+    var(--surface) 92%,
+    var(--surface-foreground) 8%
+  );
+  --surface-tertiary-foreground: var(--surface-foreground);
+  --surface-hover: color-mix(
+    in oklab,
+    var(--surface) 92%,
+    var(--surface-foreground) 8%
+  );
+
+  /* Backgrounds */
+  --background-secondary: color-mix(
+    in oklab,
+    var(--background) 96%,
+    var(--foreground) 4%
+  );
+  --background-tertiary: color-mix(
+    in oklab,
+    var(--background) 92%,
+    var(--foreground) 8%
+  );
+  --background-inverse: var(--foreground);
+
+  /* Neutral - drives ghost, outline, secondary and tertiary buttons */
+  --default-hover: color-mix(
+    in oklab,
+    var(--default) 96%,
+    var(--default-foreground) 4%
+  );
+  --default-soft: color-mix(in oklab, var(--default) 50%, transparent);
+  --default-soft-foreground: var(--default-foreground);
+  --default-soft-hover: color-mix(in oklab, var(--default) 60%, transparent);
+
+  /* Accent */
+  --accent-hover: color-mix(
+    in oklab,
+    var(--accent) 90%,
+    var(--accent-foreground) 10%
+  );
+  --accent-soft: color-mix(in oklab, var(--accent) 15%, transparent);
+  --accent-soft-foreground: color-mix(
+    in oklab,
+    var(--accent) 70%,
+    var(--foreground) 30%
+  );
+  --accent-soft-hover: color-mix(in oklab, var(--accent) 20%, transparent);
+
+  /* Form fields */
+  --field-placeholder: var(--muted);
+  --field-hover: color-mix(
+    in oklab,
+    var(--field-background, var(--default)) 90%,
+    var(--field-foreground, var(--foreground)) 2%
+  );
+  --field-focus: var(--field-background, var(--default));
+  --field-border-hover: color-mix(
+    in oklab,
+    var(--field-border, var(--border)) 88%,
+    var(--field-foreground, var(--foreground)) 10%
+  );
+  --field-border-focus: color-mix(
+    in oklab,
+    var(--field-border, var(--border)) 74%,
+    var(--field-foreground, var(--foreground)) 22%
+  );
+
+  /* Separators and borders */
+  --separator-secondary: color-mix(
+    in oklab,
+    var(--surface) 85%,
+    var(--surface-foreground) 15%
+  );
+  --separator-tertiary: color-mix(
+    in oklab,
+    var(--surface) 81%,
+    var(--surface-foreground) 19%
+  );
+  --border-secondary: color-mix(
+    in oklab,
+    var(--surface) 78%,
+    var(--surface-foreground) 22%
+  );
+  --border-tertiary: color-mix(
+    in oklab,
+    var(--surface) 66%,
+    var(--surface-foreground) 34%
+  );
+
+  /* Status soft foregrounds - these mix in --foreground, so they freeze too.
+     The status hues themselves are band-independent and are left alone; in
+     particular --warning stays HeroUI's, because it means "something is wrong"
+     and the PunkRaven amber means "we are not certain about this" (§5.2). */
+  --danger-soft-foreground: color-mix(
+    in oklab,
+    var(--danger) 70%,
+    var(--foreground) 40%
+  );
+  --warning-soft-foreground: color-mix(
+    in oklab,
+    var(--warning) 80%,
+    var(--foreground) 70%
+  );
+  --success-soft-foreground: color-mix(
+    in oklab,
+    var(--success) 80%,
+    var(--foreground) 60%
+  );
+
+  /* Scrollbar */
+  --scrollbar-thumb: color-mix(in oklch, var(--foreground) 15%, transparent);
+  --scrollbar: var(--scrollbar-thumb);
+  --scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* ---------------------------------------------------------------------------
+   Tailwind theme. `inline` so the utilities compile to the raw var() and
+   resolve on the element rather than at :root - required both for the
+   next/font variables (which live on <html>, not :root) and for the band
+   tokens above (which live on the band element).
+   --------------------------------------------------------------------------- */
 @theme inline {
-    --font-sans: var(--font-sans-custom), ui-sans-serif, system-ui, sans-serif;
-    --font-mono: var(--font-mono-custom), ui-monospace, monospace;
+  /* Three type roles - spec §5.3. Display = Orbitron, Body = Inter,
+     Data = Fira Code. The `-custom` suffix on the next/font variables is
+     required: reusing --font-sans/--font-mono would create a self-referential
+     var() that resolves to nothing. Do not shorten it. */
+  --font-display: var(--font-display-custom), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-body:
+    var(--font-body-custom), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-data: var(--font-data-custom), ui-monospace, SFMono-Regular, monospace;
+
+  /* Tailwind's defaults point at body/data, so unstyled prose inherits Inter
+     rather than the display face. Headings opt in to `font-display`. */
+  --font-sans:
+    var(--font-body-custom), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-data-custom), ui-monospace, SFMono-Regular, monospace;
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-raised: var(--ink-raised);
+  --color-paper: var(--paper);
+  --color-paper-pure: var(--paper-pure);
+  --color-paper-soft: var(--paper-soft);
+  --color-sheen: var(--sheen);
+  --color-sheen-lift: var(--sheen-lift);
+  --color-sheen-alt: var(--sheen-alt);
+  --color-rule: var(--rule);
+
+  /* No --color-uncertain* here. Mapping the amber into the theme would make
+     Tailwind generate bg-/text-/border-/ring-/from-uncertain on demand
+     anywhere on the site, which is exactly the decorative use §5.2 forbids -
+     and it fails quietly, because --uncertain and --uncertain-strong are the
+     same value on an ink band, so amber text authored on a dark band measures
+     6.73:1 there and degrades to 3.65:1 the moment it lands on a light one.
+     Read var(--uncertain*) directly in the two recipes allowed to have it. */
+
+  /* Layout measures - spec §5.4: 68ch for prose, 1120px for full bands.
+     Named `measure`, not `prose`: Tailwind ships a hardcoded `max-w-prose`
+     utility at 65ch that a `--container-prose` theme key does not override, so
+     `max-w-prose` would silently render 65ch instead of the specified 68ch. */
+  --container-measure: 68ch;
+  --container-band: 1120px;
+}
+
+@layer components {
+  /* House default for HeroUI's Button, set on its BEM class - HeroUI's
+     documented customisation path - which also covers links dressed as buttons
+     (`ButtonLink`), since those never go through the React component and so
+     never see its class string at all. A utility passed from a call site still
+     wins over this: buttonVariants emits only BEM class names, and a call-site
+     utility lands in @layer utilities, which outranks @layer components
+     unconditionally. Colour is untouched: --accent is already --sheen. */
+  .button {
+    @apply rounded-md font-body tracking-normal;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    /* Body looser than default leading - spec §5.3, "this is a reading site". */
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* The header is sticky at h-16 (64px), so an anchored heading would otherwise
+     scroll to underneath it. 5rem = 64px header + 16px of air. */
+  :where(h1, h2, h3, h4) {
+    scroll-margin-top: 5rem;
+  }
+
+  /* Spec §5.6: visible keyboard focus using --sheen, never `outline: none`.
+     Zero-specificity :where() so HeroUI's own focus ring (components layer,
+     also driven by --focus) still wins on HeroUI components. */
+  :where(a, button, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--sheen);
+    color: var(--paper-pure);
+  }
+
+  /* Spec §5.6: prefers-reduced-motion respected on every transition. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      /* Delays matter as much as durations: a 0.01ms animation that starts
+         600ms from now is still 600ms of a user staring at a blank element. */
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* The view-transition pseudos are generated outside the document tree, so
+       the universal selector above never matches them and a cross-document or
+       `startViewTransition` animation would still play at full length. */
+    ::view-transition-group(*),
+    ::view-transition-image-pair(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
 }

@@ -1,53 +1,194 @@
+import { buttonVariants } from "@heroui/react";
 import { tv } from "tailwind-variants";
 
+/**
+ * Type scale, spec §5.3: a real 1.25 ratio, no more than four sizes on a page.
+ * From a 1rem base: 1 / 1.25 / 1.5625 / 1.953 / 2.441 / 3.052.
+ *
+ * There is no colour variant here on purpose. The site has no theme toggle; it
+ * alternates `.band--paper` and `.band--ink` sections (see styles/globals.css)
+ * and every band re-declares `--foreground` / `--muted` / `--accent` on itself.
+ * So headings inherit the right colour from the band they sit in, and a `dark:`
+ * variant would have nothing to hook onto.
+ */
 export const title = tv({
-  base: "tracking-tight inline font-semibold",
+  base: "font-display font-semibold tracking-tight text-balance",
   variants: {
-    color: {
-      violet: "from-[#FF1CF7] to-[#b249f8]",
-      yellow: "from-[#FF705B] to-[#FFB457]",
-      blue: "from-[#5EA2EF] to-[#0072F5]",
-      cyan: "from-[#00b7fa] to-[#01cfea]",
-      green: "from-[#6FEE8D] to-[#17c964]",
-      pink: "from-[#FF72E1] to-[#F54C7A]",
-      foreground: "from-foreground to-muted",
-    },
     size: {
-      sm: "text-3xl lg:text-4xl",
-      md: "text-[2.3rem] lg:text-5xl",
-      lg: "text-4xl lg:text-6xl",
+      sm: "text-xl sm:text-[1.5625rem]",
+      md: "text-[1.5625rem] sm:text-[1.953rem]",
+      lg: "text-[1.953rem] sm:text-[2.441rem]",
+      xl: "text-[2.441rem] sm:text-[3.052rem]",
+    },
+    tone: {
+      current: "text-current",
+      foreground: "text-foreground",
+      muted: "text-muted",
+      accent: "text-accent",
     },
     fullWidth: {
-      true: "w-full block",
+      true: "block w-full",
+    },
+  },
+  defaultVariants: {
+    size: "lg",
+    tone: "foreground",
+  },
+});
+
+export const subtitle = tv({
+  base: "font-body text-muted text-pretty leading-relaxed",
+  variants: {
+    size: {
+      sm: "text-base",
+      md: "text-lg",
+      lg: "text-lg sm:text-xl",
     },
   },
   defaultVariants: {
     size: "md",
   },
-  compoundVariants: [
-    {
-      color: [
-        "violet",
-        "yellow",
-        "blue",
-        "cyan",
-        "green",
-        "pink",
-        "foreground",
-      ],
-      class: "bg-clip-text text-transparent bg-gradient-to-b",
-    },
-  ],
 });
 
-export const subtitle = tv({
-  base: "w-full md:w-1/2 my-2 text-lg lg:text-xl text-muted block max-w-full",
+/**
+ * Eyebrow - the one place besides the status chip where all-caps is allowed
+ * (spec §5.3), set small with wide tracking in the data face.
+ */
+export const eyebrow = tv({
+  base: "font-data text-xs uppercase tracking-[0.16em] text-muted",
   variants: {
-    fullWidth: {
-      true: "!w-full",
+    tone: {
+      muted: "text-muted",
+      accent: "text-accent",
     },
   },
   defaultVariants: {
-    fullWidth: true,
+    tone: "muted",
   },
+});
+
+export const prose = tv({
+  base: "font-body text-base leading-[1.75] text-pretty [&_p+p]:mt-4",
+});
+
+/**
+ * Measure, spec §5.4: 68ch for prose, 1120px for full bands. `prose` is the
+ * reading column; `band` is the outer content width; `full` opts out for
+ * elements that must bleed.
+ */
+export const measure = tv({
+  base: "mx-auto w-full px-5 sm:px-6 lg:px-8",
+  variants: {
+    width: {
+      prose: "max-w-measure",
+      band: "max-w-band",
+      full: "max-w-none",
+    },
+  },
+  defaultVariants: {
+    width: "band",
+  },
+});
+
+/**
+ * Band, spec §5.4/§5.1: alternating light and dark sections are how the site
+ * segments a page. The `band--*` classes come from styles/globals.css and
+ * re-declare the semantic tokens on the section itself, so nested content -
+ * including HeroUI components - adapts without extra classes.
+ */
+export const band = tv({
+  base: "w-full bg-background text-foreground",
+  variants: {
+    tone: {
+      paper: "band--paper",
+      pure: "band--pure",
+      ink: "band--ink",
+    },
+    /* Generous vertical rhythm - this is a reading site, not a dashboard. */
+    spacing: {
+      none: "",
+      sm: "py-10 sm:py-14",
+      md: "py-16 sm:py-24",
+      lg: "py-24 sm:py-32",
+    },
+  },
+  defaultVariants: {
+    spacing: "md",
+    tone: "paper",
+  },
+});
+
+/**
+ * Section rule - a hairline in --rule, or the amber estimate divider.
+ *
+ * The amber is read as `var(--uncertain)` rather than through a `border-uncertain`
+ * utility on purpose: `--uncertain*` is deliberately not mapped in `@theme
+ * inline`, so no amber utility exists to reach for anywhere else on the site.
+ * This recipe and `statusChip` below are the only two things allowed to have it
+ * (spec §5.2, "protect it"). See the amber comment block in styles/globals.css.
+ */
+export const sectionRule = tv({
+  base: "w-full border-0 border-t",
+  variants: {
+    tone: {
+      rule: "border-separator",
+      /* §5.2: amber only where the thing below it is an estimate. */
+      uncertain: "border-[var(--uncertain)]",
+    },
+  },
+  defaultVariants: {
+    tone: "rule",
+  },
+});
+
+/**
+ * Status chip - spec §5.2 calls this the most important small component on the
+ * site, and it is the primary consumer of the `uncertain` token. Set small with
+ * wide tracking in the data face (§5.3).
+ *
+ * All three states share one amber treatment on purpose: the point of the token
+ * is that the single warm colour on an otherwise cool site always means "we are
+ * not certain about this". Differentiating the states by colour would dilute
+ * that; the label is the differentiator.
+ *
+ * Like `sectionRule`, the amber is read as `var(--uncertain*)` directly - there
+ * are no `bg-uncertain` / `text-uncertain` utilities to reach for.
+ */
+export const statusChip = tv({
+  slots: {
+    root: [
+      "inline-flex items-center gap-1.5 whitespace-nowrap rounded-sm border",
+      "border-[var(--uncertain)] bg-[var(--uncertain-surface)] text-[var(--uncertain-strong)]",
+      "font-data font-medium uppercase tracking-[0.14em]",
+    ],
+    dot: "size-1.5 shrink-0 rounded-full bg-[var(--uncertain-strong)]",
+  },
+  variants: {
+    size: {
+      sm: {
+        root: "px-1.5 py-0.5 text-[0.625rem]",
+        dot: "size-1",
+      },
+      md: {
+        root: "px-2 py-1 text-[0.6875rem]",
+      },
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});
+
+/**
+ * Button - HeroUI's own recipe, re-exported so a link can be dressed as a
+ * button without going through the `<button>` element. It emits BEM classes
+ * (`button button--md button--primary`), and the house shape and type face are
+ * applied to `.button` in the components layer of styles/globals.css, which is
+ * HeroUI's documented customisation path.
+ *
+ * There are no colour overrides here: `--accent` is already rethemed to
+ * `--sheen` in styles/globals.css, so `variant="primary"` is the sheen CTA.
+ */
+export const button = tv({
+  extend: buttonVariants,
 });

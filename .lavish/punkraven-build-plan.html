@@ -1,0 +1,492 @@
+<title>PunkRaven site - build plan</title>
+<style>
+  :root{
+    --ink:#0F131B; --ink-soft:#39404E; --paper:#F3F5F8; --paper-pure:#FFFFFF;
+    --sheen:#5B4FCF; --sheen-alt:#17968F; --signal:#B4700F; --signal-on-ink:#D98A1F;
+    --rule:#C7CEDA;
+    --measure:68ch; --band:1120px;
+    --f-display:"Orbitron","Segoe UI",system-ui,sans-serif;
+    --f-body:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    --f-data:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box;min-width:0}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);
+       line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .band{padding:64px 24px}
+  .band--ink{background:var(--ink);color:var(--paper)}
+  .band--ink h2,.band--ink h3{color:var(--paper)}
+  .wrap{max-width:var(--band);margin:0 auto}
+  .prose{max-width:var(--measure)}
+  h1,h2,h3{font-family:var(--f-display);letter-spacing:-.02em;line-height:1.15;margin:0 0 .5em}
+  h1{font-size:clamp(2rem,5vw,3.2rem)}
+  h2{font-size:clamp(1.5rem,3vw,2rem);margin-top:0}
+  h3{font-size:1.05rem;letter-spacing:0}
+  p{margin:0 0 1em}
+  a{color:var(--sheen)}
+  .eyebrow{font-family:var(--f-data);font-size:.72rem;letter-spacing:.18em;
+           text-transform:uppercase;color:var(--sheen-alt);margin:0 0 12px}
+  .lede{font-size:1.12rem;color:var(--ink-soft)}
+  .band--ink .lede{color:#AEB6C4}
+  hr.rule{border:0;border-top:1px solid var(--rule);margin:44px 0}
+  .band--ink hr.rule{border-color:#2A3140}
+
+  .chip{display:inline-block;font-family:var(--f-data);font-size:.66rem;letter-spacing:.12em;
+        text-transform:uppercase;padding:3px 9px;border:1px solid;border-radius:3px;
+        white-space:nowrap;vertical-align:middle}
+  .chip--pending{color:var(--signal);border-color:var(--signal);background:#FBF2E4}
+  .band--ink .chip--pending{color:var(--signal-on-ink);border-color:var(--signal-on-ink);background:transparent}
+  .chip--done{color:var(--sheen-alt);border-color:var(--sheen-alt);background:#E6F3F2}
+  .band--ink .chip--done{background:transparent}
+  .chip--decided{color:var(--sheen);border-color:var(--sheen);background:#ECEAFA}
+  .band--ink .chip--decided{color:#9C93F0;border-color:#9C93F0;background:transparent}
+
+  .grid{display:grid;gap:20px}
+  @media(min-width:760px){.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+                          .g3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .card{background:var(--paper-pure);border:1px solid var(--rule);border-radius:6px;padding:20px}
+  .band--ink .card{background:#161B25;border-color:#2A3140}
+  .card h3{margin-top:0}
+  .card p:last-child{margin-bottom:0}
+  .card--flag{border-left:3px solid var(--signal)}
+  .card--set{border-left:3px solid var(--sheen)}
+
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 8px}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-family:var(--f-data);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+     color:var(--ink-soft);border-bottom:1px solid var(--ink-soft)}
+  .band--ink th,.band--ink td{border-bottom-color:#2A3140}
+  .band--ink th{color:#AEB6C4}
+  code{font-family:var(--f-data);font-size:.85em;background:#E7EBF1;
+       padding:1px 5px;border-radius:3px;word-break:break-word}
+  .band--ink code{background:#232A36;color:#C9D1DE}
+
+  .phase{display:grid;gap:4px 18px;grid-template-columns:auto minmax(0,1fr);
+         padding:18px 0;border-bottom:1px solid var(--rule)}
+  .phase:last-child{border-bottom:0}
+  .phase__n{font-family:var(--f-data);font-size:1.5rem;color:var(--sheen);line-height:1.2}
+  .phase__t{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline}
+  .phase__t h3{margin:0}
+  .phase__body{grid-column:2}
+  .accepts{font-size:.9rem;color:var(--ink-soft);border-left:2px solid var(--sheen-alt);
+           padding-left:14px;margin-top:10px}
+  .accepts b{font-family:var(--f-data);font-size:.68rem;letter-spacing:.1em;
+             text-transform:uppercase;color:var(--sheen-alt);display:block}
+  ul{margin:0 0 1em;padding-left:1.15em} li{margin-bottom:.35em}
+  .tier{border:1px solid var(--rule);border-radius:5px;padding:13px 15px;background:var(--paper-pure);
+        margin-bottom:9px}
+  .tier--infra{border-left:3px solid var(--sheen-alt)}
+  .tier--app{border-left:3px solid var(--rule)}
+  .tierlabel{font-family:var(--f-data);font-size:.68rem;letter-spacing:.14em;
+             text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+  .divider{border:0;border-top:1px dashed var(--rule);margin:6px 0}
+  .foot{font-size:.85rem;color:var(--ink-soft)}
+  .band--ink .foot{color:#8E97A6}
+
+  /* question forms */
+  .q{background:var(--paper-pure);border:1px solid var(--rule);border-left:3px solid var(--signal);
+     border-radius:6px;padding:22px;margin-bottom:20px}
+  .q__h{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;margin-bottom:6px}
+  .q__h h3{margin:0;font-size:1.1rem}
+  .q__n{font-family:var(--f-data);color:var(--signal);font-size:.9rem}
+  .q__why{font-size:.88rem;color:var(--ink-soft);margin-bottom:14px}
+  .opts{display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
+  .opts label{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;border-radius:4px;
+              cursor:pointer;border:1px solid transparent;font-size:.93rem}
+  .opts label:hover{background:#EDF0F5;border-color:var(--rule)}
+  .opts input{margin:5px 0 0;accent-color:var(--sheen);flex:none}
+  .opts span b{display:block}
+  .opts span i{display:block;font-style:normal;font-size:.84rem;color:var(--ink-soft);margin-top:2px}
+  .q input[type=text]{width:100%;padding:10px 12px;border:1px solid var(--rule);border-radius:4px;
+                      font:inherit;font-size:.93rem;margin-bottom:14px;background:var(--paper-pure);color:var(--ink)}
+  .q button{font-family:var(--f-data);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+            background:var(--sheen);color:#fff;border:0;border-radius:4px;padding:11px 18px;cursor:pointer}
+  .q button:hover{background:#4B40B8}
+  .q :focus-visible{outline:2px solid var(--sheen);outline-offset:2px}
+  .sent{display:none;margin-top:10px;font-size:.86rem;color:var(--sheen-alt);font-weight:600}
+  .q.is-queued .sent{display:block}
+  .q.is-queued{border-left-color:var(--sheen-alt)}
+</style>
+
+<header class="band band--ink">
+  <div class="wrap">
+    <p class="eyebrow">Build plan &middot; five static routes</p>
+    <h1>PunkRaven site</h1>
+    <p class="lede prose">Phase&nbsp;0 audit complete, baseline committed, all four copy documents extracted.
+      <b>All ten decisions are now taken</b> &mdash; four from the audit, six answered in this artifact.
+      Phase&nbsp;1 is building.</p>
+    <p><span class="chip chip--done">Phase 0 done</span>
+       <span class="chip chip--done">10 decisions taken</span>
+       <span class="chip chip--decided">Phase 1 in progress</span></p>
+  </div>
+</header>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">The job</p>
+    <h2>What the site has to do</h2>
+    <div class="prose">
+      <p>Make a skeptical technical reader believe this infrastructure company is real and serious &mdash;
+        without letting them conclude that anything has shipped, or that this is a legal services business.</p>
+      <p>Two of PunkRaven's three projects work on law. That makes law the first domain it went deep on,
+        not its identity. The category is <b>applied AI infrastructure</b>, and the spec turns that into a
+        build rule: ordering, grouping and vocabulary all encode it.</p>
+    </div>
+
+    <hr class="rule">
+
+    <p class="eyebrow">Category gate &middot; &sect;2a</p>
+    <h2>The stack display decides it</h2>
+    <p class="prose">This element on <code>/</code> is where the category gate is won or lost. Two tiers,
+      never three equal layers.</p>
+    <div style="max-width:640px">
+      <p class="tierlabel">The infrastructure</p>
+      <div class="tier tier--infra"><b>T&amp;T</b> &middot; speech layer for Indian languages
+        <span class="chip chip--pending">Planning</span></div>
+      <div class="tier tier--infra"><b>Lawman</b> &middot; grounded reasoning layer
+        <span class="chip chip--pending">Specified</span></div>
+      <hr class="divider">
+      <p class="tierlabel">Built on it</p>
+      <div class="tier tier--app"><b>LawSafe</b> &middot; the first application
+        <span class="chip chip--pending">In design</span></div>
+      <p class="foot" style="margin-top:12px">Order is the primary signal: T&amp;T &rarr; Lawman &rarr; LawSafe
+        in nav, homepage, footer and sitemap. The teal connector runs through the two infrastructure bands
+        only, and drops on mobile.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band band--ink">
+  <div class="wrap">
+    <p class="eyebrow">Phase 0 &middot; audit</p>
+    <h2>What the scaffold already is</h2>
+    <p class="lede prose">Adopted, not re-scaffolded &mdash; the spec forbids migrating frameworks or adding one.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Concern</th><th>What exists</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td>Framework</td><td>Next.js 16.2.6, pages router, React 19.2.6</td><td>Keep</td></tr>
+          <tr><td>Routing</td><td>File-based. Two routes today: <code>/</code>, <code>/about</code></td><td>Add three</td></tr>
+          <tr><td>Styling</td><td>Tailwind v4 CSS-first, no <code>tailwind.config.js</code></td><td>Keep</td></tr>
+          <tr><td>Tokens</td><td>HeroUI v3 beta semantic tokens</td><td>Extend, don't shadow</td></tr>
+          <tr><td>Components</td><td>navbar, theme-switch, icons, primitives, DefaultLayout</td><td>Partial reuse</td></tr>
+          <tr><td>TypeScript</td><td><code>strict: true</code>, alias <code>@/*</code></td><td>Keep</td></tr>
+          <tr><td>Fonts</td><td><code>next/font/google</code>, fragile three-part chain</td><td>Extend</td></tr>
+          <tr><td>Form endpoint</td><td>Only a <code>hello.ts</code> stub</td><td>UI only, no backend</td></tr>
+          <tr><td>Deploy target</td><td>None configured</td><td><span class="chip chip--pending">Open</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="foot">Package manager is <b>bun</b>. A guard hook denies npm/yarn/pnpm installs and <code>npx</code>.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">Resolved</p>
+    <h2>Four decisions taken</h2>
+    <div class="grid g2">
+      <div class="card card--set">
+        <h3>Typefaces <span class="chip chip--decided">Decided</span></h3>
+        <p>Orbitron stays as the <b>display</b> face only. A readable body face carries prose, Fira&nbsp;Code
+          carries data, and <b>Noto Sans per script</b> is wired for the nine-script block.</p>
+        <p class="foot">Orbitron ships <code>subsets:["latin"]</code> &mdash; it cannot render any of the nine
+          Indic scripts, and lacks <code>&sect;</code>, <code>&#8377;</code> and <code>&rarr;</code>, which
+          appear in the copy.</p>
+      </div>
+      <div class="card card--set">
+        <h3>Circuit board <span class="chip chip--decided">Decided</span></h3>
+        <p>Used where a node graph genuinely illustrates content &mdash; the T&amp;T speech pipeline, the
+          two-tier stack, Lawman's retrieval flow &mdash; not in every section.</p>
+        <p class="foot">Hardened first: <code>cn</code> ported off the non-existent
+          <code>@workspace/ui</code> path, <code>prefers-reduced-motion</code> guard rendering static traces,
+          dynamic import, <code>aria-hidden</code>.</p>
+      </div>
+      <div class="card card--set">
+        <h3>Dark mode <span class="chip chip--decided">Decided</span></h3>
+        <p>The <code>next-themes</code> toggle is removed. The site alternates fixed light and dark bands
+          by design, per &sect;5.1.</p>
+        <p class="foot">Knock-on: <code>primitives.ts</code> <code>title()</code> carries <code>dark:</code>
+          gradient variants needing rework once the toggle is gone.</p>
+      </div>
+      <div class="card card--set">
+        <h3>Git baseline <span class="chip chip--done">Done</span></h3>
+        <p>Committed. <code>HEAD</code> previously tracked <b>zero files</b> &mdash; an earlier commit had
+          emptied the tree.</p>
+        <p class="foot">556 files now tracked, so the build is a reviewable diff and any bad phase reverts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band--ink">
+  <div class="wrap">
+    <p class="eyebrow">Design system &middot; &sect;5</p>
+    <h2>The amber rule is the signature</h2>
+    <div class="prose">
+      <p><code>--signal</code> amber is reserved exclusively for <b>uncertainty, status and unverified
+        claims</b>. Never a heading, never a hover state, never a CTA. The single warm colour on an otherwise
+        cool site always means <i>we are not certain about this</i>.</p>
+      <p>Every amber mark in this document obeys that rule. The token will be named <code>uncertain</code>,
+        never <code>amber</code> or <code>warning</code>, so decorative use reads as wrong at the call site.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Token</th><th>Value</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td><code>--ink</code></td><td>#0F131B</td><td>Raven black, blue-shifted</td></tr>
+          <tr><td><code>--ink-soft</code></td><td>#39404E</td><td>Secondary text</td></tr>
+          <tr><td><code>--paper</code></td><td>#F3F5F8</td><td>Cool paper, deliberately not cream</td></tr>
+          <tr><td><code>--sheen</code></td><td>#5B4FCF</td><td>Violet. Links, CTA, focus rings</td></tr>
+          <tr><td><code>--sheen-alt</code></td><td>#17968F</td><td>Teal. Diagram strokes, stack connector</td></tr>
+          <tr><td><code>uncertain</code></td><td>#D98A1F &rarr; #B4700F</td><td>Status only. Darkened on paper for AA</td></tr>
+          <tr><td><code>--rule</code></td><td>#C7CEDA</td><td>Hairlines, borders</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="foot">Layout: 68ch for prose, 1120px for bands. Conflicts with the scaffold's current
+      <code>max-w-7xl</code> (1280px); reconciled in Phase&nbsp;1.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">Extraction &middot; all four copy documents</p>
+    <h2>What the copy actually blocks</h2>
+    <p class="prose">The spec says never render a claim marked &ldquo;needs verification&rdquo; or
+      &ldquo;do not publish&rdquo;. <b>No claim table uses either exact phrase</b> &mdash; a grep for those
+      strings finds nothing and passes pages that should fail. These are the real gates.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim</th><th>Where</th><th>Gate wording</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Customer, logo, testimonial, case study</td><td>Anywhere</td><td>&ldquo;Do not add&rdquo;</td><td><span class="chip chip--pending">Hard block</span></td></tr>
+          <tr><td>Latency, cost or accuracy figures</td><td><code>/</code>, <code>/about</code></td><td>&ldquo;Keep off the company page entirely&rdquo;</td><td><span class="chip chip--pending">Hard block</span></td></tr>
+          <tr><td>886M users, 98% Indic consumption</td><td>C2</td><td>&ldquo;Re-verify date and figure&rdquo;</td><td><span class="chip chip--pending">Blocked</span></td></tr>
+          <tr><td>Stanford RegLab 58&ndash;88%, 17%, 34%</td><td>C4, &sect;6</td><td>&ldquo;Verify the study directly&rdquo;</td><td><span class="chip chip--pending">Blocked</span></td></tr>
+          <tr><td>&ldquo;T&amp;T powers LawSafe&rdquo;</td><td>B3, B4</td><td>&ldquo;Inference, not stated in any source doc&rdquo;</td><td><span class="chip chip--done">Confirmed</span></td></tr>
+          <tr><td>SLA table, ~1&ndash;2 s</td><td>A6</td><td>&ldquo;Mark as target, or benchmark first&rdquo;</td><td>Label as target</td></tr>
+          <tr><td>&#8377;22&ndash;55 vs &#8377;90&ndash;180</td><td>A7</td><td>&ldquo;Re-verify competitor pricing on publish day&rdquo;</td><td>Conditional</td></tr>
+          <tr><td>Monthly cost by tier</td><td>A7</td><td>&ldquo;Keep the 30 min/user/month assumption visible&rdquo;</td><td>Conditional</td></tr>
+          <tr><td>API request/response shape</td><td>A9</td><td>&ldquo;Do not imply a live sandbox&rdquo;</td><td>Contract only</td></tr>
+          <tr><td>Lawman verification, abstention</td><td>B3, C4</td><td>&ldquo;Never phrase as observed behaviour&rdquo;</td><td>Design language</td></tr>
+          <tr><td>LawSafe advocate verification</td><td>B4, C5, &sect;6</td><td>&ldquo;Do not imply a live verified panel&rdquo;</td><td>Needs rewording</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="rule">
+
+    <h2>The nine-script hero cannot be machine-built <span class="chip chip--pending">Awaiting copy</span></h2>
+    <div class="prose">
+      <p>&sect;5.5 calls this the site's one deliberate risk &mdash; it demonstrates the 22-language claim
+        instead of asserting it. <b>The translations do not exist in any source document.</b> A sweep of
+        U+0900&ndash;U+0DFF across all four files returns <b>zero matches</b>: they are 100% Latin script.
+        No translation table, no transliteration, no sample strings.</p>
+      <p>Machine-translating them unverified is the highest-risk shortcut available here. &sect;5.5 requires
+        native-reader verification per script and warns that a mangled script on a page about language
+        coverage is a self-inflicted wound. <b>The strings must come from a human</b> &mdash; and will be supplied. The section is scaffolded in Phase&nbsp;4 and filled on delivery.</p>
+      <p class="foot">Useful finding: the nine scripts map exactly onto A4's <b>Tier&nbsp;A</b> list
+        (Devanagari covers Hindi and Marathi, giving nine scripts for ten languages). The block restates
+        Tier&nbsp;A specifically, not all 22 &mdash; worth preserving in its caption and <code>aria-label</code>.</p>
+    </div>
+
+    <hr class="rule">
+
+    <h2>Eight defects in the source documents</h2>
+    <p class="prose">Errors in the copy docs themselves, not the spec. Each is handled in the phase plan;
+      none is silently resolved.</p>
+    <div class="grid g2">
+      <div class="card card--flag">
+        <h3>&sect;3.2 and &sect;2b.5 contradict</h3>
+        <p>&sect;3.2 mandates T&amp;T <b>Variant&nbsp;B</b> for the homepage. Its proof line carries a latency
+          figure and a cost figure &mdash; both barred from <code>/</code> by &sect;2b.5.</p>
+        <p class="foot">&sect;2b is a hard rule, so it wins: the proof line is de-numbered. The homepage
+          T&amp;T block keeps only <code>22 scheduled languages</code> and <code>MIT-licensed</code>.</p>
+      </div>
+      <div class="card card--flag">
+        <h3>A wrong claim would go site-wide</h3>
+        <p>Variant&nbsp;C reads &ldquo;all 22 <b>Indian</b> languages&rdquo;, dropping <b>scheduled</b>.
+          &sect;3.2 puts Variant&nbsp;C in the footer and nav flyout &mdash; every page.</p>
+        <p class="foot">The A0 page title has the same defect. Both corrected to &ldquo;22 scheduled Indian
+          languages&rdquo;; the doc enforces this rule against itself elsewhere.</p>
+      </div>
+      <div class="card card--flag">
+        <h3>Deleting &sect;0 does not remove NyayaSetu</h3>
+        <p>Four occurrences. Two sit inside excluded &sect;0 &mdash; <b>two do not</b>: the metadata line at
+          the top of the file, and the closing italic <i>&ldquo;We build it as NyayaSetu.&rdquo;</i></p>
+        <p class="foot">A naive section-delete passes the grep and still leaks. The top line is exactly what
+          gets pasted into a meta description by accident.</p>
+      </div>
+      <div class="card card--flag">
+        <h3>Competitor names survive the &sect;7 cut</h3>
+        <p>&sect;3.4 excludes &sect;7. But <b>&sect;6 is included</b> and names <b>GPT-4, Llama&nbsp;2,
+          PaLM&nbsp;2, Lexis+&nbsp;AI and Westlaw</b> with fabrication rates. &sect;4 says the app is
+          &ldquo;as familiar as Claude or ChatGPT&rdquo;.</p>
+        <p class="foot">Naming Lexis and Westlaw with a failure percentage is a disparagement exposure.
+          Keep the principle, drop the product names and percentages.</p>
+      </div>
+      <div class="card card--flag">
+        <h3>Part D points at the wrong section</h3>
+        <p>Part&nbsp;D says T&amp;T's non-legal buyers are named in &ldquo;<b>B5 and C5</b>&rdquo;. They
+          appear only in <b>C5</b>.</p>
+        <p class="foot">So <code>/</code> currently names <b>zero</b> non-legal buyers &mdash; and that is
+          where the cold-read test is hardest. The T&amp;T homepage block must supply them.</p>
+      </div>
+      <div class="card card--flag">
+        <h3>Lawman's CTA violates the spec</h3>
+        <p>Lawman's closing CTA reads <code>Get early access</code>. &sect;2b.7 permits only
+          <b>&ldquo;Request early access&rdquo;</b>.</p>
+        <p class="foot">Spec wins on structure, copy wins on wording &mdash; this is structural. The button
+          reads &ldquo;Request early access&rdquo;; the India phrasing becomes supporting text.</p>
+      </div>
+      <div class="card card--flag">
+        <h3>Missing page metadata</h3>
+        <p><code>lawman-summary.md</code> has <b>no metadata table at all</b>. <code>C0</code> has metadata
+          but <b>no OG fields</b>, where <code>B0</code> does.</p>
+        <p class="foot">&sect;7 requires metadata plus OG tags from each doc's table. Two pages cannot satisfy
+          that as written; values must be authored.</p>
+      </div>
+      <div class="card card--flag">
+        <h3>&ldquo;Advice&rdquo; hides in an included section</h3>
+        <p>LawSafe &sect;2 cites Tele-Law's <i>&ldquo;1 crore pre-litigation <b>advice</b> sessions&rdquo;</i>
+          &mdash; a government programme's figure that reads as LawSafe's own offering.</p>
+        <p class="foot">Also in the TL;DR: <i>&ldquo;Available in all local Indian languages&rdquo;</i>,
+          an unbounded unsourced claim. Neither is on the include list; both stay out.</p>
+      </div>
+    </div>
+
+    <hr class="rule">
+    <p class="foot"><b>Confirmed clean:</b> no social proof of any kind in any document &mdash; anything of
+      that sort on the site would be fabricated. No &ldquo;22+&rdquo; phrasing. All uses of
+      &ldquo;advice&rdquo; in the company and Lawman docs are disclaimers, so Phase&nbsp;5's gate is
+      satisfiable as written. <code>lawman-summary.md</code> contains <b>zero</b> numeric figures in body
+      copy, deliberately &mdash; do not add any. LawSafe's &sect;4 scope list runs to <b>49 practice areas in
+      one sentence</b>; all six of the spec's prescribed replacements are source-backed.</p>
+  </div>
+</section>
+
+<section class="band band--ink">
+  <div class="wrap">
+    <p class="eyebrow">Execution</p>
+    <h2>Seven phases</h2>
+    <p class="lede prose">Strictly in order. A phase does not start until the previous one's criteria pass.
+      Each is subagent-driven and closes with a review pass.</p>
+
+    <div class="phase"><div class="phase__n">1</div>
+      <div class="phase__t"><h3>Design system into the project</h3><span class="chip chip--decided">In progress</span></div>
+      <div class="phase__body"><p>&sect;5.1 tokens into the Tailwind <code>@theme</code> block, extending
+        HeroUI rather than shadowing it. Wire the four font roles. Remove <code>next-themes</code>. Build
+        layout, header, footer, button and the <b>status chip</b>.</p>
+        <div class="accepts"><b>Accepts when</b> Renders in the real faces with correct tokens; amber token
+          named so misuse feels wrong; responsive to 360px; keyboard focus visible; no console errors;
+          existing pages not regressed.</div></div></div>
+
+    <div class="phase"><div class="phase__n">2</div>
+      <div class="phase__t"><h3>Homepage &mdash; B1 to B8</h3><span class="chip chip--done">Unblocked</span></div>
+      <div class="phase__body"><p>Hero, ProblemCards, StackDisplay, ProductBlock, PrincipleList, CTABand.
+        T&amp;T Variant&nbsp;B de-numbered, Lawman Variant&nbsp;A, LawSafe written out in B4.</p>
+        <div class="accepts"><b>Accepts when</b> Every Part&nbsp;B section in order; products ordered
+          T&amp;T &rarr; Lawman &rarr; LawSafe; stack display two-tier; three status chips render;
+          <b>no numbers anywhere</b>; no logo strip; sole CTA &ldquo;Request early access&rdquo;; non-legal
+          buyers named; cold-read test passes.</div></div></div>
+
+    <div class="phase"><div class="phase__n">3</div>
+      <div class="phase__t"><h3>About &mdash; C1 to C8</h3></div>
+      <div class="phase__body"><p>Mostly prose; the discipline is typographic. C6 (&ldquo;What we will not
+        do&rdquo;) gets distinct treatment &mdash; the most quotable section on the site.</p>
+        <div class="accepts"><b>Accepts when</b> All sections present; NyayaSetu absent; the C2 and C4
+          statistics either carry inline year and source, or are cut pending verification.</div></div></div>
+
+    <div class="phase"><div class="phase__n">4</div>
+      <div class="phase__t"><h3>T&amp;T &mdash; A1 to A13</h3><span class="chip chip--done">Unblocked</span></div>
+      <div class="phase__body"><p>The heaviest page. SLATable, FAQ, syntax-highlighted A9 blocks. The circuit
+        board earns its place here for the speech pipeline. The nine-script hero is scaffolded and filled when the strings arrive.</p>
+        <div class="accepts"><b>Accepts when</b> Cost, SLA and scale tables each carry the estimate qualifier
+          <b>visibly adjacent</b>; the SLA table is labelled <i>target</i>; A13 footer notes render in full;
+          Tier&nbsp;A / Tier&nbsp;B never flattened to &ldquo;22 languages supported&rdquo;.</div></div></div>
+
+    <div class="phase"><div class="phase__n">5</div>
+      <div class="phase__t"><h3>Lawman</h3></div>
+      <div class="phase__body"><p>ComparisonColumns for &ldquo;When to use / Do not use&rdquo;. A company
+        publishing where its product is the wrong tool is the most persuasive thing on the page.</p>
+        <div class="accepts"><b>Accepts when</b> The &ldquo;Do not use&rdquo; column renders at <b>equal
+          visual weight</b>; &ldquo;advice&rdquo; appears only in the phrase disclaiming it; the source status
+          note becomes a visible page-level status.</div></div></div>
+
+    <div class="phase"><div class="phase__n">6</div>
+      <div class="phase__t"><h3>LawSafe</h3><span class="chip chip--done">Unblocked</span></div>
+      <div class="phase__body"><p>Adaptation, not transcription. Register rewritten from first-person
+        aspiration to second-person utility. Adapted copy drafted as markdown and reviewed <i>before</i>
+        component work.</p>
+        <div class="accepts"><b>Accepts when</b> NyayaSetu absent from all four locations; no competitor
+          named including in &sect;6; no market-size figure; scope list cut from 49 to six; every statistic
+          carries a year.</div></div></div>
+
+    <div class="phase"><div class="phase__n">7</div>
+      <div class="phase__t"><h3>Form, polish, audit</h3><span class="chip chip--done">Unblocked</span></div>
+      <div class="phase__body"><p>Early-access form. Store nothing sensitive. Then the full &sect;7
+        definition-of-done sweep, including the greps.</p>
+        <div class="accepts"><b>Accepts when</b> 360&ndash;1920px with no horizontal scroll;
+          keyboard-navigable with visible focus; <code>prefers-reduced-motion</code> honoured; AA contrast
+          with amber-on-paper checked; Lighthouse 95+ on all four; metadata and OG tags wired.</div></div></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">Answered</p>
+    <h2>Six questions, resolved</h2>
+    <p class="prose">Answered in this artifact. Each is now a build rule.</p>
+    <div class="grid g2">
+      <div class="card card--set"><h3>Q1 &middot; T&amp;T does power LawSafe <span class="chip chip--done">Confirmed</span></h3>
+        <p>The dependent stack framing stands. B3 and B4's eyebrow render as written.</p>
+        <p class="foot">This was Part&nbsp;D's one open inference. Confirmed by the team, so the stack display
+          keeps its causal reading and Phase&nbsp;2 is unblocked.</p></div>
+      <div class="card card--set"><h3>Q2 &middot; Reuse the raven mark <span class="chip chip--done">Decided</span></h3>
+        <p>The existing <code>Logo</code> SVG in <code>components/icons.tsx</code> becomes the wordmark
+          mark, paired with Orbitron type.</p>
+        <p class="foot">No logo generated, per spec. Needs a favicon derived from the same mark.</p></div>
+      <div class="card card--set"><h3>Q3 &middot; Form UI only <span class="chip chip--done">Decided</span></h3>
+        <p>The early-access form renders and validates. No backend wired; no destination yet.</p>
+        <p class="foot">Phase&nbsp;7 builds markup, validation and accessible error states, and stops at
+          submission. Nothing sensitive is stored because nothing is transmitted.</p></div>
+      <div class="card card--set"><h3>Q4 &middot; Full LawSafe page <span class="chip chip--done">Decided</span></h3>
+        <p>Built per &sect;3.4 from &sect;&sect;1,2,3,4,6,5, register rewritten to second person.</p>
+        <p class="foot">Highest-exposure page: all four NyayaSetu leaks, the competitor names surviving the
+          &sect;7 cut, and the 49-item scope list all live here. Copy drafted and reviewed before any
+          component work.</p></div>
+      <div class="card card--set"><h3>Q5 &middot; Hold every statistic <span class="chip chip--done">Decided</span></h3>
+        <p>No statistic renders until an owner verifies it. Sections build with prose only.</p>
+        <p class="foot">Affects C2, C4 and LawSafe &sect;2 &mdash; including the ten that <i>do</i> carry a
+          year and source. Figures drop into place later without structural change. No verification owner
+          named yet.</p></div>
+      <div class="card card--set"><h3>Q6 &middot; Indic strings supplied by you <span class="chip chip--pending">Awaiting copy</span></h3>
+        <p>&sect;5.5 is scaffolded in Phase&nbsp;4 &mdash; markup, Noto fonts and layout in place, English
+          at full contrast.</p>
+        <p class="foot">The nine translated strings drop in on delivery, verified per script. Nothing is
+          machine-translated.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band--ink">
+  <div class="wrap">
+    <p class="eyebrow">Risks</p>
+    <h2>What could still go wrong</h2>
+    <div class="grid g2">
+      <div class="card"><h3>Lighthouse 95+ with HeroUI v3 beta</h3><p class="foot">A beta component library
+        plus framer-motion on a site that must score 95+ across all four categories. The circuit board is
+        dynamically imported to mitigate; if the budget still fails, it is the first thing cut.</p></div>
+      <div class="card"><h3>The cold-read test needs a human</h3><p class="foot">It requires a reader who has
+        not seen the source documents. I cannot run it on myself. Needed at the end of Phase&nbsp;2, and it
+        can fail the phase regardless of what else passes.</p></div>
+      <div class="card"><h3>Copy apparatus leaking</h3><p class="foot">The docs contain attribution lines,
+        field labels, variant blocks and claim tables that must never reach a page. Mitigation: hand-transcribe
+        into typed content entries, never pipe markdown to HTML.</p></div>
+      <div class="card"><h3>Prose measure vs the scaffold</h3><p class="foot">The spec wants 68ch;
+        <code>DefaultLayout</code> currently gives 1232px, roughly 106 characters per line. Reconciled in
+        Phase&nbsp;1, but it touches every page.</p></div>
+    </div>
+  </div>
+</section>
