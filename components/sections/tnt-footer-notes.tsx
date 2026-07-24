@@ -1,5 +1,6 @@
 import { tntFooterNotes } from "@/content/tnt";
 import { Section } from "@/components/section";
+import { eyebrow, sectionRule } from "@/components/primitives";
 
 const HEADING_ID = "tnt-page-notes";
 
@@ -17,11 +18,12 @@ const HEADING_ID = "tnt-page-notes";
  * quietly shrinks, and the note is correct again the moment the figures land.
  */
 export const TntFooterNotes = () => (
-  <Section labelledBy={HEADING_ID} spacing="sm">
-    <h2 className="sr-only" id={HEADING_ID}>
+  <Section labelledBy={HEADING_ID} spacing="md">
+    <hr className={sectionRule()} />
+    <h2 className={eyebrow({ className: "mt-6" })} id={HEADING_ID}>
       Notes
     </h2>
-    <ul className="flex max-w-measure list-outside list-disc flex-col gap-3 pl-5 marker:text-separator">
+    <ul className="mt-6 flex max-w-measure list-outside list-disc flex-col gap-3 pl-5 marker:text-muted">
       {tntFooterNotes.map((note) => (
         <li key={note} className="font-body text-sm leading-relaxed text-muted">
           {note}
