@@ -302,12 +302,36 @@ export const closingCta = {
     "We will tell you honestly where each project stands before you commit anything.",
 };
 
-/* B8. Footer notes ---------------------------------------------------------- */
-
-export const footerNotes = [
-  "PunkRaven is a technology company. We build software and AI infrastructure. We do not provide legal services, and we are not a law firm.",
-  "PunkRaven is pre-launch. Product descriptions are of systems in specification or development, not shipped software.",
-  "Performance and cost figures are engineering estimates for planning, not quotes or benchmarked production results.",
-  "Model weights referenced by T&T: ai4bharat/indic-conformer-600m-multilingual and ai4bharat/indictrans2, both MIT-licensed.",
-  "Lawman and LawSafe are research and drafting instruments. Neither is legal advice, and neither replaces a qualified advocate.",
-];
+/* B8. Footer notes - not built ----------------------------------------------
+ *
+ * The five notes are dropped from the homepage rather than parked here, so this
+ * file does not carry copy nothing renders. Where each one went:
+ *
+ *   1. "not a law firm"        -> components/site-footer.tsx, on every route.
+ *                                 This is the §2a.4 mandatory one and it was
+ *                                 always carried there independently.
+ *   2. pre-launch status       -> B6's status table, per project rather than as
+ *                                 a blanket note.
+ *   3. figures are estimates   -> nothing on `/` renders a figure (§2b.5 bars
+ *                                 them), so the note qualified nothing. `/tnt`
+ *                                 keeps the equivalent note in A13, where the
+ *                                 figures actually live.
+ *   4. model weights, MIT      -> stated four times already in B3 and B4.
+ *   5. "neither is legal advice" -> NOT carried anywhere else on this page.
+ *
+ * Note 5 is the one real loss and it is flagged, not quietly absorbed. `/` no
+ * longer states at product level that Lawman and LawSafe are research and
+ * drafting instruments rather than advice. The footer's §2a.4 disclaimer is a
+ * COMPANY-level claim - "PunkRaven builds software, it is not a law firm" - and
+ * is not the same statement. The product-level one still appears on `/about`
+ * (C6), `/lawman` (the "Do not use" column) and `/tnt` (A13), so the site as a
+ * whole is covered; the homepage on its own is not.
+ *
+ * If that gap matters, the fix is one sentence appended to the footer
+ * disclaimer in `components/site-footer.tsx`, which would restore it on every
+ * route at once. Deliberately not done here without a decision, because it
+ * changes a spec-mandated disclosure on four pages.
+ *
+ * Restore the whole section from `punkraven-company-copy.md` B8 if the decision
+ * is reversed.
+ */
