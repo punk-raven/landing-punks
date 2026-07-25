@@ -1,5 +1,5 @@
 /**
- * T&T page content - `docs/copy/tnt-website-copy.md` Part A, sections A0 to A13,
+ * TNT page content - `docs/copy/tnt-website-copy.md` Part A, sections A0 to A13,
  * hand-transcribed the same way `content/home.ts` and `content/about.ts`
  * transcribe their sources.
  *
@@ -29,13 +29,13 @@
  *      B split, MIT licensing, and the API shape as a designed contract. Say "22
  *      scheduled languages", exactly, never "22+".
  *
- *   2. Nothing may read as shipped. T&T is at planning stage - `/about` C7 puts
+ *   2. Nothing may read as shipped. TNT is at planning stage - `/about` C7 puts
  *      it at "a complete technical specification, a costed deployment plan and a
  *      documented API contract". The status chip in the hero says so, A9 says the
  *      contract is designed rather than live, and there is no social proof of any
  *      kind anywhere on the page (Part C: "Do not add").
  *
- *   3. Infrastructure framing. T&T is a layer of PunkRaven's stack, not a
+ *   3. Infrastructure framing. TNT is a layer of PunkRaven's stack, not a
  *      standalone product line, and its buyers are contact centres, consumer
  *      apps, government, media and education - never a legal audience.
  */
@@ -68,7 +68,8 @@ export interface TntHeroContent {
  *
  * `font` is the `next/font/google` family that covers the script, checked
  * against Next.js's own font data. Note Odia's family is `Noto_Sans_Oriya` - the
- * Unicode block name. `Noto_Sans_Odia` does not exist and fails the loader.
+ * Unicode block name; the language-name spelling does not exist and fails the
+ * loader.
  * Do NOT add these to `config/fonts.ts`: they are nine extra font payloads on
  * every page for one block on one page. Load them page-scoped here, and only
  * once there is something for them to render.
@@ -98,13 +99,39 @@ export interface EngineCard {
 }
 
 /** A4 - a quality tier, and whether it is the one we are confident about. */
+/**
+ * A script token, one per Noto family wired page-scoped in `config/fonts-tnt.ts`.
+ * A chip's native span resolves its face straight from this as
+ * `var(--font-noto-<token>)`, so the set here must stay in step with the
+ * `--font-noto-*` variables that module declares.
+ */
+export type ScriptToken =
+  | "deva"
+  | "beng"
+  | "taml"
+  | "telu"
+  | "knda"
+  | "mlym"
+  | "gujr"
+  | "guru"
+  | "orya"
+  | "olck"
+  | "aran";
+
+/** One language chip: English `name` in the data face, `native` in its script. */
+export interface LanguageChip {
+  name: string;
+  native: string;
+  script: ScriptToken;
+}
+
 export interface LanguageTier {
-  body: string;
   /** True for the tier with the higher error rate - the amber marker (§5.2). */
   isUncertain: boolean;
   label: string;
-  languages?: string[];
-  note?: string;
+  languages: LanguageChip[];
+  /** Tier A only: the English pivot, a Latin-only chip with no native span. */
+  pivot?: string;
 }
 
 /** A6 - a latency lane. The lanes are structure; their figures are held. */
@@ -142,16 +169,6 @@ export interface Objection {
   question: string;
 }
 
-/**
- * The estimate qualifier under a held figure - spec §5.2 lists it as one of the
- * four places amber is allowed. `components/estimate-note.tsx` renders it as an
- * amber hairline plus this line.
- */
-export interface EstimateNote {
-  body: string;
-  label: string;
-}
-
 /* A0. Page metadata ---------------------------------------------------------- */
 
 /**
@@ -180,7 +197,7 @@ export interface EstimateNote {
  * `summary` card rather than `summary_large_image` for exactly that reason.
  */
 export const tntMeta = {
-  title: "T&T - speech and translation, 22 scheduled Indian languages",
+  title: "TNT - speech and translation, 22 scheduled Indian languages",
   description:
     "Self-hosted transcription and translation for all 22 scheduled Indian languages through one API. MIT-licensed weights, no per-call fee. Planning stage.",
   ogTitle:
@@ -192,11 +209,11 @@ export const tntMeta = {
 /* A1. Hero ------------------------------------------------------------------- */
 
 export const tntHero: TntHeroContent = {
-  eyebrow: "Speech infrastructure for India",
+  eyebrow: "Self-hosted speech infrastructure",
   headline:
     "Audio in. Transcript and translation out. All 22 scheduled Indian languages.",
   subheadline:
-    "T&T is a self-hosted speech pipeline that turns Indian-language audio into a clean transcript and a translation through a single API call. Two engines, one queue, one deployment unit. MIT-licensed weights, so there is no per-call vendor fee and no data leaving your infrastructure.",
+    "TNT is a self-hosted speech pipeline that turns Indian-language audio into a clean transcript and a translation through a single API call. Two engines, one queue, one deployment unit. MIT-licensed weights, so there is no per-call vendor fee and no data leaving your infrastructure.",
   /**
    * Part C's own mitigation: "label the page in development, early access
    * opening near the hero". The wording is taken from `/about` C7 so the two
@@ -205,7 +222,7 @@ export const tntHero: TntHeroContent = {
    * A0's secondary CTA, "Read the technical plan", is NOT rendered. There is no
    * destination for it: no source document gives a URL for the plan set, and
    * `siteConfig.links.github` points at this website's repository, not at the
-   * T&T planning documents. A button labelled "Read the technical plan" that
+   * TNT planning documents. A button labelled "Read the technical plan" that
    * goes nowhere is worse than no button. It returns when a URL exists.
    */
   status: "planning",
@@ -275,7 +292,7 @@ export const heroScriptSentence = {
 
 export const tntProblem = {
   heading: "Indian-language speech is still the hard part",
-  body: "Most teams building for India end up bolting a managed speech-to-text API onto a managed translation API and hoping the seam holds. It rarely does. The transcript arrives with no punctuation and no sentence boundaries, the translator expects clean sentences, and the quality loss happens invisibly in between. You pay two vendors per call, your audio leaves the country, and the languages you actually need are the ones with the worst coverage.",
+  body: "Most teams building Indian-language products end up bolting a managed speech-to-text API onto a managed translation API and hoping the seam holds. It rarely does. The transcript arrives with no punctuation and no sentence boundaries, the translator expects clean sentences, and the quality loss happens invisibly in between. You pay two vendors per call, your audio leaves the country, and the languages you actually need are the ones with the worst coverage.",
   cards: [
     {
       heading: "Two vendors, two bills, one broken seam",
@@ -301,11 +318,11 @@ export const tntProblem = {
   ] satisfies ProblemCard[],
 };
 
-/* A3. What T&T is ------------------------------------------------------------ */
+/* A3. What TNT is ------------------------------------------------------------ */
 
 export const tntWhatItIs = {
   heading: "One service. Two engines. One queue.",
-  body: "T&T packages an Indian-language speech recogniser and an Indian-language translator into a single deployable unit behind one API. The part in the middle - the part everyone else leaves to you - is built in.",
+  body: "TNT packages an Indian-language speech recogniser and translator into a single deployable unit behind one API. The part in the middle - the part everyone else leaves to you - is built in.",
   /**
    * The parameter counts below (600M, 1B, 200M, 320M) are model-card facts,
    * published by the model authors, in the same class as the 22-language
@@ -327,7 +344,7 @@ export const tntWhatItIs = {
     },
     {
       heading: "The seam",
-      body: "Voice activity detection, chunking with overlap stitching, punctuation restoration, inverse text normalisation, sentence splitting and do-not-translate glossary markup. This is not off-the-shelf. It is where most avoidable quality loss happens, and it is the reason T&T exists as a product rather than a tutorial.",
+      body: "Voice activity detection, chunking with overlap stitching, punctuation restoration, inverse text normalisation, sentence splitting and do-not-translate glossary markup. This is not off-the-shelf. It is where most avoidable quality loss happens, and it is the reason TNT exists as a product rather than a tutorial.",
     },
   ] satisfies EngineCard[],
   callout:
@@ -339,7 +356,7 @@ export const tntWhatItIs = {
 export const tntLanguages = {
   heading: "All 22 scheduled languages. No add-on pricing.",
   body: [
-    "Both models cover the full scheduled list in single checkpoints, so complete coverage costs nothing extra in memory or money. T&T never filters by language.",
+    "Both models cover the full scheduled list in single checkpoints, so complete coverage costs nothing extra in memory or money. TNT never filters by language.",
     "What it does instead is tell you the truth about quality.",
   ],
   /**
@@ -353,45 +370,58 @@ export const tntLanguages = {
    * that the coverage is tiered rather than uniform. Composed entirely from
    * copy already on this page, so it is not a new claim.
    */
-  question: "Which Indian languages does T&T support?",
+  question: "Which Indian languages does TNT support?",
   answer:
-    "T&T covers all 22 scheduled Indian languages in single model checkpoints, so complete coverage costs nothing extra. Coverage is tiered honestly rather than flattened: ten languages plus the English pivot are production grade, and the remaining twelve, including Kashmiri, Santali, Manipuri and Bodo, carry higher error rates. Every response states its tier.",
+    "TNT covers all 22 scheduled Indian languages in single model checkpoints, so complete coverage costs nothing extra. Coverage is tiered honestly rather than flattened: ten languages plus the English pivot are production grade, and the remaining twelve, including Kashmiri, Santali, Manipuri and Bodo, carry higher error rates. Every response states its tier.",
   tiers: [
     {
       label: "Tier A - production grade",
       languages: [
-        "Hindi",
-        "Bengali",
-        "Marathi",
-        "Tamil",
-        "Telugu",
-        "Kannada",
-        "Malayalam",
-        "Gujarati",
-        "Punjabi",
-        "Odia",
+        { name: "Hindi", native: "हिन्दी", script: "deva" },
+        { name: "Bengali", native: "বাংলা", script: "beng" },
+        { name: "Marathi", native: "मराठी", script: "deva" },
+        { name: "Tamil", native: "தமிழ்", script: "taml" },
+        { name: "Telugu", native: "తెలుగు", script: "telu" },
+        { name: "Kannada", native: "ಕನ್ನಡ", script: "knda" },
+        { name: "Malayalam", native: "മലയാളം", script: "mlym" },
+        { name: "Gujarati", native: "ગુજરાતી", script: "gujr" },
+        { name: "Punjabi", native: "ਪੰਜਾਬੀ", script: "guru" },
+        { name: "Odia", native: "ଓଡ଼ିଆ", script: "orya" },
       ],
-      note: "Plus the English pivot.",
-      body: "",
+      /* The English pivot is Tier A's own chip - Latin only, no native span. */
+      pivot: "English - Pivot",
       isUncertain: false,
     },
     {
       label: "Tier B - supported, higher error rate",
-      body: "The remaining 12, including Kashmiri, Santali, Manipuri and Bodo. Word error rates are higher and translations are rougher. Gate these by confidence threshold rather than removing them, and your users in those languages get a usable product instead of no product.",
+      languages: [
+        { name: "Assamese", native: "অসমীয়া", script: "beng" },
+        { name: "Bodo", native: "बड़ो", script: "deva" },
+        { name: "Dogri", native: "डोगरी", script: "deva" },
+        { name: "Kashmiri", native: "कॉशुर", script: "deva" },
+        { name: "Konkani", native: "कोंकणी", script: "deva" },
+        { name: "Maithili", native: "मैथिली", script: "deva" },
+        { name: "Manipuri", native: "মৈতৈলোন", script: "beng" },
+        { name: "Nepali", native: "नेपाली", script: "deva" },
+        { name: "Sanskrit", native: "संस्कृतम्", script: "deva" },
+        { name: "Santali", native: "ᱥᱟᱱᱛᱟᱲᱤ", script: "olck" },
+        { name: "Sindhi", native: "सिन्धी", script: "deva" },
+        { name: "Urdu", native: "اردو", script: "aran" },
+      ],
       /* §5.2, "low-confidence markers": this tier is the page's clearest one.
          The amber marks the tier we are less certain about, and nothing else. */
       isUncertain: true,
     },
   ] satisfies LanguageTier[],
   pullQuote:
-    "Every response carries a quality_tier field. We would rather tell you a language is Tier B than quietly pretend all 22 are equivalent.",
+    "Every response carries a quality_tier field. We would rather tell you a language is Tier B than quietly pretend all 22 are equivalent. Word error rates are higher and translations are rougher. Gate these by confidence threshold rather than removing them, and your users in those languages get a usable product instead of no product.",
 };
 
 /* A5. Honest confidence ------------------------------------------------------ */
 
 export const tntConfidence = {
   heading: "Confidence is part of the contract, not a footnote",
-  body: "A fluent wrong answer is worse than a flagged uncertain one. T&T returns a confidence score for every segment, separately for recognition and for translation, and flags low-confidence spans instead of hiding them. Per-stage timings come back with every response too, so a performance regression is visible to you on the day it happens rather than in a support ticket three weeks later.",
+  body: "A fluent wrong answer is worse than a flagged uncertain one. TNT returns a confidence score for every segment, separately for recognition and for translation, and flags low-confidence spans instead of hiding them. Per-stage timings come back with every response too, so a performance regression is visible to you on the day it happens rather than in a support ticket three weeks later.",
   /** `field` is set in the data face; `body` is the sentence around it. */
   features: [
     {
@@ -438,13 +468,13 @@ export const tntConfidence = {
  * measurements, and they stay.
  *
  * The cost of this is real and is stated in the report rather than papered over:
- * a reader evaluating T&T for a latency-sensitive workload leaves this section
+ * a reader evaluating TNT for a latency-sensitive workload leaves this section
  * without the number they came for.
  */
 export const tntSpeed = {
   heading: "We will publish latency once we have measured it.",
   body: [
-    "T&T is at planning stage. The pipeline is specified and costed, and nothing has been benchmarked on real hardware under real load, so there are no latency figures on this page. Publishing an estimate as though it were a measurement is the exact failure this company was set up not to commit.",
+    "TNT is at planning stage. The pipeline is specified and costed, and nothing has been benchmarked on real hardware under real load, so there are no latency figures on this page. Publishing an estimate as though it were a measurement is the exact failure this company was set up not to commit.",
     "What we can say is what those figures will describe, because that part is a design decision rather than a result. Latency is not one number. It is one per lane, and each lane degrades differently under load.",
   ],
   lanes: [
@@ -469,10 +499,6 @@ export const tntSpeed = {
     "Each lane will be published at p50, p95 and p99. The median is the number that flatters a demo; the tail is the number that wakes somebody up.",
     "An SLA you measure is an SLA you can defend. An SLA you guess at is a liability.",
   ],
-  estimate: {
-    label: "Figures held",
-    body: "Target service levels exist in the technical plan as engineering estimates. They stay off this page until they have been benchmarked on the deployment they describe.",
-  } satisfies EstimateNote,
 };
 
 /* A7. Cost ------------------------------------------------------------------- */
@@ -510,11 +536,11 @@ export const tntCost = {
       body: "Two per-call meters running on the same audio, plus the seam between them, which you build and maintain yourself.",
     },
     {
-      approach: "T&T, self-hosted",
+      approach: "TNT, self-hosted",
       body: "GPU time on infrastructure you chose, at whatever utilisation you hold it at. One deployment unit, one bill, no per-call meter.",
     },
     {
-      approach: "T&T, pure batch at high utilisation",
+      approach: "TNT, pure batch at high utilisation",
       body: "The same GPU time spread across a full queue. The cheapest lane, and the one that gets cheaper the more work you feed it.",
     },
   ] satisfies CostRegime[],
@@ -548,10 +574,6 @@ export const tntCost = {
      with the table rather than in a footnote. */
   scaleAssumption:
     "At an assumed 30 minutes of audio per active user per month. That assumption is the whole of the audio column - change it and every row moves with it.",
-  estimate: {
-    label: "Figures held",
-    body: "The rupee figures are derived estimates, and the managed-API prices they are compared against are list prices that move. Both need re-verifying on the day they are published, so neither is on this page. GPU pricing alone moved in both directions over the past year.",
-  } satisfies EstimateNote,
 };
 
 /* A8. Deployment ------------------------------------------------------------- */
@@ -566,8 +588,8 @@ export const tntDeployment = {
    * They are a statement of what the system is built to run on, not a measured
    * result, and A8 and A11 both collapse into vagueness without them.
    *
-   * The monthly cost on each stage is a different matter and is held - see the
-   * estimate note below.
+   * The monthly cost on each stage is a different matter and is held: it never
+   * appears on the page, only in the technical plan.
    */
   stages: [
     {
@@ -583,82 +605,8 @@ export const tntDeployment = {
       body: "Your own hardware. One 24 GB GPU, 8 vCPU, 32 GB RAM. Nothing calls out.",
     },
   ] satisfies DeploymentStage[],
-  estimate: {
-    label: "Figures held",
-    body: "Each stage has a monthly cost range in the technical plan. Those are derived estimates against cloud list prices that move, so they are not published here.",
-  } satisfies EstimateNote,
   callout:
-    "Because the weights are MIT-licensed and the whole pipeline is one deployment unit, T&T can run entirely inside your network. No audio leaves your infrastructure, no third party sees a transcript, and there is no vendor who can change per-call pricing under you.",
-};
-
-/* A9. The API ---------------------------------------------------------------- */
-
-/**
- * Part C: the request and response shape is "designed, not implemented" and is
- * "safe if framed as the contract; do not imply a live sandbox". `framing` below
- * is that frame and is not optional decoration.
- *
- * One value is held inside the payload. The source response carries
- * `"timings_ms": { "asr": 780, "seam": 92, "mt": 540, "total": 1517 }`, and
- * those four numbers ARE the held latency estimate wearing a costume - 1517 ms
- * total reads as "a clip comes back in about a second and a half", which is
- * precisely the claim Part C holds in A6. They are rendered as `<ms>`
- * placeholders, in the same idiom the source already uses for `<api_key>` and
- * `<file | audio_url>`.
- *
- * The confidence values are kept. They demonstrate the type and range of a
- * field in a designed contract - the same class of illustrative value as
- * `"text": "..."` - and no reading of them is a performance claim. They are
- * listed in the figure audit so an owner can reverse that call.
- */
-export const tntApi = {
-  heading: "One call. One contract.",
-  framing:
-    "This is the designed contract, taken from the specification. It is not a live sandbox: there is no endpoint to call yet, and the values below are illustrative.",
-  requestLabel: "Request",
-  request: `POST /v1/transcribe-translate
-Authorization: Bearer <api_key>
-
-{
-  "audio": "<file | audio_url>",
-  "src_lang": "hin_Deva",
-  "tgt_lang": "eng_Latn",
-  "mode": "batch",
-  "quality": "balanced"
-}`,
-  responseLabel: "Response",
-  response: `{
-  "status": "done",
-  "transcript": "...",
-  "translation": "...",
-  "confidence": 0.87,
-  "quality_tier": "A",
-  "segments": [
-    {
-      "start_ms": 0,
-      "end_ms": 3200,
-      "text": "...",
-      "translation": "...",
-      "asr_confidence": 0.93,
-      "mt_confidence": 0.88
-    }
-  ],
-  "timings_ms": {
-    "asr": <ms>,
-    "seam": <ms>,
-    "mt": <ms>,
-    "total": <ms>
-  }
-}`,
-  /* The four `<ms>` placeholders replace the source's timing values. See above. */
-  timingsNote:
-    "The per-stage timings come back with every response. Their values are left as placeholders here for the same reason there are no latency figures in the speed section: nothing has been benchmarked yet.",
-  bullets: [
-    "REST for batch, WebSocket for streaming partials, webhook for bulk jobs",
-    "quality selects the lane: fast, balanced or best",
-    "Glossary IDs let you protect product names and domain terms from translation",
-    "Speaker gender is optional and improves English to Indic agreement when known",
-  ],
+    "Because the weights are MIT-licensed and the whole pipeline is one deployment unit, TNT can run entirely inside your network. No audio leaves your infrastructure, no third party sees a transcript, and there is no vendor who can change per-call pricing under you.",
 };
 
 /* A10. Who it is for --------------------------------------------------------- */
@@ -699,7 +647,7 @@ export const tntObjections = {
     {
       question: "Do you support code-mixed speech, like Hinglish?",
       answer:
-        "Partly, and we say so plainly. Both underlying models are biased toward single languages, so embedded English words can be transcribed phonetically and then mistranslated. T&T ships an English passthrough list and post-edit rules that handle common cases. Fully solving it needs fine-tuning on your own audio, which is a documented upgrade path rather than a surprise.",
+        "Partly, and we say so plainly. Both underlying models are biased toward single languages, so embedded English words can be transcribed phonetically and then mistranslated. TNT ships an English passthrough list and post-edit rules that handle common cases. Fully solving it needs fine-tuning on your own audio, which is a documented upgrade path rather than a surprise.",
     },
     {
       question: "What about telephony audio?",
@@ -728,7 +676,7 @@ export const tntObjections = {
 
 export const tntClosingCta = {
   heading: "Bring speech to the languages your product already has users in",
-  body: "T&T is being built as one deployable unit with a documented contract, an honest confidence signal and a cost model that survives contact with growth. If you have Indian-language audio and a reason to keep it on your own infrastructure, we would like to hear about the workload.",
+  body: "TNT is being built as one deployable unit with a documented contract, an honest confidence signal and a cost model that survives contact with growth. If you have Indian-language audio and a reason to keep it on your own infrastructure, we would like to hear about the workload.",
   /**
    * The primary call to action, and the first conversion action on any route.
    *
@@ -752,19 +700,3 @@ export const tntClosingCta = {
     "Tell us the languages, the audio volume, and whether you need live or batch. That is enough for us to tell you what it would cost.",
   microCopyAddress: `The address is ${siteConfig.links.email}.`,
 };
-
-/* A13. Footer notes ---------------------------------------------------------- */
-
-/**
- * Mandatory, not optional (spec §3.3), and kept verbatim including the first
- * note. It fixes the conversion rate for costs that this build holds, so it
- * currently qualifies figures the page does not show - flagged rather than
- * edited, because abbreviating a mandatory note to match a temporary state is
- * how a disclosure quietly shrinks.
- */
-export const tntFooterNotes = [
-  "All costs in INR, converted at $1 = Rs 86. L = lakh = Rs 1,00,000.",
-  "Performance and cost figures are engineering estimates for planning, not quotes or benchmarked production results.",
-  "Model weights: ai4bharat/indic-conformer-600m-multilingual and ai4bharat/indictrans2, both MIT-licensed.",
-  "The complete planning document set is public.",
-];

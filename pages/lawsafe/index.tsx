@@ -40,7 +40,7 @@ import DefaultLayout from "@/layouts/default";
  * recorded in full where the copy lives, because that is where it would be
  * undone:
  *
- *   1. LawSafe is a SIBLING of T&T and Lawman, not built on them. The hero
+ *   1. LawSafe is a SIBLING of TNT and LawMan, not built on them. The hero
  *      eyebrow is bare "LawSafe" and `whatItDoes`'s "Where it sits" names both
  *      as PunkRaven's two pieces of infrastructure. See `lawsafeHero` and
  *      `whatItDoes` in `content/lawsafe.ts`.

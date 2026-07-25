@@ -43,7 +43,7 @@ const renderBody = (body: LeadIn["body"]) =>
  * the one that keeps this page on a technology company's site rather than a
  * legal one.
  *
- * The third block names T&T and Lawman as siblings and links to both. It is NOT
+ * The third block names TNT and LawMan as siblings and links to both. It is NOT
  * a dependency claim - see the conflict 1 note on `whatItDoes` in
  * `content/lawsafe.ts` before changing either the copy or these links.
  *

@@ -44,7 +44,7 @@ export interface ComparisonColumnsProps {
  * trailing off the end of it. The row gap is wider than the reading rhythm above
  * it for the same reason.
  *
- * Not Lawman-specific. It is a page-level primitive, and `/lawsafe` may want it.
+ * Not LawMan-specific. It is a page-level primitive, and `/lawsafe` may want it.
  * The only thing tying it to `/lawman` today is the content type it imports.
  */
 export const ComparisonColumns = ({

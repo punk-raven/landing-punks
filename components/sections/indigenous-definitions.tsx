@@ -1,27 +1,25 @@
 import { indigenous } from "@/content/about";
 import { Section } from "@/components/section";
-import { prose, subtitle, title } from "@/components/primitives";
+import { subtitle, title } from "@/components/primitives";
+import { BouncyAccordion } from "@/components/ui/bouncy-accordion";
 
 const HEADING_ID = "what-indigenous-means";
 
 /**
  * C3. What indigenous means here.
  *
- * A real `<dl>`, because the copy is a glossary: five terms and what each one
- * means concretely. The markup says so, and a screen-reader user gets the
- * term/definition pairing rather than five unrelated headings.
+ * The declarative `<h2>` is the section heading; the body beneath it runs full
+ * width, matching the other section bodies on the site.
  *
- * Treated as rule-topped, unfilled entries on purpose. C6 further down the page
- * is also a list of six bold lead-ins, and the two must not read as the same
- * component: this one is definitions and takes a hairline above each term, C6 is
- * commitments and takes a filled card. The distinction is what stops the page
- * turning into one long undifferentiated list.
- *
- * Section 7.1 asks for a question-shaped `<h3>` above the answer block, and it
- * is added additively: the declarative `<h2>` stays, the question sits under it,
- * and the answer paragraph directly beneath is self-contained so an extractor
- * lifting it alone still gets a complete answer. The `<dl>` follows as its own
- * thing - the question heads the paragraph, not the glossary.
+ * Everything else is one full-width bouncy accordion (the same `BouncyAccordion`
+ * the TNT FAQ uses). Section 7.1's question-shaped row is its first item and is
+ * open by default, so `indigenous.answer` renders without a click and an
+ * extractor lifting that one self-contained paragraph still gets a complete
+ * answer. The five glossary terms follow as their own rows: one stacked row per
+ * term, the term as the trigger and its definition as the panel body, so a
+ * reader expands the ones they care about rather than scanning open definitions.
+ * The accordion supplies its own ARIA (button trigger in a heading,
+ * `role="region"` panel) plus its own text styling.
  */
 export const IndigenousDefinitions = () => (
   <Section
@@ -37,27 +35,23 @@ export const IndigenousDefinitions = () => (
       {indigenous.heading}
     </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {indigenous.body}
-    </p>
+    <p className={subtitle({ className: "mt-6" })}>{indigenous.body}</p>
 
-    <h3 className={title({ className: "mt-12", size: "sm" })}>
-      {indigenous.question}
-    </h3>
-
-    <p className={prose({ className: "mt-3 max-w-measure text-muted" })}>
-      {indigenous.answer}
-    </p>
-
-    <dl className="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
-      {indigenous.items.map((item) => (
-        <div key={item.term} className="border-t border-separator pt-5">
-          <dt className={title({ size: "sm" })}>{item.term}</dt>
-          <dd className={prose({ className: "mt-3 text-muted" })}>
-            {item.body}
-          </dd>
-        </div>
-      ))}
-    </dl>
+    <BouncyAccordion
+      className="mt-10"
+      defaultValue={indigenous.question}
+      items={[
+        {
+          content: indigenous.answer,
+          id: indigenous.question,
+          title: indigenous.question,
+        },
+        ...indigenous.items.map((item) => ({
+          content: item.body,
+          id: item.term,
+          title: item.term,
+        })),
+      ]}
+    />
   </Section>
 );

@@ -47,9 +47,6 @@ export const LawsafeClosing = () => (
       >
         {lawsafeClosingCta.cta.label}
       </ButtonLink>
-      <p className="font-body text-sm leading-relaxed text-muted">
-        {lawsafeClosingCta.cta.note}
-      </p>
     </div>
 
     <p className="mt-10 max-w-measure font-body text-sm leading-relaxed text-muted">

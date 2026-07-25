@@ -1,5 +1,4 @@
 import { tntDeployment } from "@/content/tnt";
-import { EstimateNote } from "@/components/estimate-note";
 import { Section } from "@/components/section";
 import { prose, subtitle, title } from "@/components/primitives";
 
@@ -28,16 +27,11 @@ export const TntDeployment = () => (
     labelledBy={`${HEADING_ID}-heading`}
     spacing="lg"
   >
-    <h2
-      className={title({ className: "max-w-[24ch]", size: "lg" })}
-      id={`${HEADING_ID}-heading`}
-    >
+    <h2 className={title({ size: "lg" })} id={`${HEADING_ID}-heading`}>
       {tntDeployment.heading}
     </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {tntDeployment.body}
-    </p>
+    <p className={subtitle({ className: "mt-6" })}>{tntDeployment.body}</p>
 
     <ul className="mt-12 grid gap-6 md:grid-cols-3">
       {tntDeployment.stages.map((stage) => (
@@ -53,11 +47,9 @@ export const TntDeployment = () => (
       ))}
     </ul>
 
-    <EstimateNote className="mt-8" note={tntDeployment.estimate} />
-
     <p
       className={prose({
-        className: "mt-12 max-w-measure rounded-md border border-border p-5",
+        className: "mt-12 rounded-md border border-border p-5",
       })}
     >
       {tntDeployment.callout}

@@ -1,5 +1,5 @@
 /**
- * Lawman page content - written against `docs/website-content.md` §4.4, with §6
+ * LawMan page content - written against `docs/website-content.md` §4.4, with §6
  * supplying the title, meta description and H1, §7 the extractable answer block
  * and the question-shaped column headings, and §8.2 the one outbound contextual
  * link this page is cleared to carry. `docs/copy/lawman-summary.md` is the
@@ -20,9 +20,9 @@
  * FIVE RULES BIND EVERY STRING BELOW.
  *
  *   1. Nothing may read as shipped. `lawman-summary.md` opens with a status note
- *      - "Lawman is fully specified but not yet built. All copy below describes
+ *      - "LawMan is fully specified but not yet built. All copy below describes
  *      the intended product" - and §4.4 keeps it. The copy underneath is written
- *      in the present indicative ("Lawman does not answer from memory",
+ *      in the present indicative ("LawMan does not answer from memory",
  *      "Citations are verified") and that is left alone: it describes design
  *      intent, and rewriting it into the conditional would soften abstention,
  *      which the source's own copy notes forbid. The status carries the
@@ -44,15 +44,15 @@
  *      stated again in the hero, worded without that word, so the disclaimer is
  *      not buried at the bottom of the page.
  *
- *   4. No voice capability is asserted. `lawman-summary.md` says Lawman works
- *      "by voice or text" and `tnt-website-copy.md` claims speech for T&T; §10.4
+ *   4. No voice capability is asserted. `lawman-summary.md` says LawMan works
+ *      "by voice or text" and `tnt-website-copy.md` claims speech for TNT; §10.4
  *      conflict 7 logs the overlap as a wording risk that resolves with open
  *      question Q1, and until it does, neither page may imply two independent
  *      speech stacks. Both voice clauses are dropped rather than reworded. The
  *      §8.2 link from "Built in Indian languages" to `/tnt` is gated on the same
  *      question and is not rendered.
  *
- *   5. Infrastructure framing. Lawman is the reasoning layer of PunkRaven's
+ *   5. Infrastructure framing. LawMan is the reasoning layer of PunkRaven's
  *      stack (`/about` C5 names it exactly that), not a legal service and not
  *      the citizen-facing product - that is LawSafe (§2.8). PunkRaven builds
  *      software.
@@ -133,21 +133,21 @@ export interface ComparisonColumnContent {
  * description on its own, exactly as it does for `/about`.
  */
 export const lawmanMeta = {
-  title: "Lawman - Indian law, answered with the source attached",
+  title: "LawMan - Indian law, answered with the source attached",
   description:
-    "Lawman is an AI system for Indian law. It grounds every claim in a retrieved source, checks the reference before you see it, and abstains when it cannot.",
+    "LawMan is an AI system for Indian law. It grounds every claim in a retrieved source, checks the reference before you see it, and abstains when it cannot.",
 };
 
 /* Hero ----------------------------------------------------------------------- */
 
 export const lawmanHero: LawmanHeroContent = {
-  eyebrow: "Lawman",
+  eyebrow: "LawMan",
   /** §6.3: the page's one H1, and it is the hero headline. */
   headline: "Indian law, answered with the source attached.",
   subheadline:
-    "Lawman is an AI system built for one thing - Indian law. It grounds every legal claim in a real, retrieved source. When it cannot verify a claim, it says so instead of inventing one.",
+    "LawMan is an AI system built for one thing - Indian law. It grounds every legal claim in a real, retrieved source. When it cannot verify a claim, it says so instead of inventing one.",
   boundary:
-    "It is a research and drafting instrument, not counsel. Lawman researches and drafts; a qualified person reviews and signs.",
+    "It is a research and drafting instrument, not counsel. LawMan researches and drafts; a qualified person reviews and signs.",
   status: "specified",
   /**
    * The source's status note, turned from an instruction to the builder into a
@@ -160,7 +160,7 @@ export const lawmanHero: LawmanHeroContent = {
     "Fully specified, and not yet built. Everything on this page describes the intended product, not running software.",
 };
 
-/* What is Lawman ------------------------------------------------------------- */
+/* What is LawMan ------------------------------------------------------------- */
 
 /**
  * `answer` IS §7.2'S EXTRACTABLE ANSWER BLOCK, PUBLISHED VERBATIM, AND IT LEADS
@@ -175,9 +175,9 @@ export const lawmanHero: LawmanHeroContent = {
  * converted.
  */
 export const whatLawmanIs = {
-  heading: "What is Lawman",
+  heading: "What is LawMan",
   answer:
-    "Lawman is PunkRaven's reasoning layer, built for Indian law as its first body of authority. It retrieves the governing material before answering, attributes each claim to its source, verifies every reference against the source text, and abstains when the sources do not support an answer. Lawman is specified and not yet built.",
+    "LawMan is PunkRaven's reasoning layer, built for Indian law as its first body of authority. It retrieves the governing material before answering, attributes each claim to its source, verifies every reference against the source text, and abstains when the sources do not support an answer. LawMan is specified and not yet built.",
   specialisation:
     "It is specialised in Indian law - statutes, case law, court procedure, and the rules and circulars that change week to week. It is not a general-purpose chatbot pointed at legal questions.",
   constraint: {
@@ -185,17 +185,17 @@ export const whatLawmanIs = {
     emphasis:
       "a legal answer is only worth having if you can trace it back to the authority it came from.",
     afterLead:
-      " Everything in Lawman follows from that - how it is trained, how it retrieves, how it checks itself, and what it does when it is unsure. It is the same discipline behind ",
+      " Everything in LawMan follows from that - how it is trained, how it retrieves, how it checks itself, and what it does when it is unsure. It is the same discipline behind ",
     linkText: "how PunkRaven builds",
     linkHref: "/about",
     afterLink: " every layer of the stack.",
   } satisfies EmphasisParagraph,
   /** The source's "by voice or text" is dropped here. See rule 4 above. */
   closing:
-    "Lawman researches, explains, and drafts. It works in Indian languages, and it reads the documents legal work actually arrives in. It is built to run on infrastructure you control, so confidential material never has to leave your hands.",
+    "LawMan researches, explains, and drafts. It works in Indian languages, and it reads the documents legal work actually arrives in. It is built to run on infrastructure you control, so confidential material never has to leave your hands.",
 };
 
-/* Why Lawman is required ----------------------------------------------------- */
+/* Why LawMan is required ----------------------------------------------------- */
 
 /**
  * Five failure modes of the alternative, each named before any fix is offered.
@@ -207,7 +207,7 @@ export const whatLawmanIs = {
  * as fact, not claims this page is uncertain about.
  */
 export const whyLawman = {
-  heading: "Why Lawman is required",
+  heading: "Why LawMan is required",
   intro:
     "General-purpose AI fails at Indian legal work in ways that are not cosmetic.",
   items: [
@@ -233,7 +233,7 @@ export const whyLawman = {
     },
   ] satisfies LeadIn[],
   closing:
-    "Lawman exists because each of these has to be solved deliberately, at the level of how the system is built - not patched over with a disclaimer.",
+    "LawMan exists because each of these has to be solved deliberately, at the level of how the system is built - not patched over with a disclaimer.",
 };
 
 /* How it works --------------------------------------------------------------- */
@@ -254,7 +254,7 @@ export const howLawmanWorks = {
   items: [
     {
       lead: "Grounded, never freehand.",
-      body: "Lawman does not answer from memory. It retrieves the governing material first, then answers from what it found, and attributes the claim to its source. An uncited legal claim is treated as a defect, not a stylistic choice.",
+      body: "LawMan does not answer from memory. It retrieves the governing material first, then answers from what it found, and attributes the claim to its source. An uncited legal claim is treated as a defect, not a stylistic choice.",
     },
     {
       lead: "Every reference is checked before you see it.",
@@ -262,15 +262,15 @@ export const howLawmanWorks = {
     },
     {
       lead: "Skill in the model, facts in the sources.",
-      body: "Lawman is trained to reason, to use legal language correctly, and to cite properly. The facts themselves always come from live retrieved material. That separation is why its knowledge does not go stale as the law moves.",
+      body: "LawMan is trained to reason, to use legal language correctly, and to cite properly. The facts themselves always come from live retrieved material. That separation is why its knowledge does not go stale as the law moves.",
     },
     {
       lead: "It works step by step, and checks its own work.",
-      body: "Complex questions get broken down. Lawman plans an approach, gathers what each step needs, and verifies before moving on - rather than producing one confident block of text in a single pass.",
+      body: "Complex questions get broken down. LawMan plans an approach, gathers what each step needs, and verifies before moving on - rather than producing one confident block of text in a single pass.",
     },
     {
       lead: "Trained to abstain.",
-      body: 'Lawman is deliberately taught to say "I could not verify this" when its sources do not support an answer. Abstention is a designed behaviour, not a failure mode. A wrong legal answer is worse than none.',
+      body: 'LawMan is deliberately taught to say "I could not verify this" when its sources do not support an answer. Abstention is a designed behaviour, not a failure mode. A wrong legal answer is worse than none.',
     },
     {
       lead: "Fails closed.",
@@ -279,7 +279,7 @@ export const howLawmanWorks = {
     {
       /**
        * The source's "by voice or in writing" is dropped. See rule 4 at the top
-       * of this file: the speech claim overlaps T&T's and is gated on Q1, and
+       * of this file: the speech claim overlaps TNT's and is gated on Q1, and
        * the §8.2 link to `/tnt` that would sit in this entry is gated with it.
        */
       lead: "Built in Indian languages.",
@@ -291,16 +291,16 @@ export const howLawmanWorks = {
     },
     {
       lead: "Runs where you decide.",
-      body: "Lawman is built to be deployed on your own infrastructure. Public law can live on shared systems; confidential material never has to.",
+      body: "LawMan is built to be deployed on your own infrastructure. Public law can live on shared systems; confidential material never has to.",
     },
     {
       lead: "A human still signs.",
-      body: "Lawman researches and drafts; a qualified person reviews and takes responsibility. That review step is part of how the system is designed to be used.",
+      body: "LawMan researches and drafts; a qualified person reviews and takes responsibility. That review step is part of how the system is designed to be used.",
     },
   ] satisfies LeadIn[],
 };
 
-/* When to use Lawman --------------------------------------------------------- */
+/* When to use LawMan --------------------------------------------------------- */
 
 /**
  * The section the page exists for. §4.4, and §3.3 in the older document: "render
@@ -318,7 +318,7 @@ export const howLawmanWorks = {
  * they could diverge. Adding one to this interface would open it.
  *
  * BOTH HEADINGS ARE QUESTIONS, AND SYMMETRICALLY SO. §7.1 asks this section for
- * "When should you not use Lawman?" as an extractable heading. Phrasing only the
+ * "When should you not use LawMan?" as an extractable heading. Phrasing only the
  * second column as a question would have made it the odd one out on a pair that
  * has to read as peers, so the first is phrased the same way. Turning either
  * back into a statement breaks §7.1 and unbalances the pair.
@@ -330,33 +330,30 @@ export const howLawmanWorks = {
  */
 export const whenToUse = {
   /**
-   * AUTHORED HEADING. The source labels the section "When to use Lawman", which
+   * AUTHORED HEADING. The source labels the section "When to use LawMan", which
    * names only half of what is under it. An `<h2>` that says "when to use" over
    * a two-column comparison frames the second column as a caveat before a reader
    * has read a word of it, which is the exact failure the acceptance gate is
    * written against. Extended to name both halves.
    */
-  heading: "When to use Lawman, and when not to",
+  heading: "When to use LawMan, and when not to",
   columns: [
     {
-      heading: "When should you use Lawman?",
+      heading: "When should you use LawMan?",
       items: [
-        "You need to find the governing provision or authority on a point and see where it comes from.",
-        "You need to know the current position on something that has been amended, notified, or recently decided.",
-        "You need to understand what the position was at a particular point in time, not only what it is today.",
+        "You need to find the governing provision or authority on a point, see where it comes from, and know whether that position still holds today or what it was at an earlier time.",
         "You are working through material in an Indian language, or across several of them.",
         "You need to work with documents that cannot be sent to an outside service.",
-        "You are drafting and want a first pass that already carries its references.",
-        "You want an answer with the underlying material laid out so you can check it yourself.",
+        "You are drafting and want a first pass that already carries its references, with the underlying material laid out so you can check it yourself.",
       ],
     },
     {
-      heading: "When should you not use Lawman?",
+      heading: "When should you not use LawMan?",
       items: [
-        "You need legal advice. Lawman is a research and drafting instrument. It is not counsel and does not replace professional judgement.",
+        "You need legal advice. LawMan is a research and drafting instrument. It is not counsel and does not replace professional judgement.",
         "The output will go out unreviewed. Consequential work needs a qualified human sign-off.",
-        "The question is outside Indian law. Lawman is specialised, and specialisation is the point.",
-        "You want a confident answer more than a correct one. Lawman will tell you when it cannot verify something, and that is the behaviour it was built for.",
+        "The question is outside Indian law. LawMan is specialised, and specialisation is the point.",
+        "You want a confident answer more than a correct one. LawMan will tell you when it cannot verify something, and that is the behaviour it was built for.",
       ],
     },
   ] satisfies [ComparisonColumnContent, ComparisonColumnContent],
@@ -366,23 +363,25 @@ export const whenToUse = {
 
 /**
  * The source's closing CTA is a single line: "Get early access - built in India,
- * for Indian law."
+ * for Indian law." Both halves are gone: the verb and the banner.
  *
  * THE SOURCE'S VERB IS GONE FROM IT. Early access was withdrawn across the site
  * at Phase 7, so `siteConfig.links.earlyAccess` no longer exists and the
- * source's ask goes with it. What is left of the source line is kept below as
- * supporting text, and there is no waitlist, no beta and no launch date to put
- * in its place.
+ * source's ask goes with it. There is no waitlist, no beta and no launch date to
+ * put in its place.
+ *
+ * THE SOURCE'S BANNER IS GONE TOO. "Built in India, for Indian law" was national
+ * framing doing no product work, so the supporting line is reframed to what the
+ * product does: it grounds every claim in a source and abstains when it cannot
+ * verify. The legal domain stays as a plain fact; the slogan does not.
  *
  * ONE DELIBERATE DIVERGENCE REMAINS, ON THE RECORD.
  *
- *   The heading is authored. Removing the verb from the source line leaves
- *     "built in India, for Indian law", which is kept below as supporting text
- *     rather than lost - so the section still needs a heading, and the source
- *     supplies none. "Specified, not shipped." is the status one last time, in
- *     the site's own status vocabulary, at the point where a reader has finished
- *     the argument. An owner may replace it; it must not be replaced with
- *     anything that reads as shipped.
+ *   The heading is authored. The source supplies none for this section, so
+ *     "Specified, not shipped." carries the status one last time, in the site's
+ *     own status vocabulary, at the point where a reader has finished the
+ *     argument. An owner may replace it; it must not be replaced with anything
+ *     that reads as shipped.
  *
  * THE SITE'S FIRST CONVERSION ACTION IS A `mailto:`. §4.4 names the primary CTA
  * "Tell us about the corpus" pointing at `/contact`, but `/contact` is proposed
@@ -399,9 +398,9 @@ export const whenToUse = {
  */
 export const lawmanClosingCta = {
   heading: "Specified, not shipped.",
-  supporting: "Built in India, for Indian law.",
-  body: "Lawman is a specification, not a service you can call today. If you hold a body of authoritative material that has to be reasoned over this way, we would like to hear about it: what the corpus is, where it is allowed to live, and who signs off on the output.",
+  supporting:
+    "An AI system for Indian law, grounded in the source and honest when it cannot verify.",
+  body: "LawMan is a specification, not a service you can call today. If you hold a body of authoritative material that has to be reasoned over this way, we would like to hear about it: what the corpus is, where it is allowed to live, and who signs off on the output.",
   ctaLabel: "Email us about the corpus",
   ctaHref: `mailto:${siteConfig.links.email}`,
-  microCopy: `That opens a mail client addressed to ${siteConfig.links.email}.`,
 };

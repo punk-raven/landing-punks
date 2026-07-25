@@ -61,9 +61,5 @@ export const LawmanClosing = () => (
         {lawmanClosingCta.ctaLabel}
       </a>
     </div>
-
-    <p className="mt-6 max-w-measure font-body text-sm leading-relaxed text-muted">
-      {lawmanClosingCta.microCopy}
-    </p>
   </Section>
 );

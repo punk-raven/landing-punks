@@ -55,7 +55,7 @@ export const ProductBlock = ({ product }: { product: ProductBlockContent }) => (
 /**
  * B4. Product blocks.
  *
- * Ordered T&T, then Lawman, then LawSafe, and that order is the argument
+ * Ordered TNT, then LawMan, then LawSafe, and that order is the argument
  * (§2a.1): infrastructure before application, everywhere on the site. Leading
  * with LawSafe re-categorises the company in the reader's head as legal
  * software. The order lives in `content/home.ts`; do not sort or filter it here.

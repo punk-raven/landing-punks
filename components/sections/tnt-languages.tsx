@@ -25,10 +25,8 @@ export const TntLanguages = () => (
       {tntLanguages.heading}
     </h2>
 
-    <p className={subtitle({ className: "mt-6 max-w-measure" })}>
-      {tntLanguages.body[0]}
-    </p>
-    <p className={prose({ className: "mt-4 max-w-measure text-muted" })}>
+    <p className={subtitle({ className: "mt-6" })}>{tntLanguages.body[0]}</p>
+    <p className={prose({ className: "mt-4 text-muted" })}>
       {tntLanguages.body[1]}
     </p>
 
@@ -38,7 +36,7 @@ export const TntLanguages = () => (
     <h3 className={title({ className: "mt-12", size: "sm" })}>
       {tntLanguages.question}
     </h3>
-    <p className={prose({ className: "mt-3 max-w-measure text-muted" })}>
+    <p className={prose({ className: "mt-3 text-muted" })}>
       {tntLanguages.answer}
     </p>
 
@@ -54,35 +52,32 @@ export const TntLanguages = () => (
             {tier.label}
           </h3>
 
-          {tier.languages ? (
-            <ul className="mt-4 flex flex-wrap gap-x-2 gap-y-2">
-              {tier.languages.map((language) => (
-                <li
-                  key={language}
-                  className="rounded-sm border border-separator bg-surface px-2 py-1 font-data text-xs text-surface-foreground"
+          <ul className="mt-4 flex flex-wrap gap-x-2 gap-y-2">
+            {tier.languages.map((language) => (
+              <li
+                key={language.name}
+                className="rounded-sm border border-separator bg-surface px-2 py-1 font-data text-xs text-surface-foreground"
+              >
+                {language.name} -{" "}
+                <span
+                  style={{ fontFamily: `var(--font-noto-${language.script})` }}
                 >
-                  {language}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-
-          {tier.note ? (
-            <p className={prose({ className: "mt-4 text-muted" })}>
-              {tier.note}
-            </p>
-          ) : null}
-
-          {tier.body ? (
-            <p className={prose({ className: "mt-4 text-muted" })}>
-              {tier.body}
-            </p>
-          ) : null}
+                  {`"${language.native}"`}
+                </span>
+              </li>
+            ))}
+            {/* The English pivot: Tier A's own chip, Latin only, no native span. */}
+            {tier.pivot ? (
+              <li className="rounded-sm border border-separator bg-surface px-2 py-1 font-data text-xs text-surface-foreground">
+                {tier.pivot}
+              </li>
+            ) : null}
+          </ul>
         </li>
       ))}
     </ul>
 
-    <blockquote className="mt-12 max-w-measure border-l-2 border-sheen-alt pl-5">
+    <blockquote className="mt-12 border-l-2 border-sheen-alt pl-5">
       <p className={prose()}>{tntLanguages.pullQuote}</p>
     </blockquote>
   </Section>

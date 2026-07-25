@@ -48,7 +48,7 @@
  *     Records System and the Admin Dashboard. §3.4 says product surfaces only,
  *     no architecture detail. The engine is cut for a second reason as well: on
  *     this site LAWMAN is the reasoning system, and the company copy's Part E
- *     names Lawman and LawSafe as the pair readers most easily confuse. Giving
+ *     names LawMan and LawSafe as the pair readers most easily confuse. Giving
  *     LawSafe an engine of its own would undo the stack.
  *
  * EVERY STATISTIC IN THE SOURCE IS HELD. Decided at review, and consistent with
@@ -149,8 +149,13 @@ export interface AudienceCard {
  */
 export const lawsafeMeta = {
   title: "LawSafe - describe what happened, understand where you stand",
+  // Deliberate deviation from spec 6.2's approved description: the no-panel
+  // qualification is carried inside the meta description itself, so a search
+  // result cannot surface a verified-advocate promise without the caveat
+  // travelling with it. 153 characters, under the 160 limit, still closing on
+  // the stage so the snippet cannot read as shipped.
   description:
-    "LawSafe lets any Indian describe a legal problem in their own language and understand where they stand, then reach a Bar Council-verified advocate. In design.",
+    "LawSafe lets any Indian describe a legal problem in their own language and see where they stand, then reach a verified advocate. In design, no panel yet.",
 };
 
 /* Hero - vision §1 ----------------------------------------------------------- */
@@ -164,11 +169,11 @@ export const lawsafeMeta = {
  * ambition.
  *
  * THE EYEBROW IS BARE "LawSafe", AND THAT IS CONFLICT 1 (10.4). It used to read
- * "LawSafe - built on T&T and Lawman". That dependency is an inference which
+ * "LawSafe - built on TNT and LawMan". That dependency is an inference which
  * `punkraven-company-copy` Part D flags as unverified and on which Q1 is open;
  * 4.5 flags the eyebrow that asserts it and 5.4 says treat it as provisional. So
  * the eyebrow names the product and nothing else, and `whatItDoes`'s "Where it
- * sits" names T&T and Lawman as siblings rather than as layers LawSafe runs on.
+ * sits" names TNT and LawMan as siblings rather than as layers LawSafe runs on.
  * If Q1 resolves in the affirmative, the eyebrow and that block change back
  * together. Do not restore "built on" to either one alone.
  *
@@ -193,10 +198,15 @@ export const lawsafeMeta = {
  */
 export const lawsafeHero: LawsafeHeroContent = {
   eyebrow: "LawSafe",
-  headline: "Understanding your rights should be as easy as sending a message.",
+  headline: "Understand your rights as easily as sending a message.",
   whatIsHeading: "What is LawSafe?",
+  // Deliberate deviation from spec 7.2: the extractable answer now closes on the
+  // no-panel caveat rather than only on "LawSafe is in design". A search snippet
+  // or a truncating extractor takes the top of the page, and would otherwise
+  // drop the "No panel exists yet" qualification that sits further down in
+  // `whatItDoes`, leaving a present-tense verified-advocate promise uncaveated.
   whatIsAnswer:
-    "LawSafe is PunkRaven's first application: a chat-first way for any Indian to describe a legal problem in their own language and get a grounded, cited explanation of where they stand, then reach a Bar Council-verified advocate when a human is genuinely needed. LawSafe is in design.",
+    "LawSafe is PunkRaven's first application: a chat-first way for any Indian to describe a legal problem in their own language and get a grounded, cited explanation of where they stand, then reach a Bar Council-verified advocate when a human is genuinely needed. LawSafe is in design, and no panel of advocates exists yet.",
   status: "in-design",
   statusLine:
     "What exists today is the product vision and its scope, not a build.",
@@ -258,7 +268,7 @@ export const whoItIsFor = {
   items: [
     {
       segment: "The citizen with an ordinary legal problem",
-      body: "The person the system fails most is not the general counsel with a panel of firms. It is the individual with a genuine legal need and nowhere obvious to turn: a rental agreement, a cheque bounce, a consumer complaint, a matrimonial matter, a will, an incident of cyber fraud. Every income band, and every one of India's languages.",
+      body: "The person the system fails most is not the general counsel with a panel of firms. It is the individual with a genuine legal need and nowhere obvious to turn: a rental agreement, a cheque bounce, a consumer complaint, a will, an incident of cyber fraud. Every income band, every Indian language.",
     },
     {
       /**
@@ -271,12 +281,12 @@ export const whoItIsFor = {
        * the need and names none of the three. They appear on this page only in
        * this comment, explaining why they are absent. Keep it that way.
        */
-      segment: "The small business, founder and independent professional",
-      body: "The MSME owner, the D2C founder, the freelancer, the artist. They sign agreements they have not had vetted, absorb dues they are owed, and carry obligations nobody has explained to them. Traditional firms are too expensive and too slow for work of that size.",
+      segment: "The small business and independent professional",
+      body: "The MSME owner, the D2C founder, the freelancer, the artist. They sign agreements nobody has vetted, absorb dues they are owed, and carry obligations nobody has explained to them. Traditional firms are too slow and too costly for work of that size, so the exposure goes quietly unmanaged.",
     },
     {
-      segment: "The advocate",
-      body: "India's legal profession is bimodal: a small elite at the top, and a very large number of junior and small-town advocates who struggle to find clients and to whom the profession's advertising restrictions offer few ethical routes to be discovered. LawSafe is designed to serve them by delivering correctly matched, context-rich work - the person arrives already understanding their problem, with a structured summary in hand - so the advocate spends time on law rather than on triage.",
+      segment: "The advocate building a dignified practice",
+      body: "India's legal profession is bimodal: a small elite at the top, and a very large number of junior and small-town advocates who struggle to find clients and whom advertising restrictions leave few ethical ways to be discovered. LawSafe is designed to serve them with matched, context-rich work.",
     },
   ] satisfies AudienceCard[],
 };
@@ -310,7 +320,7 @@ export const whoItIsFor = {
  *
  * "Where it sits" is CONFLICT 1 (10.4). 4.5 calls this block "what it is built
  * on"; that label is itself the unverified dependency claim, so the block keeps
- * its job and loses the assertion. T&T and Lawman are named and linked as
+ * its job and loses the assertion. TNT and LawMan are named and linked as
  * PunkRaven's two pieces of infrastructure - siblings, the fallback framing 8.2
  * prescribes - rather than as layers LawSafe runs on. The two outbound links 8.2
  * wants from this page are still here; only the dependency claim is withheld.
@@ -318,8 +328,7 @@ export const whoItIsFor = {
  * most easily confuse.
  */
 export const whatItDoes = {
-  heading:
-    "One promise: grounded understanding first, a verified human when you need one.",
+  heading: "Grounded understanding first, a verified human when you need one.",
   items: [
     {
       lead: "The app",
@@ -341,7 +350,7 @@ export const whatItDoes = {
         { text: ", which covers the 22 scheduled Indian languages, and " },
         { href: "/lawman", text: "the reasoning layer" },
         {
-          text: ", which grounds every claim in a retrieved source and attaches the source to it. Lawman reasons; LawSafe is what a person opens.",
+          text: ", which grounds every claim in a retrieved source and attaches the source to it. LawMan reasons; LawSafe is what a person opens.",
         },
       ],
     },
@@ -362,7 +371,7 @@ export const whatItDoes = {
  * EVERY PRINCIPLE IS WORDED "IS DESIGNED TO", NOT AS PRESENT-TENSE CAPABILITY,
  * which is what 2.2's framing table requires of a product in design. Two of them
  * used to break that rule and no longer do: principle 4 claimed LawSafe
- * "inherits T&T's coverage", which is conflict 1's dependency wearing different
+ * "inherits TNT's coverage", which is conflict 1's dependency wearing different
  * clothes, and principle 6 claimed "every advocate on the platform is a real,
  * Bar Council-verified advocate", which is conflict 2 on a platform that does
  * not exist. Do not revert either.
@@ -373,7 +382,7 @@ export const whatItDoes = {
  * as a disclaimer.
  *
  * Principle 4 is the one place where a number would be permitted - "22 scheduled
- * Indian languages" is exact, sourced through T&T and required by the definition
+ * Indian languages" is exact, sourced through TNT and required by the definition
  * of done to be written exactly that way, never "22+" and never "all Indian
  * languages". The source's own 98% Indic-language figure is held with the rest.
  *
@@ -421,9 +430,9 @@ export const lawsafePrinciples = {
   willNotDo: {
     heading: "What LawSafe will not do",
     items: [
-      "Give a definitive legal opinion dressed as certainty.",
-      "Draft or file anything for use in court without a qualified advocate in the loop.",
-      "Sell user data, or monetise attention.",
+      "Hand over a definitive legal opinion dressed as certainty.",
+      "Draft or file court documents without a qualified advocate involved.",
+      "Sell user data, or turn a person's attention into the product.",
       "Let commercial pressure override the grounded-or-silent rule.",
     ],
   },
@@ -464,7 +473,6 @@ export const lawsafeClosingCta = {
     ariaLabel: `Email ${siteConfig.links.email} about what you are building`,
     href: `mailto:${siteConfig.links.email}`,
     label: "Email us what you are building",
-    note: `It opens a mail client addressed to ${siteConfig.links.email}.`,
   },
   statusLine:
     "LawSafe is in design. What exists today is the product vision and its scope.",

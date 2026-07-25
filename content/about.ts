@@ -1,15 +1,15 @@
 import type { ProductStatus } from "@/components/status-chip";
 
 /**
- * About page content - `docs/website-content.md` section 4.2, blocks C0 to C8,
+ * About page content - `docs/website-content.md` section 4.2, blocks C0 to C7,
  * hand-transcribed the same way `content/home.ts` transcribes the homepage.
  *
  * The content document is a brief, not page content. Everything that names a
  * slot rather than filling it has been stripped on the way in: `*Source: ...*`
  * attribution lines, the `**Eyebrow**` / `**Headline**` / `**Section heading**`
- * / `**Body**` / `**CTA**` field labels, the `*Optional section*` marker on C8,
- * and the claim-status table and copy notes. There is deliberately no markdown
- * renderer - explicit transcription is what keeps the apparatus off the page.
+ * / `**Body**` / `**CTA**` field labels, and the claim-status table and copy
+ * notes. There is deliberately no markdown renderer - explicit transcription is
+ * what keeps the apparatus off the page.
  *
  * Four rules bind every string below.
  *
@@ -19,7 +19,7 @@ import type { ProductStatus } from "@/components/status-chip";
  *     hardest available test of a grounded system - authoritative sources, exact
  *     language, expensive failure - never as what the company is for.
  *
- *   Order is argument - T&T, then Lawman, then LawSafe, in C5 and in C7.
+ *   Order is argument - TNT, then LawMan, then LawSafe, in C5 and in C7.
  *     Infrastructure before application. Leading with LawSafe re-categorises the
  *     company in the reader's head, so do not sort or reorder these arrays.
  *
@@ -75,12 +75,6 @@ export interface StatusLine {
   status: ProductStatus;
 }
 
-/** C8 - half the name, and the disposition it stands for. */
-export interface NameGloss {
-  body: string;
-  term: string;
-}
-
 /* C0. Page metadata --------------------------------------------------------- */
 
 /**
@@ -95,22 +89,29 @@ export interface NameGloss {
 export const aboutMeta = {
   title: "About PunkRaven - why we build our own layers",
   description:
-    "PunkRaven is a technology company building indigenous AI infrastructure for India. What indigenous means to us, how we build, and what we will not do.",
+    "PunkRaven is a technology company building self-hosted AI infrastructure for Indian languages and high-stakes domains. How we build, and what we will not do.",
 };
 
 /* C1. About hero ------------------------------------------------------------ */
 
 export const aboutHero: AboutHeroContent = {
   eyebrow: "About PunkRaven",
-  headline: "We build the layers India keeps importing.",
+  headline: "We build the layers underneath.",
+  /**
+   * Owner ruling, 2026-07-24: LawSafe is an entirely separate application, not
+   * built on TNT and LawMan. The earlier "one application built on both to prove
+   * they work" asserted a false dependency, so this reads them as siblings - the
+   * two layers, and one application alongside them. The source sentence was also
+   * 41 words, over the section 2.5 40-word ceiling, so it is split into two.
+   */
   subheadline:
-    "We build AI infrastructure for Indian languages and high-stakes domains: a speech layer across all 22 scheduled Indian languages, a reasoning layer that grounds every claim in a real retrieved source, and one application built on both to prove they work. Both layers are built to run on hardware you control, and to say plainly when they cannot verify what they are about to tell you.",
+    "We build self-hosted AI infrastructure for Indian languages and high-stakes domains: a speech layer across all 22 scheduled Indian languages, and a reasoning layer that grounds every claim in a real retrieved source. Alongside them we are building one application, LawSafe. Both layers are built to run on hardware you control, and to say plainly when they cannot verify what they are about to tell you.",
 };
 
 /* C2. Why we exist ---------------------------------------------------------- */
 
 export const whyWeExist = {
-  heading: "Rented intelligence is not the same as having any.",
+  heading: "A foreign API comes with someone else's priorities.",
   /**
    * `body[0]` is the section lead and is set at subtitle size; the rest are body
    * paragraphs. The section is one argument in three moves - the country has the
@@ -129,15 +130,21 @@ export const whyWeExist = {
     "The country runs on more languages than almost anywhere on earth. It generates document and audio volume at a scale few countries match. It has a domestic software industry with the talent to work on any of it.",
     "What it does not have is a stack of its own. Almost every Indian product that needs to hear, read or reason reaches for a foreign API. With it come that vendor's language priorities, that vendor's pricing power, and that vendor's willingness to sound certain about things it has no basis for.",
     "The gap is not ambition or talent. It is that the layers underneath were built for somewhere else. The part in the middle - the part that decides whether the thing works in Marathi, or on a body of law that changed last year - is nobody's product, so it becomes everybody's bug.",
-    "We build that part. It is slower, it is harder to fund, and it is the only version of this that ends with India owning something.",
+    "We build that part. It is slower, it is harder to fund, and it is the part everything else depends on.",
   ],
 };
 
-/* C3. What indigenous means here -------------------------------------------- */
+/* C3. What we build, concretely ---------------------------------------------
+ *
+ * The export is still named `indigenous` because the About page component reads
+ * that key; only the string values changed. The section no longer uses the word
+ * "indigenous" or "sovereign" as a positioning label - per the 2026-07-25
+ * reframe it names the concrete build properties those words stood for.
+ */
 
 export const indigenous = {
-  heading: "Indigenous is a build decision, not a flag on a foreign API.",
-  body: "The word gets used loosely. Here is what we mean by it, concretely, in things you can check.",
+  heading: "A set of build decisions, not a label.",
+  body: "Building for a market is easy to claim and hard to verify. Here is what we mean by it, concretely, in properties you can check.",
   /**
    * Section 7.1 asks for a question-shaped heading above the answer, additively:
    * the declarative section heading above stays, the question is added beneath
@@ -145,9 +152,9 @@ export const indigenous = {
    * paragraph alone still gets a complete answer. The two belong together - the
    * question is not a heading for the definition list below it.
    */
-  question: 'What does "indigenous AI" mean?',
+  question: "What makes PunkRaven's AI different?",
   answer:
-    "Indigenous, here, is a build decision rather than a label. It means systems built for the language rather than translated into it, a domain learned properly rather than approximated, open weights on a deployment you own, and economics that stay in the country. Sovereignty is a property of the architecture, not a promise in a contract.",
+    "PunkRaven builds systems for the language rather than translated into it, trained on the real domain rather than approximating it, on open weights you deploy and run yourself with no outbound path. The economics stay predictable, and every system is built to say plainly when it cannot verify an answer. Each is a property you can check, not a label.",
   items: [
     {
       term: "Built for the language, not translated into it.",
@@ -155,26 +162,26 @@ export const indigenous = {
          page, and it must stay exactly that - never "22+ languages". The count
          is verifiable, so inflating or rounding it invites a challenge that
          cannot be won. */
-      body: "Our speech layer covers all 22 scheduled languages in single checkpoints, so complete coverage costs nothing extra in memory or money. We do not filter by language. We state the quality tier instead, tier by tier, so a user in a smaller language gets a usable product rather than no product.",
+      body: "Our speech layer covers all 22 scheduled languages in single checkpoints, so complete coverage costs nothing extra in memory or money. We do not filter by language. We state the quality tier instead, so a user in a smaller language gets a usable product rather than no product at all.",
     },
     {
       term: "The domain is learned properly, not approximated.",
       /* The 2024 statute year stays: it is a fact about which corpus the
          reasoning layer is grounded against, not a measurement of anything we
          built, so the no-numbers rule does not reach it. */
-      body: "A model built elsewhere for everyone has a thin, stale and frequently invented picture of any specific Indian body of knowledge. Our reasoning layer is grounded against the live authoritative corpus for the domain it serves, starting with Indian law. That includes the Bharatiya Nyaya Sanhita, Bharatiya Nagarik Suraksha Sanhita and Bharatiya Sakshya Adhiniyam, which replaced the colonial-era codes in 2024. The corpus is a parameter of the architecture, not a permanent identity.",
+      body: "Foreign models carry a thin, stale, often invented picture of any specific Indian body of knowledge. Ours is grounded against the live authoritative corpus for its domain, starting with Indian law: the Bharatiya Nyaya Sanhita, Bharatiya Nagarik Suraksha Sanhita and Bharatiya Sakshya Adhiniyam, which replaced the colonial-era codes in 2024.",
     },
     {
       term: "The weights are open and the deployment is yours.",
-      body: "We build on MIT-licensed model weights and ship as a single deployable unit. That is what makes genuine self-hosting possible - not a data-residency promise in a contract, but an architecture in which nothing calls out.",
+      body: "We build on MIT-licensed model weights and ship the whole system as a single deployable unit. That is what makes genuine self-hosting real - not a data-residency clause written into a contract, but an architecture in which nothing ever calls out to a server we run or a vendor you did not pick.",
     },
     {
-      term: "The economics stay here.",
-      body: "Per-call pricing to an offshore vendor is a tax on every Indian product that grows, forever, with no renegotiation. Compute you control on infrastructure you choose is not.",
+      term: "The economics are yours to plan, not metered offshore.",
+      body: "Per-call pricing to an offshore vendor is a cost that grows with every product that succeeds, with no renegotiation. Compute you run on infrastructure you choose is a cost you can plan around and cap, rather than a meter that runs forever.",
     },
     {
-      term: "Sovereign by construction, not by assurance.",
-      body: "The difference matters. A promise about where your data goes is only as good as the company making it. A system with no outbound path is a property you can verify yourself.",
+      term: "It says plainly what it cannot verify.",
+      body: "Every system is built to return what it does not know. A transcript carries a confidence score you can act on, and a legal answer that cannot be traced to a source is withheld rather than guessed. You can check the behaviour yourself rather than take a claim on trust.",
     },
   ] satisfies Definition[],
 };
@@ -219,22 +226,28 @@ export const howWeBuild = {
  * inside the prose; moving it into a paragraph would mean inventing a second
  * phrase to anchor. They are the only edges this route has out to the product
  * pages, and section 8.3 wants the infrastructure pages carrying more of them
- * than the application, which the T&T-then-Lawman order gives.
+ * than the application, which the TNT-then-LawMan order gives.
  */
 export const whatWeAreBuilding = {
-  heading: "Two layers, and the first thing we built on them.",
-  body: "PunkRaven is a product company, and the product is a stack. The two infrastructure layers are the company. The application on top is how we prove them.",
+  heading: "Two layers, and one application.",
+  /**
+   * Owner ruling, 2026-07-24: LawSafe is a separate application, not built on
+   * TNT and LawMan, so it is framed as work alongside the layers rather than as
+   * proof of them. Section 2.8 distinction kept: LawMan reasons; LawSafe is what
+   * a person opens.
+   */
+  body: "PunkRaven is a product company, and the product is a stack. The two infrastructure layers are the company. Alongside them we are building one application of our own, LawSafe. LawMan reasons; LawSafe is what a person opens.",
   infrastructureLabel: "The infrastructure",
-  applicationLabel: "Built on it",
+  applicationLabel: "Alongside it",
   infrastructure: [
     {
-      name: "T&T",
+      name: "TNT",
       role: "the language layer",
       href: "/tnt",
       status: "planning",
       body: [
         "A self-hosted speech pipeline that turns Indian-language audio into a clean transcript and a translation through one API call. Two engines, one queue, one deployment unit.",
-        "The part in the middle - voice activity detection, punctuation, sentence splitting, number formatting, protected-term handling - is the part everyone else leaves to you, and it is where most avoidable quality loss happens. Shipping it as product rather than as a tutorial is the reason T&T exists.",
+        "The part in the middle - voice activity detection, punctuation, sentence splitting, number formatting, protected-term handling - is the part everyone else leaves to you, and it is where most avoidable quality loss happens. Shipping it as product rather than as a tutorial is the reason TNT exists.",
         /**
          * The non-legal buyers. Section 4.2 marks this sentence mandatory and
          * bars cutting it for space: it is one of the named mitigations against
@@ -246,7 +259,7 @@ export const whatWeAreBuilding = {
       ],
     },
     {
-      name: "Lawman",
+      name: "LawMan",
       role: "the reasoning layer",
       href: "/lawman",
       status: "specified",
@@ -266,8 +279,8 @@ export const whatWeAreBuilding = {
       href: "/lawsafe",
       status: "in-design",
       body: [
-        "Not the company's purpose - its proof. A chat-first way for any Indian to describe a legal problem in their own language and understand where they stand, then reach a Bar Council-verified advocate who specialises in that issue. Understanding first, transaction second.",
-        "It exists because a company that will not build a product on its own infrastructure is asking customers to take a risk it will not take itself.",
+        "A chat-first way for any Indian to describe a legal problem in their own language and understand where they stand, in plain terms and grounded in cited sources, then reach a Bar Council-verified advocate who specialises in that issue. Understanding first, transaction second.",
+        "It is a separate application in its own right, built so an ordinary person can understand their legal position, in their own language and grounded in real sources, before spending money on advice.",
       ],
     },
   ] satisfies BuildingBlock[],
@@ -303,7 +316,7 @@ export const commitments = {
     {
       heading:
         "We will not represent ourselves as a law firm or a legal services provider.",
-      body: "PunkRaven builds software. Lawman and LawSafe are research and drafting instruments; advice comes from a qualified advocate, and every surface we build makes that boundary explicit.",
+      body: "PunkRaven builds software. LawMan and LawSafe are research and drafting instruments; advice comes from a qualified advocate, and every surface we build makes that boundary explicit.",
     },
     {
       heading:
@@ -321,30 +334,32 @@ export const whereWeAre = {
    * The source states the three project stages in one running sentence. It is
    * split into `statusLines` so each one can carry its status chip - the label
    * that says, on every surface it appears on, that none of this has shipped.
-   * Ordered T&T, Lawman, LawSafe, like everything else on the page.
+   * Ordered TNT, LawMan, LawSafe, like everything else on the page.
    */
   intro:
     "We are a young company doing the unglamorous half of the work first, on the theory that the layers underneath are the only part that is hard to copy.",
   statusLines: [
     {
-      project: "T&T",
+      project: "TNT",
       status: "planning",
       detail:
         "A complete technical specification, a costed deployment plan and a documented API contract. At planning stage.",
     },
     {
-      project: "Lawman",
+      project: "LawMan",
       status: "specified",
-      detail: "Fully specified, and not yet built.",
+      detail:
+        "A full technical specification of the retrieval, attribution and reference-verification design. Specified in full, not yet built.",
     },
     {
       project: "LawSafe",
       status: "in-design",
-      detail: "In design.",
+      detail:
+        "A product vision and a defined scope, with the understanding flow mapped. In design, with no advocate panel yet.",
     },
   ] satisfies StatusLine[],
   closing:
-    "If you have Indian-language audio, a body of authoritative material that has to be reasoned over without leaving your infrastructure, or a reason to care whether this country builds its own stack, we would like to talk. That includes the case where the honest answer is that we are not ready for you yet.",
+    "If you have Indian-language audio, a body of authoritative material that has to be reasoned over without leaving your infrastructure, or simply a reason to keep that work on hardware you control, we would like to talk. That includes the case where the honest answer is that we are not ready for you yet.",
   /**
    * The one conversion action on the site. Section 4.2 points the primary CTA at
    * `/contact`, which is proposed and not built, so rather than link a 404 or
@@ -353,36 +368,4 @@ export const whereWeAre = {
    * the reader should know what the click does before making it.
    */
   ctaLabel: "Email us about what you are working on",
-  /**
-   * A function rather than a literal so the address stays single-sourced in
-   * `config/site.ts`: no content file imports site config, and hardcoding the
-   * address here would put a second copy of it in the repo.
-   */
-  ctaNote: (email: string) =>
-    `Opens a mail client, addressed to ${email}. There is no form behind it.`,
-};
-
-/* C8. The name -------------------------------------------------------------- */
-
-/**
- * Marked optional in the source and the first thing to cut if the page runs
- * long. Kept: it is four lines, it is the only place the brand is explained, and
- * both halves of the gloss restate the page's argument rather than decorating it
- * - the refusal of a default stack, and the refusal to sound more certain than
- * the evidence allows.
- */
-export const theName = {
-  heading: "Why PunkRaven",
-  items: [
-    {
-      term: "Punk",
-      body: "is the refusal - that the default stack is the only stack, that Indian languages are someone else's long tail, that a confident answer is the same thing as a correct one.",
-    },
-    {
-      term: "Raven",
-      body: "is the disposition - watchful, unusually clever, and remembered for its memory.",
-    },
-  ] satisfies NameGloss[],
-  closing:
-    "We build our own layers, and we are honest about what we can actually see.",
 };

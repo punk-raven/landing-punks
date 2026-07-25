@@ -18,7 +18,7 @@ const HEADING_ID = "how-lawman-works";
  * what the system does before it answers, through what it does while answering,
  * to what it does when it cannot - ending on the human who signs. That last card
  * is a design decision rather than a disclaimer, and it is the same boundary the
- * site footer states on every route: PunkRaven builds software, Lawman
+ * site footer states on every route: PunkRaven builds software, LawMan
  * researches and drafts, a qualified person takes responsibility.
  */
 export const LawmanHowItWorks = () => (

@@ -8,7 +8,7 @@ const HEADING_ID = "who-it-is-for";
  * A10. Who it is for.
  *
  * Four audiences, none of them legal. That is load-bearing rather than
- * incidental: T&T is the horizontal language layer of the stack, and this is the
+ * incidental: TNT is the horizontal language layer of the stack, and this is the
  * page where a reader decides whether PunkRaven builds infrastructure or legal
  * software. Do not add a legal audience here, and do not reorder these into one.
  *

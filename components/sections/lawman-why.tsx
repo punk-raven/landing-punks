@@ -5,7 +5,7 @@ import { prose, subtitle, title } from "@/components/primitives";
 const HEADING_ID = "why-lawman-is-required";
 
 /**
- * Why Lawman is required - five failure modes of the alternative.
+ * Why LawMan is required - five failure modes of the alternative.
  *
  * A single-column `<dl>` at the reading measure, hairline above each entry. The
  * section immediately below it is the same shape in the source - a bold lead-in

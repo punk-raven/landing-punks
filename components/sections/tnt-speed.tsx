@@ -1,5 +1,4 @@
 import { tntSpeed } from "@/content/tnt";
-import { EstimateNote } from "@/components/estimate-note";
 import { Section } from "@/components/section";
 import { prose, subtitle, title } from "@/components/primitives";
 
@@ -23,9 +22,7 @@ const HEADING_ID = "speed";
  * The rendering is deliberately NOT an SLA table with empty cells. A table of
  * blanks reads as a broken component; a list of lanes reads as a specification.
  *
- * Base elevation, shared with A7 below it - the two held-figure sections sit on
- * one rung as a single region of the page, so the reader meets the amber twice
- * in one place rather than twice at random.
+ * Base elevation, one rung of the page's plain sunken/base alternation.
  */
 export const TntSpeed = () => (
   <Section
@@ -69,7 +66,5 @@ export const TntSpeed = () => (
     <p className={prose({ className: "mt-6 max-w-measure" })}>
       {tntSpeed.closing[1]}
     </p>
-
-    <EstimateNote className="mt-10" note={tntSpeed.estimate} />
   </Section>
 );

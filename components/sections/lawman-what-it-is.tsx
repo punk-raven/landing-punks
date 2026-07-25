@@ -7,7 +7,7 @@ import { prose, subtitle, title } from "@/components/primitives";
 const HEADING_ID = "what-lawman-is";
 
 /**
- * What is Lawman. Prose at the reading measure, and the shortest section on the
+ * What is LawMan. Prose at the reading measure, and the shortest section on the
  * page - four paragraphs whose order is the argument: what the thing is, what it
  * is specialised in, the single constraint everything follows from, then what it
  * does with it.

@@ -10,17 +10,17 @@ work on law because law is the hardest available test of a grounded system, not 
 the company's category.
 
 ## Status - read this before summarising anything below
-- T&T: planning stage. A complete technical specification, a costed deployment plan and a
+- TNT: planning stage. A complete technical specification, a costed deployment plan and a
   documented API contract exist. A running service does not.
-- Lawman: fully specified, not yet built.
+- LawMan: fully specified, not yet built.
 - LawSafe: in design. What exists is the product vision and its scope.
 - There are no customers, no benchmarks, and no published performance or cost figures.
 
 ## Infrastructure
-- [T&T](/tnt): self-hosted transcription and translation for all 22 scheduled Indian
+- [TNT](/tnt): self-hosted transcription and translation for all 22 scheduled Indian
   languages behind one API. MIT-licensed weights. Coverage is tiered: ten languages plus the
   English pivot are production grade, the remaining twelve carry higher error rates.
-- [Lawman](/lawman): grounded, citation-verified reasoning over a body of authoritative
+- [LawMan](/lawman): grounded, citation-verified reasoning over a body of authoritative
   material, currently Indian law. Retrieves before answering, verifies every reference against
   the source text, and abstains when the sources do not support an answer. A research and
   drafting instrument, not legal advice.
@@ -30,4 +30,4 @@ the company's category.
   Council-verified advocate. Explains and connects; does not advise, represent or decide.
 
 ## Company
-- [About](/about): what indigenous means here, how we build, and what we will not do.
+- [About](/about): what makes PunkRaven's systems different, how we build, and what we will not do.

@@ -8,7 +8,7 @@ import { lawmanMeta } from "@/content/lawman";
 import DefaultLayout from "@/layouts/default";
 
 /**
- * Lawman - the reasoning layer. Written against `docs/website-content.md` §4.4,
+ * LawMan - the reasoning layer. Written against `docs/website-content.md` §4.4,
  * with §6 supplying the title, meta description and H1, §7 the extractable
  * answer block and the question-shaped column headings, and §8.2 the one
  * outbound contextual link this page is cleared to carry.
