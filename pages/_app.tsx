@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "next-themes";
 
 // Side-effect import: next/font only emits its CSS module when the fonts are
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
       defaultTheme="system"
     >
       <Component {...pageProps} />
+      <Analytics />
     </ThemeProvider>
   );
 }
