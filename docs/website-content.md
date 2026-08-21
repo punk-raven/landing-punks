@@ -577,25 +577,25 @@ to 160.
 
 | Route | Title tag | Chars | Verdict |
 |---|---|---|---|
-| `/` | `PunkRaven - applied AI infrastructure, built in India` | 52 | Keep. Current, and correct. |
-| `/about` | `About PunkRaven - why we build our own layers` | 44 | Keep. Current. |
-| `/tnt` | `TNT - speech and translation, 22 scheduled Indian languages` | 58 | **Change.** Current is `TNT - speech to text and translation for all 22 scheduled Indian languages` at 74 chars and truncates. |
-| `/lawman` | `LawMan - Indian law, answered with the source attached` | 53 | Keep. Current. |
-| `/lawsafe` | `LawSafe - describe what happened, understand where you stand` | 59 | Keep. Current. |
-| `/contact` *(proposed)* | `Contact PunkRaven - tell us about the workload` | 45 | New |
-| `/languages` *(proposed)* | `All 22 scheduled Indian languages, with the quality tiers stated` | 63 | New. Over by 3; acceptable, the tail is the least load-bearing part. |
+| `/` | `PunkRaven - self-hosted AI infrastructure` | 41 | **Changed.** Reframed off the "India" banner under the 2026-07-25 amendment, alongside the descriptions; the previous title was `PunkRaven - applied AI infrastructure, built in India` at 53 chars. Carried in `content/home.ts`. 41 is below the 50 to 60 target, recorded here and not resolved. |
+| `/about` | `About PunkRaven - why we build our own layers` | 45 | Keep. Current. |
+| `/tnt` | `TNT - speech and translation, 22 scheduled Indian languages` | 59 | **Changed, shipped.** Replaced `TNT - speech to text and translation for all 22 scheduled Indian languages` at 74 chars, which truncated. Carried in `content/tnt.ts`. |
+| `/lawman` | `LawMan - Indian law, answered with the source attached` | 54 | Keep. Current. |
+| `/lawsafe` | `LawSafe - describe what happened, understand where you stand` | 60 | Keep. Current. |
+| `/contact` *(proposed)* | `Contact PunkRaven - tell us about the workload` | 46 | New |
+| `/languages` *(proposed)* | `All 22 scheduled Indian languages, with the quality tiers stated` | 64 | New. Over by 4; acceptable, the tail is the least load-bearing part. |
 | `/careers` *(proposed)* | `Careers at PunkRaven - build the layers underneath` | 50 | New |
 
 | Route | Meta description | Chars | Verdict |
 |---|---|---|---|
-| `/` | `PunkRaven builds self-hosted AI infrastructure: speech across all 22 scheduled Indian languages, and reasoning that grounds every claim in a real source.` | 153 | **Change.** Reframed off the "India" banner per the 2026-07-25 amendment; carried in `config/site.ts`. |
-| `/about` | `PunkRaven is a technology company building self-hosted AI infrastructure for Indian languages and high-stakes domains. How we build, and what we will not do.` | 157 | **Change.** Reframed off "indigenous" per the 2026-07-25 amendment. |
-| `/tnt` | `Self-hosted transcription and translation for all 22 scheduled Indian languages through one API. MIT-licensed weights, no per-call fee. Planning stage.` | 149 | **Change.** Current runs 188 chars. |
-| `/lawman` | `LawMan is an AI system for Indian law. It grounds every claim in a retrieved source, checks the reference before you see it, and abstains when it cannot.` | 151 | **Change.** Current runs 205 chars. |
-| `/lawsafe` | `LawSafe lets any Indian describe a legal problem in their own language and understand where they stand, then reach a Bar Council-verified advocate. In design.` | 156 | **Change.** Current runs 214 chars. |
-| `/contact` *(proposed)* | `Tell PunkRaven about the workload: the languages, the volume, and whether the work is live or batch. We will say plainly whether we are useful to you yet.` | 152 | New |
-| `/languages` *(proposed)* | `Every one of the 22 scheduled Indian languages TNT covers, split into production-grade Tier A and the higher-error-rate Tier B, with nothing rounded up.` | 150 | New |
-| `/careers` *(proposed)* | `PunkRaven is pre-launch and building AI infrastructure in India. What we will not do, what we are building, and what the engineering actually looks like.` | 151 | New |
+| `/` | `A technology company building self-hosted AI infrastructure: speech across all 22 scheduled Indian languages, and reasoning that grounds every claim in a real source. Honest about what it does not know.` | 202 | **Defect.** This is what `content/home.ts` ships, and `layouts/head.tsx` prefers the page meta over the site default, so it is what `/` returns. It exceeds the 150 to 160 target by 42 characters and will truncate in search results. The approved 153-char string, reframed off the "India" banner per the 2026-07-25 amendment, is still carried in `config/site.ts` as the site-level fallback: `PunkRaven builds self-hosted AI infrastructure: speech across all 22 scheduled Indian languages, and reasoning that grounds every claim in a real source.` Flagged, not fixed. |
+| `/about` | `PunkRaven is a technology company building self-hosted AI infrastructure for Indian languages and high-stakes domains. How we build, and what we will not do.` | 157 | **Changed, shipped.** Reframed off "indigenous" per the 2026-07-25 amendment. Carried in `content/about.ts`. |
+| `/tnt` | `Self-hosted transcription and translation for all 22 scheduled Indian languages through one API. MIT-licensed weights, no per-call fee. Planning stage.` | 151 | **Changed, shipped.** Replaced a description that ran 188 chars. Carried in `content/tnt.ts`. |
+| `/lawman` | `LawMan is an AI system for Indian law. It grounds every claim in a retrieved source, checks the reference before you see it, and abstains when it cannot.` | 153 | **Changed, shipped.** Replaced a description that ran 205 chars. Carried in `content/lawman.ts`. |
+| `/lawsafe` | `LawSafe lets any Indian describe a legal problem in their own language and see where they stand, then reach a verified advocate. In design, no panel yet.` | 153 | **Deviation, deliberate and documented in `content/lawsafe.ts`.** It replaces the 214-char original and also departs from this section's previously approved `LawSafe lets any Indian describe a legal problem in their own language and understand where they stand, then reach a Bar Council-verified advocate. In design.` at 158 chars. The reason given at the deviation comment: the no-panel qualification is carried inside the meta description itself, so a search result cannot surface a verified-advocate promise without the caveat travelling with it. |
+| `/contact` *(proposed)* | `Tell PunkRaven about the workload: the languages, the volume, and whether the work is live or batch. We will say plainly whether we are useful to you yet.` | 154 | New |
+| `/languages` *(proposed)* | `Every one of the 22 scheduled Indian languages TNT covers, split into production-grade Tier A and the higher-error-rate Tier B, with nothing rounded up.` | 152 | New |
+| `/careers` *(proposed)* | `PunkRaven is pre-launch and building AI infrastructure in India. What we will not do, what we are building, and what the engineering actually looks like.` | 153 | New |
 
 Every description above states the stage or is stage-neutral. None reintroduces a held figure,
 an early-access ask, or a date.
